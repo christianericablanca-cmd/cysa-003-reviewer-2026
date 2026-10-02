@@ -1,0 +1,94 @@
+@import "tailwindcss";
+
+:root {
+  --bg: #0a0f1e;
+  --card: #111936;
+  --cyan: #22d3ee;
+  --blue: #3b82f6;
+  --success: #10b981;
+  --danger: #ef4444;
+  --warning: #f59e0b;
+}
+
+@theme inline {
+  --color-abyss: var(--bg);
+  --color-soc: var(--card);
+  --font-sans: var(--font-inter);
+  --font-mono: var(--font-jbmono);
+}
+
+html {
+  background: var(--bg);
+  color-scheme: dark;
+  overflow-x: clip;
+}
+
+body {
+  background: var(--bg);
+  color: #e2e8f0;
+  font-family: var(--font-inter), system-ui, sans-serif;
+  min-height: 100vh;
+  overflow-x: clip;
+}
+
+.font-mono,
+code,
+pre {
+  font-family: var(--font-jbmono), ui-monospace, monospace;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  50% { transform: translateX(5px); }
+  75% { transform: translateX(-3px); }
+}
+
+@keyframes pop {
+  0% { transform: scale(0.99); }
+  50% { transform: scale(1.008); }
+  100% { transform: scale(1); }
+}
+
+@keyframes rise-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.rise-in {
+  animation: rise-in 0.35s ease-out both;
+}
+
+::selection {
+  background: rgba(34, 211, 238, 0.35);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* visible focus everywhere */
+:focus-visible {
+  outline: 2px solid #22d3ee;
+  outline-offset: 2px;
+}
+
+/* slim scrollbars */
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+*::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.14);
+  border-radius: 8px;
+}
+*::-webkit-scrollbar-track {
+  background: transparent;
+}

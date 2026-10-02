@@ -1,0 +1,16 @@
+[
+  {
+    "id": "cysa-100",
+    "name": "CySA+ 100 Questions & Answers",
+    "short": "100 Q&A",
+    "source": "CompTIA_CySA_Questions PDF (100 structured Q&A with official-style explanations)",
+    "description": "Clean, exam-style set: 100 questions with answers and explanations, mapped to all four CS0-003 domains."
+  },
+  {
+    "id": "reviewer-2026",
+    "name": "CYSA Reviewer 2026",
+    "short": "2026 Reviewer",
+    "source": "CYSA REVIEWER 2026 PDF/DOCX (reviewer with marked answers + hands-on screenshots)",
+    "description": "Reviewer set with marked answers plus hands-on exhibit questions built from screenshots (Nmap, Burp, Nessus, CVSS, logs)."
+  }
+]

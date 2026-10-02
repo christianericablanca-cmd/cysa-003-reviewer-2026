@@ -1,0 +1,57 @@
+[
+  {
+    "image": "/bank-images/r2026-w3wp-crash.jpg",
+    "title": "Crashed web worker (w3wp.exe)",
+    "caption": "A development server shows w3wp.exe has stopped working while testing a new application \u2014 a starting point for debugging or exploit analysis discussion."
+  },
+  {
+    "image": "/bank-images/r2026-vuln-table.jpg",
+    "title": "Scan findings: NTP + legacy SSL",
+    "caption": "Scan comparison table flagging unsolicited NTP requests and legacy SSL versions across company assets."
+  },
+  {
+    "image": "/bank-images/r2026-xxe-snippet.jpg",
+    "title": "Suspicious XML snippet",
+    "caption": "XML payload referencing file:///etc/shadow \u2014 review which vulnerability class this validates. (Left as an exercise: the snippet is characteristic of XXE.)"
+  },
+  {
+    "image": "/bank-images/r2026-zap-alert.jpg",
+    "title": "ZAP: Server version disclosure",
+    "caption": "OWASP ZAP flags \"Server Leaks Version Information via Server HTTP Response Header\" on an asset behind a pass-through load balancer. Consider the least-disruptive remediation."
+  },
+  {
+    "image": "/bank-images/r2026-ticket-triage.jpg",
+    "title": "PBQ-style: ticket triage",
+    "caption": "Interactive-style ticket queue: high-memory report from Michael, priorities and assignments \u2014 practice triaging like a SOC Tier 1."
+  },
+  {
+    "image": "/bank-images/r2026-patch-matching.jpg",
+    "title": "PBQ-style: patch prioritization",
+    "caption": "Matching-style simulation: unsupported Microsoft IIS version, insecure cookie flags, and untrusted certificates \u2014 decide which server gets patched first."
+  },
+  {
+    "image": "/bank-images/r2026-killchain-matching.jpg",
+    "title": "PBQ-style: kill chain mapping",
+    "caption": "Drag-and-drop style mapping of phishing emails, firewall logs, file-integrity reports, malware domains, and scan reports to kill-chain phases."
+  },
+  {
+    "image": "/bank-images/r2026-netstat-concern.jpg",
+    "title": "PBQ-style: netstat analysis",
+    "caption": "Connection table review: pick the most concerning source IP, the corrective action, and the indicator of compromise."
+  },
+  {
+    "image": "/bank-images/r2026-phishing-diagram.jpg",
+    "title": "PBQ-style: phishing outbreak",
+    "caption": "Network diagram drill: identify the malware executable, count infected workstations, and count users who clicked the phishing link."
+  },
+  {
+    "image": "/bank-images/r2026-ddos-diagram.jpg",
+    "title": "PBQ-style: DDoS target",
+    "caption": "Cloud diagram with a DDoS target at 52.13.66.104 \u2014 select the compromised host and the containment response."
+  },
+  {
+    "image": "/bank-images/r2026-netstat-cmd.jpg",
+    "title": "PBQ-style: command forensics",
+    "caption": "Multi-tab output drill: match each tab to the command that generated it and identify the file behind the exfiltration."
+  }
+]

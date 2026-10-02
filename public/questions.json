@@ -1,0 +1,2752 @@
+[
+  {
+    "id": "cysa-p1-q001",
+    "domain": "Security Operations",
+    "question": "What is the FIRST action an analyst should take when a critical alert is triggered in the SIEM?",
+    "options": [
+      "Notify executive leadership",
+      "Delete the alert to avoid duplicates",
+      "Investigate and validate the alert",
+      "Reboot the affected system"
+    ],
+    "correctAnswer": "Investigate and validate the alert",
+    "explanation": "The analyst must first confirm whether the alert is real before escalating or acting on it.",
+    "aiGenerated": false,
+    "bank": "cysa-100"
+  },
+  {
+    "id": "cysa-p1-q002",
+    "domain": "Vulnerability Management",
+    "question": "Which of the following BEST describes a use case for a threat intelligence platform (TIP)?",
+    "options": [
+      "Encrypting outbound web traffic",
+      "Automating remediation of alerts",
+      "Aggregating indicators of compromise from external sources",
+      "Creating firewall rules for internal VLANs"
+    ],
+    "correctAnswer": "Aggregating indicators of compromise from external sources",
+    "explanation": "A Threat Intelligence Platform (TIP) collects, enriches, and correlates IOCs from multiple sources to enhance threat awareness.",
+    "aiGenerated": false,
+    "bank": "cysa-100"
+  },
+  {
+    "id": "cysa-p1-q003",
+    "domain": "Security Operations",
+    "question": "An attacker used stolen credentials to access a cloud console and launch cryptomining instances. Which ATT&CK tactic does this MOST align with?",
+    "options": [
+      "Execution",
+      "Credential Access",
+      "Initial Access",
+      "Impact"
+    ],
+    "correctAnswer": "Impact",
+    "explanation": "Cryptomining consumes resources and causes business disruption, which aligns with the Impact tactic in MITRE ATT&CK.",
+    "aiGenerated": false,
+    "bank": "cysa-100"
+  },
+  {
+    "id": "cysa-p1-q004",
+    "domain": "Vulnerability Management",
+    "question": "What type of scanning provides the most comprehensive results by logging into the host system during scanning?",
+    "options": [
+      "External",
+      "Passive",
+      "Credentialed",
+      "Non-credentialed"
+    ],
+    "correctAnswer": "Credentialed",
+    "explanation": "Credentialed scans log into the host to provide accurate, in-depth vulnerability detection.",
+    "aiGenerated": false,
+    "bank": "cysa-100"
+  },
+  {
+    "id": "cysa-p1-q005",
+    "domain": "Vulnerability Management",
+    "question": "Which of the following is a PRIMARY function of a SOAR platform?",
+    "options": [
+      "Encrypting SIEM logs 4 © 2025 · Curated by Artem Polynko · Follow on LinkedIn Latest Guide Versions: https://linkedin.com/in/Artem-Polynko Based on personal research and insights · Feel free to share with friends · Not for resale Version 1.0",
+      "Generating monthly compliance reports",
+      "Automating and orchestrating security response workflows",
+      "Detecting zero-day threats in network packets"
+    ],
+    "correctAnswer": "Automating and orchestrating security response workflows",
+    "explanation": "SOAR tools are designed to automate and streamline incident response and remediation tasks. 6",
+    "aiGenerated": false,
+    "bank": "cysa-100"
+  },
+  {
+    "id": "cysa-p1-q006",
+    "domain": "Security Operations",
+    "question": "What type of vulnerability allows an attacker to include and execute unauthorized local files on a web server?",
+    "options": [
+      "XSS",
+      "LFI",
+      "CSRF",
+      "SQLi"
+    ],
+    "correctAnswer": "LFI",
+    "explanation": "Local File Inclusion (LFI) allows attackers to trick a web app into executing or revealing files on the server.",
+    "aiGenerated": false,
+    "bank": "cysa-100"
+  },
+  {
+    "id": "cysa-p1-q007",
+    "domain": "Security Operations",
+    "question": "An analyst is reviewing logs and notices a workstation making DNS requests every 30 seconds to random subdomains. What type of activity is this MOST likely?",
+    "options": [
+      "Normal DNS load balancing",
+      "DNS exfiltration using data tunneling",
+      "Load testing from an internal script",
+      "Endpoint antivirus signature update"
+    ],
+    "correctAnswer": "DNS exfiltration using data tunneling",
+    "explanation": "Frequent DNS queries with randomized subdomains are common in covert data exfiltration via DNS tunneling.",
+    "aiGenerated": false,
+    "bank": "cysa-100"
+  },
+  {
+    "id": "cysa-p1-q008",
+    "domain": "Incident Response and Management",
+    "question": "Which of the following actions would MOST likely occur during the containment phase of incident response?",
+    "options": [
+      "Generating a public incident report",
+      "Blocking malicious IP addresses",
+      "Performing forensic imaging of affected endpoints",
+      "Analyzing root cause of the incident"
+    ],
+    "correctAnswer": "Blocking malicious IP addresses",
+    "explanation": "Containment is about stopping the threat from spreading — blocking C2 IPs is a key tactic.",
+    "aiGenerated": false,
+    "bank": "cysa-100"
+  },
+  {
+    "id": "cysa-p1-q009",
+    "domain": "Incident Response and Management",
+    "question": "What log source would BEST help detect brute-force attempts against an SSH server?",
+    "options": [
+      "Web server logs",
+      "Packet captures from DNS",
+      "/var/log/auth.log",
+      "Antivirus quarantine logs"
+    ],
+    "correctAnswer": "/var/log/auth.log",
+    "explanation": "On Linux systems, this log contains authentication attempts and is key for identifying brute-force login behavior.",
+    "aiGenerated": false,
+    "bank": "cysa-100"
+  },
+  {
+    "id": "cysa-p1-q010",
+    "domain": "Security Operations",
+    "question": "Which of the following attack types relies on abusing legitimate system tools like 5 © 2025 · Curated by Artem Polynko · Follow on LinkedIn Latest Guide Versions: https://linkedin.com/in/Artem-Polynko Based on personal research and insights · Feel free to share with friends · Not for resale Version 1.0 PowerShell or WMI?",
+    "options": [
+      "Watering hole",
+      "Living off the Land",
+      "SQL Injection",
+      "Cross-Site Scripting"
+    ],
+    "correctAnswer": "Living off the Land",
+    "explanation": "Living off the Land (LotL) techniques abuse legitimate tools like PowerShell to evade detection. 7",
+    "aiGenerated": false,
+    "bank": "cysa-100"
+  },
+  {
+    "id": "cysa-p1-q011",
+    "domain": "Vulnerability Management",
+    "question": "A vulnerability scanner reports that a public-facing server has OpenSSL 1.0.1e installed. What should an analyst do NEXT to validate the finding?",
+    "options": [
+      "Submit a risk acceptance form",
+      "Launch a denial-of-service test",
+      "Check the actual version running on the host",
+      "Ignore the finding as a false positive"
+    ],
+    "correctAnswer": "Check the actual version running on the host",
+    "explanation": "Always validate scan findings by confirming software versions manually before escalating or patching.",
+    "aiGenerated": false,
+    "bank": "cysa-100"
+  },
+  {
+    "id": "cysa-p1-q012",
+    "domain": "Vulnerability Management",
+    "question": "Which of the following BEST describes an IOC?",
+    "options": [
+      "Security policy defining user access",
+      "Behavior profile used for insider threat detection",
+      "Evidence of a security breach or compromise",
+      "Traffic log showing bandwidth consumption"
+    ],
+    "correctAnswer": "Evidence of a security breach or compromise",
+    "explanation": "IOCs are signs that a system or environment has been attacked or breached.",
+    "aiGenerated": false,
+    "bank": "cysa-100"
+  },
+  {
+    "id": "cysa-p1-q013",
+    "domain": "Security Operations",
+    "question": "During a threat hunt, an analyst uses MITRE ATT&CK to map observed behavior. What is the PRIMARY reason to use this framework?",
+    "options": [
+      "To validate patch management effectiveness",
+      "To build password policies",
+      "To track and categorize adversary tactics",
+      "To document log retention policies"
+    ],
+    "correctAnswer": "To track and categorize adversary tactics",
+    "explanation": "MITRE ATT&CK is used to map attacker behavior to known tactics and techniques.",
+    "aiGenerated": false,
+    "bank": "cysa-100"
+  },
+  {
+    "id": "cysa-p1-q014",
+    "domain": "Incident Response and Management",
+    "question": "Which of the following would MOST likely be used to analyze an unknown binary in a safe environment?",
+    "options": [
+      "IDS",
+      "SIEM",
+      "Sandbox",
+      "Load balancer"
+    ],
+    "correctAnswer": "Sandbox",
+    "explanation": "A sandbox allows analysts to execute suspicious files in isolation to observe behavior safely.",
+    "aiGenerated": false,
+    "bank": "cysa-100"
+  },
+  {
+    "id": "cysa-p1-q015",
+    "domain": "Incident Response and Management",
+    "question": "What type of control is an organization using when it forces password changes every 90 days via a policy?",
+    "options": [
+      "Physical 8 © 2025 · Curated by Artem Polynko · Follow on LinkedIn Latest Guide Versions: https://linkedin.com/in/Artem-Polynko Based on personal research and insights · Feel free to share with friends · Not for resale Version 1.0",
+      "Technical",
+      "Administrative",
+      "Corrective"
+    ],
+    "correctAnswer": "Administrative",
+    "explanation": "Policies like password expiration are administrative controls—they guide user behavior.",
+    "aiGenerated": false,
+    "bank": "cysa-100"
+  },
+  {
+    "id": "cysa-p1-q016",
+    "domain": "Security Operations",
+    "question": "Which of the following is the MOST effective way to reduce alert fatigue in a SOC?",
+    "options": [
+      "Hire more Tier 1 analysts",
+      "Add more detection rules",
+      "Tune SIEM use cases and reduce false positives",
+      "Limit alerting to critical systems only"
+    ],
+    "correctAnswer": "Tune SIEM use cases and reduce false positives",
+    "explanation": "Alert fatigue is best addressed by tuning the SIEM to reduce noise and increase alert relevance.",
+    "aiGenerated": false,
+    "bank": "cysa-100"
+  },
+  {
+    "id": "cysa-p1-q017",
+    "domain": "Reporting and Communication",
+    "question": "An analyst identifies a file named invoice.scr sent via email. What’s the MOST likely reason this is suspicious?",
+    "options": [
+      "It’s a Microsoft Office document",
+      "SCR files are typically legitimate invoices",
+      "The file type is an executable disguised as a document",
+      "SCR files are used by Adobe"
+    ],
+    "correctAnswer": "The file type is an executable disguised as a document",
+    "explanation": ".scr is an executable file type (screensaver), often used to bypass filters by masquerading as documents.",
+    "aiGenerated": false,
+    "bank": "cysa-100"
+  },
+  {
+    "id": "cysa-p1-q018",
+    "domain": "Vulnerability Management",
+    "question": "Which component of the Diamond Model identifies the malware or exploit used in an attack?",
+    "options": [
+      "Victim",
+      "Infrastructure",
+      "Capability",
+      "Adversary"
+    ],
+    "correctAnswer": "Capability",
+    "explanation": "In the Diamond Model, Capability refers to the tools, malware, or techniques used by the attacker.",
+    "aiGenerated": false,
+    "bank": "cysa-100"
+  },
+  {
+    "id": "cysa-p1-q019",
+    "domain": "Vulnerability Management",
+    "question": "An organization cannot patch a critical server due to application dependencies. What should be done NEXT?",
+    "options": [
+      "Take the server offline",
+      "Disable logging temporarily",
+      "Apply a compensating control",
+      "Remove all admin accounts"
+    ],
+    "correctAnswer": "Apply a compensating control",
+    "explanation": "If a patch can’t be applied, use network segmentation, stricter firewall rules, or enhanced monitoring to reduce risk.",
+    "aiGenerated": false,
+    "bank": "cysa-100"
+  },
+  {
+    "id": "cysa-p1-q020",
+    "domain": "Security Operations",
+    "question": "An attacker exploits a misconfigured S3 bucket to access public files. What type of 9 © 2025 · Curated by Artem Polynko · Follow on LinkedIn Latest Guide Versions: https://linkedin.com/in/Artem-Polynko Based on personal research and insights · Feel free to share with friends · Not for resale Version 1.0 vulnerability is this?",
+    "options": [
+      "Injection",
+      "Cryptographic failure",
+      "Insecure configuration",
+      "Broken authentication"
+    ],
+    "correctAnswer": "Insecure configuration",
+    "explanation": "A misconfigured storage bucket exposing data is an example of poor configuration, not a code flaw. 11",
+    "aiGenerated": false,
+    "bank": "cysa-100"
+  },
+  {
+    "id": "cysa-p1-q021",
+    "domain": "Security Operations",
+    "question": "An attacker performs a scan and finds port 3389 open on a server. What service is MOST likely being targeted?",
+    "options": [
+      "FTP",
+      "SSH",
+      "RDP",
+      "SMTP"
+    ],
+    "correctAnswer": "RDP",
+    "explanation": "Port 3389 is the default port for Remote Desktop Protocol (RDP), commonly used in attacks for remote access.",
+    "aiGenerated": false,
+    "bank": "cysa-100"
+  },
+  {
+    "id": "cysa-p1-q022",
+    "domain": "Vulnerability Management",
+    "question": "What type of scan would BEST simulate an external attacker probing an organization’s perimeter?",
+    "options": [
+      "Internal, credentialed",
+      "External, non-credentialed",
+      "Internal, agent-based",
+      "External, credentialed"
+    ],
+    "correctAnswer": "External, non-credentialed",
+    "explanation": "This type of scan mimics how an outsider with no credentials would see the network.",
+    "aiGenerated": false,
+    "bank": "cysa-100"
+  },
+  {
+    "id": "cysa-p1-q023",
+    "domain": "Security Operations",
+    "question": "Which of the following tools would MOST likely be used to search historical log data for failed login patterns?",
+    "options": [
+      "Nmap",
+      "Splunk",
+      "Wireshark",
+      "OpenVAS"
+    ],
+    "correctAnswer": "Splunk",
+    "explanation": "Splunk is a SIEM tool designed to analyze and search large volumes of logs.",
+    "aiGenerated": false,
+    "bank": "cysa-100"
+  },
+  {
+    "id": "cysa-p1-q024",
+    "domain": "Vulnerability Management",
+    "question": "An analyst sees a surge in outbound traffic from a workstation late at night. What’s the BEST next step?",
+    "options": [
+      "Reboot the machine",
+      "Escalate to HR",
+      "Investigate logs for possible data exfiltration",
+      "Email the user to ask what they were doing"
+    ],
+    "correctAnswer": "Investigate logs for possible data exfiltration",
+    "explanation": "A sudden spike in outbound traffic, especially at off-hours, may indicate data being stolen.",
+    "aiGenerated": false,
+    "bank": "cysa-100"
+  },
+  {
+    "id": "cysa-p1-q025",
+    "domain": "Security Operations",
+    "question": "Which of the following frameworks is designed to describe attacker behavior across various phases like Initial Access and Lateral Movement? 12 © 2025 · Curated by Artem Polynko · Follow on LinkedIn Latest Guide Versions: https://linkedin.com/in/Artem-Polynko Based on personal research and insights · Feel free to share with friends · Not for resale Version 1.0",
+    "options": [
+      "NIST",
+      "STRIDE",
+      "MITRE ATT&CK",
+      "Cyber Kill Chain"
+    ],
+    "correctAnswer": "MITRE ATT&CK",
+    "explanation": "MITRE ATT&CK provides detailed mapping of adversary tactics and techniques throughout the attack lifecycle. 14",
+    "aiGenerated": false,
+    "bank": "cysa-100"
+  },
+  {
+    "id": "cysa-p1-q026",
+    "domain": "Incident Response and Management",
+    "question": "An analyst is investigating a phishing email. What element in the email header should be examined to verify the sender?",
+    "options": [
+      "Subject line",
+      "DKIM signature",
+      "Font size",
+      "Image alt text"
+    ],
+    "correctAnswer": "DKIM signature",
+    "explanation": "DomainKeys Identified Mail (DKIM) is used to verify the authenticity of an email's sender domain.",
+    "aiGenerated": false,
+    "bank": "cysa-100"
+  },
+  {
+    "id": "cysa-p1-q027",
+    "domain": "Incident Response and Management",
+    "question": "Which of the following log sources would BEST identify a brute-force attack against a web application login form?",
+    "options": [
+      "Firewall logs",
+      "Apache access logs",
+      "Antivirus logs",
+      "DHCP logs"
+    ],
+    "correctAnswer": "Apache access logs",
+    "explanation": "Web server logs (like Apache) show repeated login attempts that could indicate brute-force attacks.",
+    "aiGenerated": false,
+    "bank": "cysa-100"
+  },
+  {
+    "id": "cysa-p1-q028",
+    "domain": "Vulnerability Management",
+    "question": "What is the PRIMARY benefit of applying a zero trust model in network design?",
+    "options": [
+      "It removes the need for firewalls",
+      "It limits insider threat by enforcing strict access validation",
+      "It allows shared admin credentials across departments",
+      "It blocks all encrypted traffic by default"
+    ],
+    "correctAnswer": "It limits insider threat by enforcing strict access validation",
+    "explanation": "Zero Trust assumes no implicit trust — every access must be verified, reducing risks even from internal users.",
+    "aiGenerated": false,
+    "bank": "cysa-100"
+  },
+  {
+    "id": "cysa-p1-q029",
+    "domain": "Vulnerability Management",
+    "question": "An attacker uses a macro inside a Word document to download and run malware. What technique does this represent?",
+    "options": [
+      "Defense Evasion",
+      "Lateral Movement",
+      "Initial Access",
+      "Persistence 13"
+    ],
+    "correctAnswer": "Initial Access",
+    "explanation": "Using a malicious document to gain entry is part of the initial access phase in an attack chain.",
+    "aiGenerated": false,
+    "bank": "cysa-100"
+  },
+  {
+    "id": "cysa-p1-q030",
+    "domain": "Security Operations",
+    "question": "What type of response is being used if an IDS alert triggers an automatic firewall rule to block an IP address?",
+    "options": [
+      "Passive",
+      "Forensic",
+      "Manual",
+      "Automated"
+    ],
+    "correctAnswer": "Automated",
+    "explanation": "When detection tools trigger pre-defined actions (like blocking IPs), it's an automated response. 15",
+    "aiGenerated": false,
+    "bank": "cysa-100"
+  },
+  {
+    "id": "cysa-p1-q031",
+    "domain": "Security Operations",
+    "question": "Which of the following BEST describes the function of a SIEM?",
+    "options": [
+      "Provides DNS resolution",
+      "Blocks unauthorized USB devices",
+      "Collects and correlates log data for analysis",
+      "Performs full-disk encryption"
+    ],
+    "correctAnswer": "Collects and correlates log data for analysis",
+    "explanation": "SIEM platforms aggregate logs from multiple systems and analyze them for signs of malicious activity.",
+    "aiGenerated": false,
+    "bank": "cysa-100"
+  },
+  {
+    "id": "cysa-p1-q032",
+    "domain": "Incident Response and Management",
+    "question": "What term refers to a threat that is specifically crafted to avoid detection by antivirus and other automated tools?",
+    "options": [
+      "Logic bomb",
+      "Zero-day",
+      "Polymorphic malware",
+      "Spyware"
+    ],
+    "correctAnswer": "Polymorphic malware",
+    "explanation": "Polymorphic malware constantly changes its code to evade detection mechanisms.",
+    "aiGenerated": false,
+    "bank": "cysa-100"
+  },
+  {
+    "id": "cysa-p1-q033",
+    "domain": "Reporting and Communication",
+    "question": "A vulnerability is discovered in a legacy system that cannot be patched. What’s the BEST approach?",
+    "options": [
+      "Accept the risk and take no further action",
+      "Reboot the system regularly",
+      "Apply compensating controls and isolate the system",
+      "Disable all monitoring to reduce alert fatigue"
+    ],
+    "correctAnswer": "Apply compensating controls and isolate the system",
+    "explanation": "If patching is not possible, use compensating controls like network isolation or enhanced monitoring.",
+    "aiGenerated": false,
+    "bank": "cysa-100"
+  },
+  {
+    "id": "cysa-p1-q034",
+    "domain": "Security Operations",
+    "question": "Which of the following log types would BEST help trace lateral movement in a Windows domain environment?",
+    "options": [
+      "DNS logs",
+      "Active Directory authentication logs",
+      "Antivirus quarantine logs",
+      "DHCP lease logs"
+    ],
+    "correctAnswer": "Active Directory authentication logs",
+    "explanation": "AD logs show login events and can reveal lateral movement through account activity across systems.",
+    "aiGenerated": false,
+    "bank": "cysa-100"
+  },
+  {
+    "id": "cysa-p1-q035",
+    "domain": "Incident Response and Management",
+    "question": "What is the PRIMARY goal of the recovery phase in incident response?",
+    "options": [
+      "Identify the root cause of the incident",
+      "Publicly disclose the incident 16 © 2025 · Curated by Artem Polynko · Follow on LinkedIn Latest Guide Versions: https://linkedin.com/in/Artem-Polynko Based on personal research and insights · Feel free to share with friends · Not for resale Version 1.0",
+      "Return systems to normal operation securely",
+      "Shut down all affected assets permanently"
+    ],
+    "correctAnswer": "Return systems to normal operation securely",
+    "explanation": "Recovery aims to restore services and systems in a safe, validated manner post-incident.",
+    "aiGenerated": false,
+    "bank": "cysa-100"
+  },
+  {
+    "id": "cysa-p1-q036",
+    "domain": "Vulnerability Management",
+    "question": "What’s the BEST method to reduce the attack surface of a Windows server?",
+    "options": [
+      "Install a faster SSD",
+      "Disable unnecessary services and ports",
+      "Increase CPU cores",
+      "Enable screen savers with password"
+    ],
+    "correctAnswer": "Disable unnecessary services and ports",
+    "explanation": "Reducing the number of exposed services and ports minimizes the attack surface of any system.",
+    "aiGenerated": false,
+    "bank": "cysa-100"
+  },
+  {
+    "id": "cysa-p1-q037",
+    "domain": "Security Operations",
+    "question": "Which framework outlines seven stages from Reconnaissance to Actions on Objectives?",
+    "options": [
+      "Diamond Model",
+      "STRIDE",
+      "MITRE ATT&CK",
+      "Cyber Kill Chain"
+    ],
+    "correctAnswer": "Cyber Kill Chain",
+    "explanation": "The Cyber Kill Chain includes Recon, Weaponization, Delivery, Exploitation, Installation, C2, and Actions.",
+    "aiGenerated": false,
+    "bank": "cysa-100"
+  },
+  {
+    "id": "cysa-p1-q038",
+    "domain": "Security Operations",
+    "question": "Which of the following is an example of an indicator of attack (IO",
+    "options": [
+      "rather than an indicator of compromise (IOC)? A) Known malware hash found on disk",
+      "Registry key altered by ransomware",
+      "Unusual use of PowerShell during normal business hours",
+      "Outbound traffic to a known malicious IP"
+    ],
+    "correctAnswer": "Unusual use of PowerShell during normal business hours",
+    "explanation": "IOAs indicate behavior patterns (like live attacks), whereas IOCs are artifacts of past compromise.",
+    "aiGenerated": false,
+    "bank": "cysa-100"
+  },
+  {
+    "id": "cysa-p1-q039",
+    "domain": "Vulnerability Management",
+    "question": "What is the PRIMARY purpose of using a honeypot in an enterprise environment?",
+    "options": [
+      "Encrypt sensitive data",
+      "Divert attackers and study their behavior",
+      "Act as a backup domain controller",
+      "Replace IDS/IPS devices"
+    ],
+    "correctAnswer": "Divert attackers and study their behavior",
+    "explanation": "Honeypots are decoy systems designed to lure attackers and gather intelligence on their techniques.",
+    "aiGenerated": false,
+    "bank": "cysa-100"
+  },
+  {
+    "id": "cysa-p1-q040",
+    "domain": "Incident Response and Management",
+    "question": "Which metric is MOST useful when evaluating how quickly an organization detects threats?",
+    "options": [
+      "CVSS score 17 © 2025 · Curated by Artem Polynko · Follow on LinkedIn Latest Guide Versions: https://linkedin.com/in/Artem-Polynko Based on personal research and insights · Feel free to share with friends · Not for resale Version 1.0",
+      "SLA rating",
+      "MTTD",
+      "RTO"
+    ],
+    "correctAnswer": "MTTD",
+    "explanation": "Mean Time to Detect (MTTD) measures how quickly threats are identified after they begin. 19",
+    "aiGenerated": false,
+    "bank": "cysa-100"
+  },
+  {
+    "id": "cysa-p1-q041",
+    "domain": "Security Operations",
+    "question": "Which of the following BEST describes a “false positive” in a SIEM alert?",
+    "options": [
+      "An alert that accurately detects malicious activity",
+      "A real attack that goes undetected",
+      "A benign activity incorrectly flagged as malicious",
+      "A user who reports a phishing email"
+    ],
+    "correctAnswer": "A benign activity incorrectly flagged as malicious",
+    "explanation": "A false positive is when a detection system triggers an alert for something that’s actually harmless.",
+    "aiGenerated": false,
+    "bank": "cysa-100"
+  },
+  {
+    "id": "cysa-p1-q042",
+    "domain": "Incident Response and Management",
+    "question": "What type of control is an automated system that isolates infected endpoints once malware is detected?",
+    "options": [
+      "Physical",
+      "Detective",
+      "Preventive",
+      "Corrective"
+    ],
+    "correctAnswer": "Corrective",
+    "explanation": "Isolating an endpoint to stop malware spread is a corrective control — it addresses damage already done.",
+    "aiGenerated": false,
+    "bank": "cysa-100"
+  },
+  {
+    "id": "cysa-p1-q043",
+    "domain": "Security Operations",
+    "question": "Which of the following is MOST useful for tracking unauthorized changes to critical system files?",
+    "options": [
+      "NetFlow",
+      "Host-based IDS",
+      "DNS sinkhole",
+      "Router ACL"
+    ],
+    "correctAnswer": "Host-based IDS",
+    "explanation": "HIDS monitors system-level changes such as file modifications, which can reveal unauthorized tampering.",
+    "aiGenerated": false,
+    "bank": "cysa-100"
+  },
+  {
+    "id": "cysa-p1-q044",
+    "domain": "Vulnerability Management",
+    "question": "Which technique is commonly used by attackers to evade signature-based detection?",
+    "options": [
+      "Reverse shell",
+      "Port knocking",
+      "Packet fragmentation",
+      "Code obfuscation"
+    ],
+    "correctAnswer": "Code obfuscation",
+    "explanation": "Obfuscation disguises malware code to bypass signature-based antivirus and detection tools.",
+    "aiGenerated": false,
+    "bank": "cysa-100"
+  },
+  {
+    "id": "cysa-p1-q045",
+    "domain": "Vulnerability Management",
+    "question": "An organization is reviewing user activity during an insider threat investigation. Which data source is MOST useful?",
+    "options": [
+      "SIEM alerts",
+      "Firewall logs 20 © 2025 · Curated by Artem Polynko · Follow on LinkedIn Latest Guide Versions: https://linkedin.com/in/Artem-Polynko Based on personal research and insights · Feel free to share with friends · Not for resale Version 1.0",
+      "User behavior analytics (UBA)",
+      "DNS request logs"
+    ],
+    "correctAnswer": "User behavior analytics (UBA)",
+    "explanation": "UBA detects anomalies in user behavior patterns that may indicate insider threats.",
+    "aiGenerated": false,
+    "bank": "cysa-100"
+  },
+  {
+    "id": "cysa-p1-q046",
+    "domain": "Incident Response and Management",
+    "question": "What type of threat involves users intentionally or unintentionally causing harm from within the organization?",
+    "options": [
+      "Insider threat",
+      "Nation-state",
+      "External threat actor",
+      "Script kiddie"
+    ],
+    "correctAnswer": "Insider threat",
+    "explanation": "An insider threat comes from within the organization, whether intentional or accidental.",
+    "aiGenerated": false,
+    "bank": "cysa-100"
+  },
+  {
+    "id": "cysa-p1-q047",
+    "domain": "Incident Response and Management",
+    "question": "What is the BEST response if a phishing simulation shows that 30% of users clicked a fake link?",
+    "options": [
+      "Disable user accounts",
+      "Remove email access",
+      "Provide targeted awareness training",
+      "Fire employees who clicked"
+    ],
+    "correctAnswer": "Provide targeted awareness training",
+    "explanation": "Follow-up training helps reduce future phishing risk and is a positive, constructive response.",
+    "aiGenerated": false,
+    "bank": "cysa-100"
+  },
+  {
+    "id": "cysa-p1-q048",
+    "domain": "Incident Response and Management",
+    "question": "What type of log would BEST show details about application-layer activity on a web server?",
+    "options": [
+      "Firewall logs",
+      "Syslog",
+      "Web server access logs",
+      "Antivirus event logs"
+    ],
+    "correctAnswer": "Web server access logs",
+    "explanation": "Web access logs contain HTTP requests, status codes, and client IPs — useful for application-level review.",
+    "aiGenerated": false,
+    "bank": "cysa-100"
+  },
+  {
+    "id": "cysa-p1-q049",
+    "domain": "Vulnerability Management",
+    "question": "During a red team exercise, simulated attackers successfully exfiltrate data. What should the blue team do FIRST?",
+    "options": [
+      "Wipe the servers",
+      "Update SIEM software",
+      "Validate and document the findings",
+      "Escalate to federal law enforcement"
+    ],
+    "correctAnswer": "Validate and document the findings",
+    "explanation": "During a red team exercise, the first step is to validate what occurred and document it for analysis.",
+    "aiGenerated": false,
+    "bank": "cysa-100"
+  },
+  {
+    "id": "cysa-p1-q050",
+    "domain": "Incident Response and Management",
+    "question": "What’s the PRIMARY benefit of integrating threat intelligence into SIEM workflows? 21 © 2025 · Curated by Artem Polynko · Follow on LinkedIn Latest Guide Versions: https://linkedin.com/in/Artem-Polynko Based on personal research and insights · Feel free to share with friends · Not for resale Version 1.0",
+    "options": [
+      "Encrypt all SIEM traffic",
+      "Allow real-time response to network outages",
+      "Enrich alerts with external context for faster triage",
+      "Automatically patch vulnerable software"
+    ],
+    "correctAnswer": "Enrich alerts with external context for faster triage",
+    "explanation": "Threat intelligence integration helps analysts prioritize alerts by linking them to known threats. 23",
+    "aiGenerated": false,
+    "bank": "cysa-100"
+  },
+  {
+    "id": "cysa-p1-q051",
+    "domain": "Incident Response and Management",
+    "question": "Which of the following would BEST help identify a persistent threat on an endpoint after reboot?",
+    "options": [
+      "Packet sniffer",
+      "Volatile memory dump",
+      "Scheduled task and registry inspection",
+      "DNS query analysis"
+    ],
+    "correctAnswer": "Scheduled task and registry inspection",
+    "explanation": "Persistent malware often uses scheduled tasks or registry keys to re- execute after reboot.",
+    "aiGenerated": false,
+    "bank": "cysa-100"
+  },
+  {
+    "id": "cysa-p1-q052",
+    "domain": "Security Operations",
+    "question": "A SOC analyst receives an alert for multiple failed logins followed by a successful login from the same IP. What is the MOST likely explanation?",
+    "options": [
+      "Reconnaissance",
+      "Brute-force attack",
+      "Drive-by download",
+      "Misconfigured firewall"
+    ],
+    "correctAnswer": "Brute-force attack",
+    "explanation": "Multiple failed login attempts followed by a success typically indicates a brute-force attack.",
+    "aiGenerated": false,
+    "bank": "cysa-100"
+  },
+  {
+    "id": "cysa-p1-q053",
+    "domain": "Incident Response and Management",
+    "question": "What is the FIRST step in conducting a root cause analysis after a security incident?",
+    "options": [
+      "Isolate affected systems",
+      "Interview stakeholders",
+      "Review logs and available evidence",
+      "Update firewall rules"
+    ],
+    "correctAnswer": "Review logs and available evidence",
+    "explanation": "Understanding what happened starts with analyzing the available data before taking other actions.",
+    "aiGenerated": false,
+    "bank": "cysa-100"
+  },
+  {
+    "id": "cysa-p1-q054",
+    "domain": "Vulnerability Management",
+    "question": "Which of the following BEST defines a compensating control?",
+    "options": [
+      "Control used to prevent social engineering",
+      "Backup control when primary is too expensive or infeasible",
+      "Control that verifies password strength",
+      "Legal requirement for HIPAA compliance"
+    ],
+    "correctAnswer": "Backup control when primary is too expensive or infeasible",
+    "explanation": "A compensating control provides an alternative safeguard when the ideal control isn't possible.",
+    "aiGenerated": false,
+    "bank": "cysa-100"
+  },
+  {
+    "id": "cysa-p1-q055",
+    "domain": "Incident Response and Management",
+    "question": "What tactic in the MITRE ATT&CK framework involves attackers creating new user accounts to maintain access?",
+    "options": [
+      "Privilege Escalation",
+      "Defense Evasion 24 © 2025 · Curated by Artem Polynko · Follow on LinkedIn Latest Guide Versions: https://linkedin.com/in/Artem-Polynko Based on personal research and insights · Feel free to share with friends · Not for resale Version 1.0",
+      "Persistence",
+      "Credential Access"
+    ],
+    "correctAnswer": "Persistence",
+    "explanation": "Creating new accounts is a method used by attackers to maintain long- term access—classified under persistence.",
+    "aiGenerated": false,
+    "bank": "cysa-100"
+  },
+  {
+    "id": "cysa-p1-q056",
+    "domain": "Reporting and Communication",
+    "question": "Which protocol is commonly used for time synchronization and is important for correlating logs across systems?",
+    "options": [
+      "DHCP",
+      "FTP",
+      "SNMP",
+      "NTP"
+    ],
+    "correctAnswer": "NTP",
+    "explanation": "Network Time Protocol (NTP) ensures consistent timestamps across logs and systems.",
+    "aiGenerated": false,
+    "bank": "cysa-100"
+  },
+  {
+    "id": "cysa-p1-q057",
+    "domain": "Reporting and Communication",
+    "question": "What is the PRIMARY purpose of a post-incident review (lessons learned)?",
+    "options": [
+      "Punish the team that missed the alert",
+      "Notify law enforcement",
+      "Improve processes and reduce future risk",
+      "Restore data from backups"
+    ],
+    "correctAnswer": "Improve processes and reduce future risk",
+    "explanation": "The main goal of post-incident reviews is to identify what went wrong and how to prevent recurrence.",
+    "aiGenerated": false,
+    "bank": "cysa-100"
+  },
+  {
+    "id": "cysa-p1-q058",
+    "domain": "Vulnerability Management",
+    "question": "Which of the following is a behavioral-based detection method?",
+    "options": [
+      "Checking MD5 hash against VirusTotal",
+      "Using a YARA rule for signature matching",
+      "Detecting use of PowerShell at 2AM on a sales user laptop",
+      "Scanning a ZIP file with antivirus"
+    ],
+    "correctAnswer": "Detecting use of PowerShell at 2AM on a sales user laptop",
+    "explanation": "This is a behavior anomaly detection—indicating suspicious use based on context.",
+    "aiGenerated": false,
+    "bank": "cysa-100"
+  },
+  {
+    "id": "cysa-p1-q059",
+    "domain": "Incident Response and Management",
+    "question": "An attacker scans a web application and sends payloads like ../../../etc/passwd in input fields. What type of attack is this?",
+    "options": [
+      "Cross-Site Scripting",
+      "Directory Traversal",
+      "Command Injection",
+      "CSRF"
+    ],
+    "correctAnswer": "Directory Traversal",
+    "explanation": "Using ../../../ attempts to access files outside of the allowed directory.",
+    "aiGenerated": false,
+    "bank": "cysa-100"
+  },
+  {
+    "id": "cysa-p1-q060",
+    "domain": "Security Operations",
+    "question": "Which control type MOST directly supports the \"Detection\" function of the NIST Cybersecurity Framework?",
+    "options": [
+      "SIEM 25 © 2025 · Curated by Artem Polynko · Follow on LinkedIn Latest Guide Versions: https://linkedin.com/in/Artem-Polynko Based on personal research and insights · Feel free to share with friends · Not for resale Version 1.0",
+      "Firewall",
+      "Backup system",
+      "MFA"
+    ],
+    "correctAnswer": "SIEM 25 © 2025 · Curated by Artem Polynko · Follow on LinkedIn Latest Guide Versions: https://linkedin.com/in/Artem-Polynko Based on personal research and insights · Feel free to share with friends · Not for resale Version 1.0",
+    "explanation": "A SIEM is central to detection—it collects, correlates, and alerts on suspicious activity. 27",
+    "aiGenerated": false,
+    "bank": "cysa-100"
+  },
+  {
+    "id": "cysa-p1-q061",
+    "domain": "Vulnerability Management",
+    "question": "Which of the following would MOST likely detect suspicious file access patterns on a user’s workstation?",
+    "options": [
+      "Network firewall",
+      "Host-based intrusion detection system (HIDS)",
+      "Router ACL",
+      "DNS log analysis"
+    ],
+    "correctAnswer": "Host-based intrusion detection system (HIDS)",
+    "explanation": "HIDS monitors file and process activity on individual hosts, helping detect local anomalies.",
+    "aiGenerated": false,
+    "bank": "cysa-100"
+  },
+  {
+    "id": "cysa-p1-q062",
+    "domain": "Reporting and Communication",
+    "question": "Which regulatory framework is focused on protecting healthcare data in the United States?",
+    "options": [
+      "GDPR",
+      "SOX",
+      "HIPAA",
+      "NIST CSF"
+    ],
+    "correctAnswer": "HIPAA",
+    "explanation": "HIPAA governs the privacy and security of protected health information (PHI) in the U.S.",
+    "aiGenerated": false,
+    "bank": "cysa-100"
+  },
+  {
+    "id": "cysa-p1-q063",
+    "domain": "Security Operations",
+    "question": "An attacker gains access to an employee’s email and sends phishing messages internally. Which MITRE ATT&CK tactic is being used?",
+    "options": [
+      "Credential Access",
+      "Initial Access",
+      "Lateral Movement",
+      "Execution"
+    ],
+    "correctAnswer": "Lateral Movement",
+    "explanation": "Using a compromised internal account to spread phishing is lateral movement within the network.",
+    "aiGenerated": false,
+    "bank": "cysa-100"
+  },
+  {
+    "id": "cysa-p1-q064",
+    "domain": "Security Operations",
+    "question": "What would be the BEST next step after identifying the presence of malware on a business-critical server?",
+    "options": [
+      "Immediately shut down the server",
+      "Wipe and rebuild the server",
+      "Perform containment and preserve forensic evidence",
+      "Notify all customers"
+    ],
+    "correctAnswer": "Perform containment and preserve forensic evidence",
+    "explanation": "The priority is to stop spread and collect evidence before rebooting or wiping systems.",
+    "aiGenerated": false,
+    "bank": "cysa-100"
+  },
+  {
+    "id": "cysa-p1-q065",
+    "domain": "Reporting and Communication",
+    "question": "Which of the following BEST explains the use of the CVSS score in vulnerability management? 28 © 2025 · Curated by Artem Polynko · Follow on LinkedIn Latest Guide Versions: https://linkedin.com/in/Artem-Polynko Based on personal research and insights · Feel free to share with friends · Not for resale Version 1.0",
+    "options": [
+      "Prioritizes which threats are trending in social media",
+      "Scores business risk for insurance purposes",
+      "Rates severity of vulnerabilities to support prioritization",
+      "Assigns legal responsibility for a data breach"
+    ],
+    "correctAnswer": "Rates severity of vulnerabilities to support prioritization",
+    "explanation": "CVSS provides a numerical rating of how dangerous a vulnerability is, guiding patching efforts.",
+    "aiGenerated": false,
+    "bank": "cysa-100"
+  },
+  {
+    "id": "cysa-p1-q066",
+    "domain": "Security Operations",
+    "question": "Which tool is BEST used to analyze suspicious outbound connections from endpoints?",
+    "options": [
+      "Firewall ruleset",
+      "Wireshark",
+      "Nessus",
+      "OpenVAS"
+    ],
+    "correctAnswer": "Wireshark",
+    "explanation": "Wireshark captures and analyzes network packets, ideal for spotting suspicious outbound traffic.",
+    "aiGenerated": false,
+    "bank": "cysa-100"
+  },
+  {
+    "id": "cysa-p1-q067",
+    "domain": "Reporting and Communication",
+    "question": "What is the PRIMARY benefit of using YARA rules in a malware investigation?",
+    "options": [
+      "Prevent brute-force attacks",
+      "Block command-line tools",
+      "Match malware patterns for detection",
+      "Perform port scanning"
+    ],
+    "correctAnswer": "Match malware patterns for detection",
+    "explanation": "YARA rules help analysts detect known malware by matching specific patterns in files or memory.",
+    "aiGenerated": false,
+    "bank": "cysa-100"
+  },
+  {
+    "id": "cysa-p1-q068",
+    "domain": "Vulnerability Management",
+    "question": "Which incident response phase involves removing malware and fixing vulnerabilities?",
+    "options": [
+      "Containment",
+      "Eradication",
+      "Detection",
+      "Recovery"
+    ],
+    "correctAnswer": "Eradication",
+    "explanation": "This phase involves removing threats and fixing exploited vulnerabilities to prevent recurrence.",
+    "aiGenerated": false,
+    "bank": "cysa-100"
+  },
+  {
+    "id": "cysa-p1-q069",
+    "domain": "Vulnerability Management",
+    "question": "Which of the following BEST describes \"mean time to recover\" (MTTR)?",
+    "options": [
+      "Time between incident start and first alert",
+      "Time to fully restore operations after an incident",
+      "Time to detect a phishing email",
+      "Time between patching cycles"
+    ],
+    "correctAnswer": "Time to fully restore operations after an incident",
+    "explanation": "MTTR measures the time needed to recover operations to a normal, functional state.",
+    "aiGenerated": false,
+    "bank": "cysa-100"
+  },
+  {
+    "id": "cysa-p1-q070",
+    "domain": "Security Operations",
+    "question": "What is the PRIMARY purpose of a change management policy in cybersecurity operations?",
+    "options": [
+      "Ensure all updates are installed automatically 29 © 2025 · Curated by Artem Polynko · Follow on LinkedIn Latest Guide Versions: https://linkedin.com/in/Artem-Polynko Based on personal research and insights · Feel free to share with friends · Not for resale Version 1.0",
+      "Allow all developers to make production changes freely",
+      "Prevent unapproved or untracked modifications",
+      "Disable redundant system features"
+    ],
+    "correctAnswer": "Prevent unapproved or untracked modifications",
+    "explanation": "Change management ensures that system changes are reviewed, tested, and approved before deployment. 31",
+    "aiGenerated": false,
+    "bank": "cysa-100"
+  },
+  {
+    "id": "cysa-p1-q071",
+    "domain": "Reporting and Communication",
+    "question": "Which of the following techniques would MOST effectively help identify vulnerable open ports on internal systems?",
+    "options": [
+      "Log review",
+      "Nmap scan",
+      "NetFlow analysis",
+      "DNS lookup"
+    ],
+    "correctAnswer": "Nmap scan",
+    "explanation": "Nmap actively scans networks and systems for open ports and services.",
+    "aiGenerated": false,
+    "bank": "cysa-100"
+  },
+  {
+    "id": "cysa-p1-q072",
+    "domain": "Reporting and Communication",
+    "question": "Which security concept ensures that a user cannot deny performing an action, such as sending an email?",
+    "options": [
+      "Confidentiality",
+      "Non-repudiation",
+      "Least privilege",
+      "Integrity"
+    ],
+    "correctAnswer": "Non-repudiation",
+    "explanation": "Non-repudiation ensures that actions can be tied to individuals, often using digital signatures.",
+    "aiGenerated": false,
+    "bank": "cysa-100"
+  },
+  {
+    "id": "cysa-p1-q073",
+    "domain": "Security Operations",
+    "question": "An organization uses a security tool to simulate malware attacks in a sandbox to observe behavior. What is this process called?",
+    "options": [
+      "Reverse engineering",
+      "Behavioral analysis",
+      "Fuzz testing",
+      "Static analysis"
+    ],
+    "correctAnswer": "Behavioral analysis",
+    "explanation": "Observing a file’s runtime behavior in a sandbox is behavioral analysis.",
+    "aiGenerated": false,
+    "bank": "cysa-100"
+  },
+  {
+    "id": "cysa-p1-q074",
+    "domain": "Vulnerability Management",
+    "question": "Which logging feature BEST supports proper forensic investigations?",
+    "options": [
+      "Syslog formatting",
+      "Remote logging",
+      "High-frequency log rotation",
+      "Obfuscating sensitive log data"
+    ],
+    "correctAnswer": "Remote logging",
+    "explanation": "Logging to a remote system prevents tampering and preserves evidence for forensic use.",
+    "aiGenerated": false,
+    "bank": "cysa-100"
+  },
+  {
+    "id": "cysa-p1-q075",
+    "domain": "Vulnerability Management",
+    "question": "What is the PRIMARY purpose of a vulnerability scan schedule?",
+    "options": [
+      "Detect data exfiltration attempts",
+      "Ensure regular identification of weaknesses 32 © 2025 · Curated by Artem Polynko · Follow on LinkedIn Latest Guide Versions: https://linkedin.com/in/Artem-Polynko Based on personal research and insights · Feel free to share with friends · Not for resale Version 1.0",
+      "Block malicious traffic before it enters",
+      "Monitor baseline network behavior"
+    ],
+    "correctAnswer": "Ensure regular identification of weaknesses 32 © 2025 · Curated by Artem Polynko · Follow on LinkedIn Latest Guide Versions: https://linkedin.com/in/Artem-Polynko Based on personal research and insights · Feel free to share with friends · Not for resale Version 1.0",
+    "explanation": "Scheduled scans help continuously detect vulnerabilities as systems and software change.",
+    "aiGenerated": false,
+    "bank": "cysa-100"
+  },
+  {
+    "id": "cysa-p1-q076",
+    "domain": "Security Operations",
+    "question": "Which of the following is MOST helpful in detecting credential stuffing attacks?",
+    "options": [
+      "Increased CPU load",
+      "Excessive 200 OK HTTP responses",
+      "Spike in failed login attempts across multiple accounts",
+      "Elevated DNS traffic"
+    ],
+    "correctAnswer": "Spike in failed login attempts across multiple accounts",
+    "explanation": "Credential stuffing involves rapid login attempts across many accounts using leaked credentials. 34",
+    "aiGenerated": false,
+    "bank": "cysa-100"
+  },
+  {
+    "id": "cysa-p1-q077",
+    "domain": "Security Operations",
+    "question": "An attacker uses a script that submits thousands of login attempts using different usernames and passwords. What type of attack is this?",
+    "options": [
+      "Password spraying",
+      "Brute-force",
+      "Cross-site request forgery",
+      "Credential harvesting"
+    ],
+    "correctAnswer": "Brute-force",
+    "explanation": "Brute-force attacks try numerous username-password combinations until access is gained.",
+    "aiGenerated": false,
+    "bank": "cysa-100"
+  },
+  {
+    "id": "cysa-p1-q078",
+    "domain": "Reporting and Communication",
+    "question": "Which control type BEST describes a legal document that outlines expectations of third-party vendors handling sensitive data?",
+    "options": [
+      "Preventive",
+      "Administrative",
+      "Technical",
+      "Detective"
+    ],
+    "correctAnswer": "Administrative",
+    "explanation": "Contracts and policies are administrative controls that define security expectations and obligations.",
+    "aiGenerated": false,
+    "bank": "cysa-100"
+  },
+  {
+    "id": "cysa-p1-q079",
+    "domain": "Vulnerability Management",
+    "question": "What log file is MOST useful to analyze user login failures on a Linux system?",
+    "options": [
+      "/var/log/messages",
+      "/var/log/dmesg",
+      "/var/log/auth.log",
+      "/var/log/cron"
+    ],
+    "correctAnswer": "/var/log/auth.log",
+    "explanation": "This log tracks authentication attempts and failures on most Linux systems.",
+    "aiGenerated": false,
+    "bank": "cysa-100"
+  },
+  {
+    "id": "cysa-p1-q080",
+    "domain": "Vulnerability Management",
+    "question": "Which of the following would MOST likely appear in a DAST scan report?",
+    "options": [
+      "Missing firewall rule",
+      "Open port 445 33 © 2025 · Curated by Artem Polynko · Follow on LinkedIn Latest Guide Versions: https://linkedin.com/in/Artem-Polynko Based on personal research and insights · Feel free to share with friends · Not for resale Version 1.0",
+      "SQL injection vulnerability",
+      "Incorrect file permissions"
+    ],
+    "correctAnswer": "SQL injection vulnerability",
+    "explanation": "DAST tools test running applications and often identify input-based vulnerabilities like SQLi. 35",
+    "aiGenerated": false,
+    "bank": "cysa-100"
+  },
+  {
+    "id": "cysa-p1-q081",
+    "domain": "Security Operations",
+    "question": "What is the PRIMARY objective of the containment phase in the incident response lifecycle?",
+    "options": [
+      "Prevent further spread or damage",
+      "Eliminate all malicious files",
+      "Restore normal operations immediately",
+      "Notify all affected users"
+    ],
+    "correctAnswer": "Prevent further spread or damage",
+    "explanation": "Containment aims to isolate the threat before it can move laterally or escalate.",
+    "aiGenerated": false,
+    "bank": "cysa-100"
+  },
+  {
+    "id": "cysa-p1-q082",
+    "domain": "Security Operations",
+    "question": "An alert indicates multiple failed login attempts followed by a successful login and unusual outbound traffic. Which tactic in MITRE ATT&CK is most aligned?",
+    "options": [
+      "Discovery",
+      "Execution",
+      "Exfiltration",
+      "Privilege Escalation"
+    ],
+    "correctAnswer": "Exfiltration",
+    "explanation": "Unusual outbound traffic after compromise suggests data is being exfiltrated.",
+    "aiGenerated": false,
+    "bank": "cysa-100"
+  },
+  {
+    "id": "cysa-p1-q083",
+    "domain": "Incident Response and Management",
+    "question": "Which of the following would BEST detect unauthorized software being installed on endpoints?",
+    "options": [
+      "Web proxy",
+      "NetFlow",
+      "Host-based IDS",
+      "Firewall"
+    ],
+    "correctAnswer": "Host-based IDS",
+    "explanation": "HIDS can detect unauthorized software installations or changes to system files.",
+    "aiGenerated": false,
+    "bank": "cysa-100"
+  },
+  {
+    "id": "cysa-p1-q084",
+    "domain": "Security Operations",
+    "question": "Which document formally outlines procedures, roles, and responsibilities during security events?",
+    "options": [
+      "Service Level Agreement (SLA)",
+      "Incident Response Plan (IRP)",
+      "Data Loss Prevention Policy",
+      "Acceptable Use Policy (AUP)"
+    ],
+    "correctAnswer": "Incident Response Plan (IRP)",
+    "explanation": "The IRP defines roles, escalation paths, and procedures during security incidents.",
+    "aiGenerated": false,
+    "bank": "cysa-100"
+  },
+  {
+    "id": "cysa-p1-q085",
+    "domain": "Reporting and Communication",
+    "question": "Which of the following is a characteristic of a zero-day vulnerability?",
+    "options": [
+      "It’s publicly disclosed but not yet exploited 36 © 2025 · Curated by Artem Polynko · Follow on LinkedIn Latest Guide Versions: https://linkedin.com/in/Artem-Polynko Based on personal research and insights · Feel free to share with friends · Not for resale Version 1.0",
+      "It’s already patched by vendors",
+      "It’s unknown to the vendor and has no available fix",
+      "It requires physical access to exploit"
+    ],
+    "correctAnswer": "It’s unknown to the vendor and has no available fix",
+    "explanation": "A zero-day is a previously unknown vulnerability with no patch at the time of discovery or exploitation.",
+    "aiGenerated": false,
+    "bank": "cysa-100"
+  },
+  {
+    "id": "cysa-p1-q086",
+    "domain": "Vulnerability Management",
+    "question": "A security team uses automation to enrich alerts with threat intelligence before analyst review. What is this an example of?",
+    "options": [
+      "SIEM alert tuning",
+      "PBQ execution",
+      "SOAR orchestration",
+      "Penetration testing"
+    ],
+    "correctAnswer": "SOAR orchestration",
+    "explanation": "SOAR automates and orchestrates response actions, such as enriching alerts with intel before review.",
+    "aiGenerated": false,
+    "bank": "cysa-100"
+  },
+  {
+    "id": "cysa-p1-q087",
+    "domain": "Security Operations",
+    "question": "What is a key benefit of centralizing logs in a SIEM?",
+    "options": [
+      "It reduces the need for encryption",
+      "It eliminates insider threats",
+      "It enables correlation and pattern detection",
+      "It replaces antivirus software"
+    ],
+    "correctAnswer": "It enables correlation and pattern detection",
+    "explanation": "SIEMs centralize logs to identify connections across multiple data sources for threat detection.",
+    "aiGenerated": false,
+    "bank": "cysa-100"
+  },
+  {
+    "id": "cysa-p1-q088",
+    "domain": "Security Operations",
+    "question": "An attacker scans for devices using default SNMP community strings. What are they MOST likely trying to exploit?",
+    "options": [
+      "Privilege escalation",
+      "Insecure API endpoints",
+      "Misconfigured management interfaces",
+      "SSL certificate weaknesses"
+    ],
+    "correctAnswer": "Misconfigured management interfaces",
+    "explanation": "SNMP with default community strings is often used in management interfaces, which attackers target for reconnaissance or control.",
+    "aiGenerated": false,
+    "bank": "cysa-100"
+  },
+  {
+    "id": "cysa-p1-q089",
+    "domain": "Incident Response and Management",
+    "question": "What should analysts review FIRST when triaging a new alert in the SIEM?",
+    "options": [
+      "The company’s security awareness policy",
+      "Threat intelligence reports from third parties",
+      "Contextual data: asset, user, and source information",
+      "The firewall vendor’s patch history"
+    ],
+    "correctAnswer": "Contextual data: asset, user, and source information",
+    "explanation": "Understanding what system or user is involved helps analysts assess the alert's risk and validity quickly.",
+    "aiGenerated": false,
+    "bank": "cysa-100"
+  },
+  {
+    "id": "cysa-p1-q090",
+    "domain": "Security Operations",
+    "question": "Which of the following is an example of a detective control?",
+    "options": [
+      "Firewall blocking access 37 © 2025 · Curated by Artem Polynko · Follow on LinkedIn Latest Guide Versions: https://linkedin.com/in/Artem-Polynko Based on personal research and insights · Feel free to share with friends · Not for resale Version 1.0",
+      "Antivirus deleting malware",
+      "IDS logging and alerting on port scan activity",
+      "VPN requiring MFA"
+    ],
+    "correctAnswer": "IDS logging and alerting on port scan activity",
+    "explanation": "Detective controls monitor for malicious behavior and alert security teams without blocking. 39",
+    "aiGenerated": false,
+    "bank": "cysa-100"
+  },
+  {
+    "id": "cysa-p1-q091",
+    "domain": "Reporting and Communication",
+    "question": "Which term describes the likelihood that a vulnerability will be exploited, combined with the impact of that exploitation?",
+    "options": [
+      "Exposure",
+      "Compliance",
+      "Risk",
+      "Residual threat"
+    ],
+    "correctAnswer": "Risk",
+    "explanation": "Risk combines the likelihood of exploitation with the potential impact on the organization.",
+    "aiGenerated": false,
+    "bank": "cysa-100"
+  },
+  {
+    "id": "cysa-p1-q092",
+    "domain": "Reporting and Communication",
+    "question": "An analyst uses historical data to detect activity that deviates from normal behavior. What method is being used?",
+    "options": [
+      "Signature-based detection",
+      "Anomaly-based detection",
+      "Whitelisting",
+      "Rule-based correlation"
+    ],
+    "correctAnswer": "Anomaly-based detection",
+    "explanation": "Anomaly detection compares current behavior against established baselines to identify outliers.",
+    "aiGenerated": false,
+    "bank": "cysa-100"
+  },
+  {
+    "id": "cysa-p1-q093",
+    "domain": "Reporting and Communication",
+    "question": "What does the “T” in the TTPs acronym stand for in cybersecurity threat analysis?",
+    "options": [
+      "Trigger",
+      "Tactic",
+      "Timeframe",
+      "Transport"
+    ],
+    "correctAnswer": "Tactic",
+    "explanation": "TTPs = Tactics, Techniques, and Procedures, which describe how threat actors operate.",
+    "aiGenerated": false,
+    "bank": "cysa-100"
+  },
+  {
+    "id": "cysa-p1-q094",
+    "domain": "Reporting and Communication",
+    "question": "What is the MOST effective way to ensure log integrity during a forensic investigation?",
+    "options": [
+      "Obfuscate PII from logs",
+      "Rotate logs every 24 hours",
+      "Use centralized logging with hashing",
+      "Enable SNMP traps"
+    ],
+    "correctAnswer": "Use centralized logging with hashing",
+    "explanation": "Centralizing logs and applying hashes ensures they haven’t been tampered with.",
+    "aiGenerated": false,
+    "bank": "cysa-100"
+  },
+  {
+    "id": "cysa-p1-q095",
+    "domain": "Reporting and Communication",
+    "question": "Which security principle focuses on ensuring that systems and data are accessible when needed?",
+    "options": [
+      "Integrity",
+      "Resilience 40 © 2025 · Curated by Artem Polynko · Follow on LinkedIn Latest Guide Versions: https://linkedin.com/in/Artem-Polynko Based on personal research and insights · Feel free to share with friends · Not for resale Version 1.0",
+      "Availability",
+      "Redundancy"
+    ],
+    "correctAnswer": "Availability",
+    "explanation": "Availability ensures that resources are accessible when needed by authorized users.",
+    "aiGenerated": false,
+    "bank": "cysa-100"
+  },
+  {
+    "id": "cysa-p1-q096",
+    "domain": "Vulnerability Management",
+    "question": "Which tool would BEST help a security analyst identify vulnerabilities in systems that are already deployed in production?",
+    "options": [
+      "Nmap",
+      "Nikto",
+      "Nessus",
+      "Wireshark"
+    ],
+    "correctAnswer": "Nessus",
+    "explanation": "Nessus is a vulnerability scanner that helps identify known vulnerabilities in live systems.",
+    "aiGenerated": false,
+    "bank": "cysa-100"
+  },
+  {
+    "id": "cysa-p1-q097",
+    "domain": "Vulnerability Management",
+    "question": "During a routine scan, a system is flagged for having port 445 open. What service is likely exposed?",
+    "options": [
+      "SSH",
+      "SMB",
+      "FTP",
+      "Telnet"
+    ],
+    "correctAnswer": "SMB",
+    "explanation": "Port 445 is used for SMB (Server Message Block), often exploited in lateral movement attacks.",
+    "aiGenerated": false,
+    "bank": "cysa-100"
+  },
+  {
+    "id": "cysa-p1-q098",
+    "domain": "Reporting and Communication",
+    "question": "What log source would BEST help investigate unauthorized database access?",
+    "options": [
+      "Web access logs",
+      "Application logs",
+      "Database audit logs",
+      "DNS logs"
+    ],
+    "correctAnswer": "Database audit logs",
+    "explanation": "These logs capture access and query activity within the database.",
+    "aiGenerated": false,
+    "bank": "cysa-100"
+  },
+  {
+    "id": "cysa-p1-q099",
+    "domain": "Reporting and Communication",
+    "question": "What is the PRIMARY use of the STIX format in threat intelligence?",
+    "options": [
+      "Define firewall rules",
+      "Visualize phishing campaigns",
+      "Structure threat data for automated sharing",
+      "Collect vulnerability metrics"
+    ],
+    "correctAnswer": "Structure threat data for automated sharing",
+    "explanation": "STIX (Structured Threat Information Expression) allows standard sharing of threat intelligence.",
+    "aiGenerated": false,
+    "bank": "cysa-100"
+  },
+  {
+    "id": "cysa-p1-q100",
+    "domain": "Incident Response and Management",
+    "question": "An attacker is using a compromised internal host to pivot into other systems. Which MITRE ATT&CK tactic is being used?",
+    "options": [
+      "Execution 41 © 2025 · Curated by Artem Polynko · Follow on LinkedIn Latest Guide Versions: https://linkedin.com/in/Artem-Polynko Based on personal research and insights · Feel free to share with friends · Not for resale Version 1.0",
+      "Lateral Movement",
+      "Exfiltration",
+      "Persistence"
+    ],
+    "correctAnswer": "Lateral Movement",
+    "explanation": "Lateral movement involves using a compromised host to access additional systems internally.",
+    "aiGenerated": false,
+    "bank": "cysa-100"
+  },
+  {
+    "id": "cysa-p2-q001",
+    "domain": "Security Operations",
+    "question": "User’s frequently get disconnected from the company’s internal wireless network. The wireless system and clients are healthy. Once disconnected, the wireless clients reconnect automatically. Which of the following Which of the following is the best way for security analyst to determine the source of the wireless disconnection?",
+    "options": [
+      "Looking at authenticator logs for impossible tower?",
+      "Collecting the RADIUS logs investigating the IP addresses of failed user authenticator.",
+      "Utilizing nireplay-ng to disconnect the malicious wireless station and capture the handshake.",
+      "Using a client with kismet to analyze the airspace for potential de-authentication attack."
+    ],
+    "correctAnswer": "Using a client with kismet to analyze the airspace for potential de-authentication attack.",
+    "explanation": "The marked answer 'Using a client with kismet to analyze the airspace for potential de-authentication attack.' is the best choice for this scenario. Review the CySA+ objective related to the question stem and eliminate the distractors that do not address the described activity. (Study note generated for this reviewer; verify against official CySA+ CS0-003 objectives.)",
+    "aiGenerated": true,
+    "bank": "reviewer-2026"
+  },
+  {
+    "id": "cysa-p2-q002",
+    "domain": "Vulnerability Management",
+    "question": "A Security Analyst’s receives the following information about the company’s systems. They need to prioritize which system should be given the resources to improve security. Which of the following systems should be analyst remediate first?",
+    "options": [
+      "Computer1",
+      "Server1 - recheck",
+      "Computer2",
+      "Server2 – based to john friend"
+    ],
+    "correctAnswer": "Server2 – based to john friend",
+    "explanation": "The marked answer 'Server2 – based to john friend' is the best choice for this scenario. Review the CySA+ objective related to the question stem and eliminate the distractors that do not address the described activity. (Study note generated for this reviewer; verify against official CySA+ CS0-003 objectives.)",
+    "aiGenerated": true,
+    "bank": "reviewer-2026"
+  },
+  {
+    "id": "cysa-p2-q003",
+    "domain": "Incident Response and Management",
+    "question": "Which of the following is the most important reason for an incident response team to develop a formal incident declaration.?",
+    "options": [
+      "To check that an incident be reported through the proper channels.",
+      "To identify and document staff who have the authority to declare incident.",
+      "To allow for public disclosure of a security event impacting the organization.",
+      "To establish the department that responsible for responding the incident."
+    ],
+    "correctAnswer": "To identify and document staff who have the authority to declare incident.",
+    "explanation": "The marked answer 'To identify and document staff who have the authority to declare incident.' is the best choice for this scenario. Review the CySA+ objective related to the question stem and eliminate the distractors that do not address the described activity. (Study note generated for this reviewer; verify against official CySA+ CS0-003 objectives.)",
+    "aiGenerated": true,
+    "bank": "reviewer-2026"
+  },
+  {
+    "id": "cysa-p2-q004",
+    "domain": "Security Operations",
+    "question": "A security analyst is investigating an unusually high volume of request received on a web server. Based on the following command and output. $grep “ 404 “ access_log” …snip 10.2023.10.23 - - [21/May2024/ 13:19:06] “ GET /goodmorningsun HTTP/1.1/ “ 404 - 10.2023.10.23 - - [21/May2024/ 13:19:06] “ GET /newyddion HTTP/1.1” 404 -1 10.2023.10.23 - - [21/May2024/ 13:19:06] “ GET /heartsandminds/ HTTP/1.1” 404 - 10.2023.10.23 - - [21/May2024/ 13:19:06] “ GET / dopey HTTP/1.1” 404 – 10.2023.10.23 - - [21/May2024/ 13:19:06] “ GET /ilovewales HTTP/1.1” 404 – 10.2023.10.23 - - [21/May2024/ 13:19:06] “ GET /n_ireland HTTP/1.1” 404 – 10.2023.10.23 - - [21/May2024/ 13:19:06] “ GET /heavenandearth HTTP/1.1” 404 – 10.2023.10.23 - - [21/May2024/ 13:19:06] “ GET /gormenghast HTTP/1.1” 404 – 10.2023.10.23 - - [21/May2024/ 13:19:06] “ GET /clue HTTP/1.1” 404 – Which of the following best describes the activity that the analyst confirm? A . SQL Injection B. Directory Brute force C. Remote command execution D . Cross site scripting The SOC received a threat intelligence notification indicating that an employees credential were found in the dark web. User’s web and login activities were reviewed for malicious or anomalies connections, data uploads/downloads and exploits. A review of the controls confirmed multifactor authentication was enabled . Which of the following should be done first to mitigate the impact to the business networks and assets",
+    "options": [
+      "Perform a forced password reset.",
+      "Communicate the compromised credentials to the users.",
+      "Perform an ad hoc AV scan on the user’s laptop.",
+      "Review and ensure privileges assigned to the user’s account reflect least privilege."
+    ],
+    "correctAnswer": "Perform a forced password reset.",
+    "explanation": "The marked answer 'Perform a forced password reset.' is the best choice for this scenario. Review the CySA+ objective related to the question stem and eliminate the distractors that do not address the described activity. (Study note generated for this reviewer; verify against official CySA+ CS0-003 objectives.)",
+    "aiGenerated": true,
+    "bank": "reviewer-2026"
+  },
+  {
+    "id": "cysa-p2-q005",
+    "domain": "Reporting and Communication",
+    "question": "Which of the following best describes the reporting metric that should be utilized when measuring the degree to which a system, application or user base is affected by uptime availability outage?",
+    "options": [
+      "Timeline",
+      "Evidence",
+      "Impact --- as per checking",
+      "Scope"
+    ],
+    "correctAnswer": "Scope",
+    "explanation": "The marked answer 'Scope' is the best choice for this scenario. Review the CySA+ objective related to the question stem and eliminate the distractors that do not address the described activity. (Study note generated for this reviewer; verify against official CySA+ CS0-003 objectives.)",
+    "aiGenerated": true,
+    "bank": "reviewer-2026"
+  },
+  {
+    "id": "cysa-p2-q006",
+    "domain": "Reporting and Communication",
+    "question": "Which of the following risk management decisions should be considered after evaluating other options?",
+    "options": [
+      "Transfer",
+      "Acceptance",
+      "Mitigation",
+      "Avoidance"
+    ],
+    "correctAnswer": "Acceptance",
+    "explanation": "The marked answer 'Acceptance' is the best choice for this scenario. Review the CySA+ objective related to the question stem and eliminate the distractors that do not address the described activity. (Study note generated for this reviewer; verify against official CySA+ CS0-003 objectives.)",
+    "aiGenerated": true,
+    "bank": "reviewer-2026"
+  },
+  {
+    "id": "cysa-p2-q007",
+    "domain": "Vulnerability Management",
+    "question": "A security analyst must assist the IT department with creating a phased plan for vulnerability patching that meets established SLA’S. Which of the following vulnerability management elements will be best assist with prioritizing a successful plan ?",
+    "options": [
+      "Affected Hosts",
+      "Risk Score",
+      "Mitigation strategy",
+      "Annual reference"
+    ],
+    "correctAnswer": "Risk Score",
+    "explanation": "The marked answer 'Risk Score' is the best choice for this scenario. Review the CySA+ objective related to the question stem and eliminate the distractors that do not address the described activity. (Study note generated for this reviewer; verify against official CySA+ CS0-003 objectives.)",
+    "aiGenerated": true,
+    "bank": "reviewer-2026"
+  },
+  {
+    "id": "cysa-p2-q008",
+    "domain": "Incident Response and Management",
+    "question": "A user’s click on a malicious adware link, and the malware successfully download to the machine. The malware has a script that invokes command and control activity. Which of the following action is the best way to contain the incident without any additional impact ?",
+    "options": [
+      "Disable the user account until the malware investigation is complete.",
+      "Review the EDR information to determine whether the file was detected and quarantine locally.",
+      "Block the server on the proxy and firewall.",
+      "Submit a recategorization update to the vendor."
+    ],
+    "correctAnswer": "Review the EDR information to determine whether the file was detected and quarantine locally.",
+    "explanation": "The marked answer 'Review the EDR information to determine whether the file was detected and quarantine locally.' is the best choice for this scenario. Review the CySA+ objective related to the question stem and eliminate the distractors that do not address the described activity. (Study note generated for this reviewer; verify against official CySA+ CS0-003 objectives.)",
+    "aiGenerated": true,
+    "bank": "reviewer-2026"
+  },
+  {
+    "id": "cysa-p2-q009",
+    "domain": "Security Operations",
+    "question": "The website of a large retail chain is failing to enforce encrypted HTTPS connections leaving customer account credentials exposed. Which of the following is the best corrective action for resolving the issue?",
+    "options": [
+      "Remove any redirect settings of HTTP connections to HTTPS",
+      "Implement HTTP Strict Transport Security Headers",
+      "Install a self-signed certificate on web server.",
+      "Reduce the default timeout period for all the web- based sessions."
+    ],
+    "correctAnswer": "Implement HTTP Strict Transport Security Headers",
+    "explanation": "The marked answer 'Implement HTTP Strict Transport Security Headers' is the best choice for this scenario. Review the CySA+ objective related to the question stem and eliminate the distractors that do not address the described activity. (Study note generated for this reviewer; verify against official CySA+ CS0-003 objectives.)",
+    "aiGenerated": true,
+    "bank": "reviewer-2026"
+  },
+  {
+    "id": "cysa-p2-q010",
+    "domain": "Security Operations",
+    "question": "A company migrated its email solution from hybrid to on premise only. The administrator made the following changes. Hybrid before migration V=spfi include : cloud. mailprovider.com ip4:200.100.50.25/32 – all On premises V=spfi ip4:200.100.50.25/32 – all A few weeks after the migration multiple clients report that the company’s email are being marked as a spam. The system administrator notices that the spf record has been manipulated by a threat actor who os spoofing the company domain. The unauthorized change. V=spfi include cloud. mailprovider.com. ip4: 100.50.25.10 – all Which of the following explains the reason legitimate emails are being marked as spam?",
+    "options": [
+      "The cloud provider was added back",
+      "The subnet is no longer present with the IP",
+      "The soft fail parameter is causing the issue.",
+      "The company’s IP was removed from the record."
+    ],
+    "correctAnswer": "The company’s IP was removed from the record.",
+    "explanation": "The marked answer 'The company’s IP was removed from the record.' is the best choice for this scenario. Review the CySA+ objective related to the question stem and eliminate the distractors that do not address the described activity. (Study note generated for this reviewer; verify against official CySA+ CS0-003 objectives.)",
+    "aiGenerated": true,
+    "bank": "reviewer-2026"
+  },
+  {
+    "id": "cysa-p2-q011",
+    "domain": "Security Operations",
+    "question": "A security alert was triggered when an end tried to access a website that is not allowed per organizational policy. Since the action is considered a terminable offense, the SOC analyst collects the authentication logs, web logs and temporary files, reflecting the web searches from the user’s workstation, to build case if investigation. Which of the following is the best way to ensure that the investigation complies with HR or privacy policies?",
+    "options": [
+      "Create a timeline of events detailing the date stamps, user account, hostname and IP information associated with the activities.",
+      "Ensure that the case details do not reflect any users – identifiable information. Password protect the evidence and restrict access to personnel related to the investigation.",
+      "Create a code name for the investigation in the ticketing system so that all the personnel with access will not be able easily identify the case as an HR- related investigation.",
+      "Notify the SOC Manager for awareness after confirmation that the activity was intentional."
+    ],
+    "correctAnswer": "Ensure that the case details do not reflect any users – identifiable information. Password protect the evidence and restrict access to personnel related to the investigation.",
+    "explanation": "The marked answer 'Ensure that the case details do not reflect any users – identifiable information. Password protect the evidence and restrict access to personnel related to the investigation.' is the best choice for this scenario. Review the CySA+ objective related to the question stem and eliminate the distractors that do not address the described activity. (Study note generated for this reviewer; verify against official CySA+ CS0-003 objectives.)",
+    "aiGenerated": true,
+    "bank": "reviewer-2026"
+  },
+  {
+    "id": "cysa-p2-q012",
+    "domain": "Incident Response and Management",
+    "question": "An employee submits a ticket that contains the following information to a cybersecurity analyst Ticket Body. Please review this received file via email as its coming from unknown sender and let me know if its safe to open Ticket attached Invoice: 0489934.pdf Which of the following is the best way to help the analyst determine the impact of opening the attachment if the file has been customized for the specific recipient?",
+    "options": [
+      "Execute cuckoo submit Invoice -0489293348.pdf",
+      "Run strings Invoice - 0489293348.pdf",
+      "Submit the sender IP address to AbuseIPDB and review the report.",
+      "Send the IP address found on the small header to VirusTotal."
+    ],
+    "correctAnswer": "Execute cuckoo submit Invoice -0489293348.pdf",
+    "explanation": "The marked answer 'Execute cuckoo submit Invoice -0489293348.pdf' is the best choice for this scenario. Review the CySA+ objective related to the question stem and eliminate the distractors that do not address the described activity. (Study note generated for this reviewer; verify against official CySA+ CS0-003 objectives.)",
+    "aiGenerated": true,
+    "bank": "reviewer-2026"
+  },
+  {
+    "id": "cysa-p2-q013",
+    "domain": "Reporting and Communication",
+    "question": "An organization would like to ensure its cloud infrastructure has a hardened configuration. A requirement is to create a server image that can be deployed with secure template. Which is the following is the best resource to ensure secure configuration?",
+    "options": [
+      "CIS Benchmarks",
+      "PCI DSS",
+      "OWASP Top 10",
+      "ISO27001"
+    ],
+    "correctAnswer": "CIS Benchmarks",
+    "explanation": "The marked answer 'CIS Benchmarks' is the best choice for this scenario. Review the CySA+ objective related to the question stem and eliminate the distractors that do not address the described activity. (Study note generated for this reviewer; verify against official CySA+ CS0-003 objectives.)",
+    "aiGenerated": true,
+    "bank": "reviewer-2026"
+  },
+  {
+    "id": "cysa-p2-q014",
+    "domain": "Reporting and Communication",
+    "question": "Which of the following document sets requirements and metrics for a third-party response during the event?",
+    "options": [
+      "BIA",
+      "DRP",
+      "SLA",
+      "MOU"
+    ],
+    "correctAnswer": "SLA",
+    "explanation": "The marked answer 'SLA' is the best choice for this scenario. Review the CySA+ objective related to the question stem and eliminate the distractors that do not address the described activity. (Study note generated for this reviewer; verify against official CySA+ CS0-003 objectives.)",
+    "aiGenerated": true,
+    "bank": "reviewer-2026"
+  },
+  {
+    "id": "cysa-p2-q015",
+    "domain": "Incident Response and Management",
+    "question": "The architecture team has been given a mandate to reduce the triage time of phishing incidents by 20%. Which of the following solutions will mostly likely help with this effort?",
+    "options": [
+      "Integrate a SOAR platform",
+      "Increase the budget to the security awareness program",
+      "Implement an EDR tool",
+      "Create new correlation rules for the SIEM"
+    ],
+    "correctAnswer": "Integrate a SOAR platform",
+    "explanation": "The marked answer 'Integrate a SOAR platform' is the best choice for this scenario. Review the CySA+ objective related to the question stem and eliminate the distractors that do not address the described activity. (Study note generated for this reviewer; verify against official CySA+ CS0-003 objectives.)",
+    "aiGenerated": true,
+    "bank": "reviewer-2026"
+  },
+  {
+    "id": "cysa-p2-q016",
+    "domain": "Reporting and Communication",
+    "question": "An organization’s chief Information Security Officer (CISO) is organizing a tabletop drill. The CISO has included several other executives in the meeting invitation for the drill, as required. Which of the following is the best reason for including the Chief Communication Officer?",
+    "options": [
+      "Deciding when and how to issue to press releases regarding incidents can minimize damage to the organization brands’ reputation.",
+      "All of the organization’s high – level executives should know about the IT Department ‘s incident response.",
+      "All parties must be able to communicate clearly, concisely and consistently during incident response.",
+      "The CISO would like to increase the security departments visibility to senior executive."
+    ],
+    "correctAnswer": "Deciding when and how to issue to press releases regarding incidents can minimize damage to the organization brands’ reputation.",
+    "explanation": "The marked answer 'Deciding when and how to issue to press releases regarding incidents can minimize damage to the organization brands’ reputation.' is the best choice for this scenario. Review the CySA+ objective related to the question stem and eliminate the distractors that do not address the described activity. (Study note generated for this reviewer; verify against official CySA+ CS0-003 objectives.)",
+    "aiGenerated": true,
+    "bank": "reviewer-2026"
+  },
+  {
+    "id": "cysa-p2-q017",
+    "domain": "Security Operations",
+    "question": "After a series of UEBA alerts, a company SOC observes an extended period of suspicious outbound traffic all with the same destination. Which of the following steps of the Cyber Kill Chain has this attack completed?",
+    "options": [
+      "Weaponization.",
+      "Command and Control",
+      "Reconnaissance",
+      "Exploitation"
+    ],
+    "correctAnswer": "Command and Control",
+    "explanation": "The marked answer 'Command and Control' is the best choice for this scenario. Review the CySA+ objective related to the question stem and eliminate the distractors that do not address the described activity. (Study note generated for this reviewer; verify against official CySA+ CS0-003 objectives.)",
+    "aiGenerated": true,
+    "bank": "reviewer-2026"
+  },
+  {
+    "id": "cysa-p2-q018",
+    "domain": "Reporting and Communication",
+    "question": "A regulated organization experienced a security breached that exposed a list of customer names with corresponding PII data. Which of the following is the best reason for developing the organization’s communication plan ?",
+    "options": [
+      "For organization’s public relations department to have a standard notification",
+      "To ensure incidents are immediately reported to authorities",
+      "To automate the notification to customer who were impacted by the breach.",
+      "To have approval from executive leadership on when communication should occur."
+    ],
+    "correctAnswer": "To have approval from executive leadership on when communication should occur.",
+    "explanation": "The marked answer 'To have approval from executive leadership on when communication should occur.' is the best choice for this scenario. Review the CySA+ objective related to the question stem and eliminate the distractors that do not address the described activity. (Study note generated for this reviewer; verify against official CySA+ CS0-003 objectives.)",
+    "aiGenerated": true,
+    "bank": "reviewer-2026"
+  },
+  {
+    "id": "cysa-p2-q019",
+    "domain": "Incident Response and Management",
+    "question": "Following an incident, a security analyst needs to create a script for downloading the configuration of all assets from the cloud tenancy. Which of the following authentication methods should the analyst use?",
+    "options": [
+      "MFA",
+      "User and password",
+      "Biometric",
+      "Key pair"
+    ],
+    "correctAnswer": "Key pair",
+    "explanation": "The marked answer 'Key pair' is the best choice for this scenario. Review the CySA+ objective related to the question stem and eliminate the distractors that do not address the described activity. (Study note generated for this reviewer; verify against official CySA+ CS0-003 objectives.)",
+    "aiGenerated": true,
+    "bank": "reviewer-2026"
+  },
+  {
+    "id": "cysa-p2-q020",
+    "domain": "Vulnerability Management",
+    "question": "Using open source intelligence gathered from technical forums, a threat actor complies and test a malicious downloader to ensure that it will not be detected by the victim’s organization’s endpoint security protections. Which of the following stages of the Cyber kill chain best aligns with the threat actors’ actions?",
+    "options": [
+      "Delivery",
+      "Reconnaissance",
+      "Exploitation",
+      "Weaponization"
+    ],
+    "correctAnswer": "Weaponization",
+    "explanation": "The marked answer 'Weaponization' is the best choice for this scenario. Review the CySA+ objective related to the question stem and eliminate the distractors that do not address the described activity. (Study note generated for this reviewer; verify against official CySA+ CS0-003 objectives.)",
+    "aiGenerated": true,
+    "bank": "reviewer-2026"
+  },
+  {
+    "id": "cysa-p2-q021",
+    "domain": "Security Operations",
+    "question": "A chief Information Security Officer wants to map all the attack vectors that the company faces each day. Which of the following recommendations should the company align its security controls around?",
+    "options": [
+      "OSSTMM",
+      "Diamond Model of Intrusion Analyst",
+      "OWASP",
+      "Mitre Att&ck"
+    ],
+    "correctAnswer": "Mitre Att&ck",
+    "explanation": "The marked answer 'Mitre Att&ck' is the best choice for this scenario. Review the CySA+ objective related to the question stem and eliminate the distractors that do not address the described activity. (Study note generated for this reviewer; verify against official CySA+ CS0-003 objectives.)",
+    "aiGenerated": true,
+    "bank": "reviewer-2026"
+  },
+  {
+    "id": "cysa-p2-q022",
+    "domain": "Security Operations",
+    "question": "A security analyst discover multiple log entries from recently acquired tool that was bunded as YUM package. Those entries point to attempt of the privilege escalation. Which of the following is the most likely explanation?",
+    "options": [
+      "The package was modified during installation.",
+      "The package was missing critical DLL files.",
+      "The package was corrupted while being downloaded.",
+      "The package was installed without a GPG check."
+    ],
+    "correctAnswer": "The package was installed without a GPG check.",
+    "explanation": "The marked answer 'The package was installed without a GPG check.' is the best choice for this scenario. Review the CySA+ objective related to the question stem and eliminate the distractors that do not address the described activity. (Study note generated for this reviewer; verify against official CySA+ CS0-003 objectives.)",
+    "aiGenerated": true,
+    "bank": "reviewer-2026"
+  },
+  {
+    "id": "cysa-p2-q023",
+    "domain": "Incident Response and Management",
+    "question": "Which of the following is a nation state actor least likely to be concerned with ?",
+    "options": [
+      "Detection by Mitre ATT&ck framework",
+      "Detection or prevention of reconnaissance activities.",
+      "Examination of its section and objectives.",
+      "Forensic analysis for legal actions of the actions taken"
+    ],
+    "correctAnswer": "Forensic analysis for legal actions of the actions taken",
+    "explanation": "The marked answer 'Forensic analysis for legal actions of the actions taken' is the best choice for this scenario. Review the CySA+ objective related to the question stem and eliminate the distractors that do not address the described activity. (Study note generated for this reviewer; verify against official CySA+ CS0-003 objectives.)",
+    "aiGenerated": true,
+    "bank": "reviewer-2026"
+  },
+  {
+    "id": "cysa-p2-q024",
+    "domain": "Security Operations",
+    "question": "Which of the following is circumstances in which security operations manager would mostly likely consider using automations?",
+    "options": [
+      "The generation of NIDS rules based on received STIX messages.",
+      "The fulfillment of privileged access request to enterprise domain controllers.",
+      "The verification of employee identities prior to initial PKI enrollment",
+      "The analysis of suspected malware binaries captured by email getaway."
+    ],
+    "correctAnswer": "The generation of NIDS rules based on received STIX messages.",
+    "explanation": "The marked answer 'The generation of NIDS rules based on received STIX messages.' is the best choice for this scenario. Review the CySA+ objective related to the question stem and eliminate the distractors that do not address the described activity. (Study note generated for this reviewer; verify against official CySA+ CS0-003 objectives.)",
+    "aiGenerated": true,
+    "bank": "reviewer-2026"
+  },
+  {
+    "id": "cysa-p2-q025",
+    "domain": "Vulnerability Management",
+    "question": "An analyst reviews the following list of vulnerabilities. The analyst determined that CVE-2023-8524 is the highest priority for remediation and should be patched immediately. Which of the following did the analyst use to determine the priority of remediation efforts?",
+    "options": [
+      "Context Awareness",
+      "Critically",
+      "Exploit Availability",
+      "Recurrence"
+    ],
+    "correctAnswer": "Context Awareness",
+    "explanation": "The marked answer 'Context Awareness' is the best choice for this scenario. Review the CySA+ objective related to the question stem and eliminate the distractors that do not address the described activity. (Study note generated for this reviewer; verify against official CySA+ CS0-003 objectives.)",
+    "aiGenerated": true,
+    "bank": "reviewer-2026"
+  },
+  {
+    "id": "cysa-p2-q026",
+    "domain": "Incident Response and Management",
+    "question": "An employee accessed a website that caused a device to become infected with invasive malware. The incident response analyst has • Created the initial evidence log. • Disabled the wireless adapter on the device • Interviewed the employee, who was unable to identify the website that was accessed • Reviewed the web proxy traffic logs. Which of the following should the analyst do to remediate the infected device?",
+    "options": [
+      "Update the system firmware and reimage the hardware",
+      "Install an additional malware scanner that will send email alerts to the analyst.",
+      "Configure the system to use a proxy server for internet access.",
+      "Delete the user profile and restore data from backup."
+    ],
+    "correctAnswer": "Update the system firmware and reimage the hardware",
+    "explanation": "The marked answer 'Update the system firmware and reimage the hardware' is the best choice for this scenario. Review the CySA+ objective related to the question stem and eliminate the distractors that do not address the described activity. (Study note generated for this reviewer; verify against official CySA+ CS0-003 objectives.)",
+    "aiGenerated": true,
+    "bank": "reviewer-2026"
+  },
+  {
+    "id": "cysa-p2-q027",
+    "domain": "Reporting and Communication",
+    "question": "A company’s security team is updating a section of reporting policy that pertains to inappropriate use of resources (e.g an employee who install crypto miner on workstations in the office) Besides, the security team which of the following groups should be the issue be escalated to first in order to comply with the industry best practice ?",
+    "options": [
+      "Help Desk",
+      "Law enforcement",
+      "Legal Department",
+      "Board Member"
+    ],
+    "correctAnswer": "Legal Department",
+    "explanation": "The marked answer 'Legal Department' is the best choice for this scenario. Review the CySA+ objective related to the question stem and eliminate the distractors that do not address the described activity. (Study note generated for this reviewer; verify against official CySA+ CS0-003 objectives.)",
+    "aiGenerated": true,
+    "bank": "reviewer-2026"
+  },
+  {
+    "id": "cysa-p2-q028",
+    "domain": "Security Operations",
+    "question": "An analyst reviews the following web server log entries. %2E%2E/%2E%2E/%2E%2E/%2E%2E/%2E%2E/%2E%2E/etc/passwd No attacks of malicious attempts have been discovered. Which of the following most likely describes what took place ?",
+    "options": [
+      "A SQL injections query took place to gather information from a sensitive file.",
+      "A PHP injection was leveraged to ensure that the sensitive file could be accessed",
+      "Base64 was used to prevent the IPS from detecting the fully encoded strings",
+      "Directory traversal was performed to obtain a sensitive file for further reconnaissance"
+    ],
+    "correctAnswer": "Directory traversal was performed to obtain a sensitive file for further reconnaissance",
+    "explanation": "The marked answer 'Directory traversal was performed to obtain a sensitive file for further reconnaissance' is the best choice for this scenario. Review the CySA+ objective related to the question stem and eliminate the distractors that do not address the described activity. (Study note generated for this reviewer; verify against official CySA+ CS0-003 objectives.)",
+    "aiGenerated": true,
+    "bank": "reviewer-2026"
+  },
+  {
+    "id": "cysa-p2-q029",
+    "domain": "Vulnerability Management",
+    "question": "A vulnerability scan of web server that is exposed to the internet was recently completed . A security analyst reviewing the resulting vector string. Vulnerability 1: CVSS: 3.0/AV: N/AC: L/PR: N/UI: N/S: U/C:H/I: L/A: L Vulnerability 2: CVSS: 3.0/AV:L/AC:H/PR:N/UI:N/S:U/C:L/I:L/A:H Vulnerability 3: CVSS: 3.0/AV:A/AC:H/PR:L/UI:R/S:U/C:L/I:H/A:L Vulnerability 4: CVSS: 3.0/AV:P/AC:L/PR:H/UI:N/S:U/C:H/I:N/A:L Which of the following vulnerabilities should be patched first?",
+    "options": [
+      "Vulnerability 1",
+      "Vulnerability 2",
+      "Vulnerability 3",
+      "Vulnerability 4"
+    ],
+    "correctAnswer": "Vulnerability 1",
+    "explanation": "The marked answer 'Vulnerability 1' is the best choice for this scenario. Review the CySA+ objective related to the question stem and eliminate the distractors that do not address the described activity. (Study note generated for this reviewer; verify against official CySA+ CS0-003 objectives.)",
+    "aiGenerated": true,
+    "bank": "reviewer-2026"
+  },
+  {
+    "id": "cysa-p2-q030",
+    "domain": "Security Operations",
+    "question": "A user account triggers SIEM for improbable travel due to initial login from San Francisco and another login from Seattle a short time later. The user is not expected to be travelling . Which of the following should a security analyst do next?",
+    "options": [
+      "Review the tickets associated with this user to see whether their authentication activity has triggered false positive alerts in the past.",
+      "Use web security tools to identify the service providers, security risks, and malicious activity that may be associated with the IP. - Upon checking",
+      "Monitor the user account activities to check for access attempts to various resources and data exfiltration via web activity or emails.",
+      "Review the threat intelligence data to see whether the employee’s information has recently been part of credential leak."
+    ],
+    "correctAnswer": "Monitor the user account activities to check for access attempts to various resources and data exfiltration via web activity or emails.",
+    "explanation": "The marked answer 'Monitor the user account activities to check for access attempts to various resources and data exfiltration via web activity or emails.' is the best choice for this scenario. Review the CySA+ objective related to the question stem and eliminate the distractors that do not address the described activity. (Study note generated for this reviewer; verify against official CySA+ CS0-003 objectives.)",
+    "aiGenerated": true,
+    "bank": "reviewer-2026"
+  },
+  {
+    "id": "cysa-p2-q031",
+    "domain": "Security Operations",
+    "question": "A SOC analyst is analyzing traffic on a network and notices an unauthorized scan. Which of the following types of activities is being observed?",
+    "options": [
+      "Potential precursor to an attack",
+      "Unauthorized peer to peer communication",
+      "Rogue device on the network.",
+      "System updates."
+    ],
+    "correctAnswer": "Potential precursor to an attack",
+    "explanation": "The marked answer 'Potential precursor to an attack' is the best choice for this scenario. Review the CySA+ objective related to the question stem and eliminate the distractors that do not address the described activity. (Study note generated for this reviewer; verify against official CySA+ CS0-003 objectives.)",
+    "aiGenerated": true,
+    "bank": "reviewer-2026"
+  },
+  {
+    "id": "cysa-p2-q032",
+    "domain": "Incident Response and Management",
+    "question": "To comply with regulatory requirements the Chief Executive Officer (CEO) must lead the company through simulations to find which steps are missing in emergency situations or incident processes. Which of the following should the CEO do?",
+    "options": [
+      "Implement the incident response plan.",
+      "Leverage the appropriate playbook",
+      "Develop a business continuity plan",
+      "Perform a tabletop exercise."
+    ],
+    "correctAnswer": "Perform a tabletop exercise.",
+    "explanation": "The marked answer 'Perform a tabletop exercise.' is the best choice for this scenario. Review the CySA+ objective related to the question stem and eliminate the distractors that do not address the described activity. (Study note generated for this reviewer; verify against official CySA+ CS0-003 objectives.)",
+    "aiGenerated": true,
+    "bank": "reviewer-2026"
+  },
+  {
+    "id": "cysa-p2-q033",
+    "domain": "Security Operations",
+    "question": "A security analyst is working on a suspicious email forward from a user. The email contains an attachment asking the user to open it. Which of the following should the security analyst review to best determine email authentication and attack origin?",
+    "options": [
+      "DMARC",
+      "SMTP",
+      "Joe Sandbox",
+      "URL rewriting"
+    ],
+    "correctAnswer": "SMTP",
+    "explanation": "The marked answer 'SMTP' is the best choice for this scenario. Review the CySA+ objective related to the question stem and eliminate the distractors that do not address the described activity. (Study note generated for this reviewer; verify against official CySA+ CS0-003 objectives.)",
+    "aiGenerated": true,
+    "bank": "reviewer-2026"
+  },
+  {
+    "id": "cysa-p2-q034",
+    "domain": "Incident Response and Management",
+    "question": "A security analyst is implementing a process to perform vulnerability management on an OT environment • System must remain on an isolated network. • No additional software can be deployed on the system • The process should be focus on external threats. • Transmitted packets cannot be modified or dropped • Additional processing delays are not tolerated. Which of the following is the best way to securely meet the requirements?",
+    "options": [
+      "Implement agentless sensors at the network edge",
+      "Use reverse engineering to detect flaws on the in-scope systems.",
+      "Deploy an IPS in line with the network traffic.",
+      "Check the compatibility of an EDR agent with OS used on the OT environment ."
+    ],
+    "correctAnswer": "Check the compatibility of an EDR agent with OS used on the OT environment .",
+    "explanation": "The marked answer 'Check the compatibility of an EDR agent with OS used on the OT environment .' is the best choice for this scenario. Review the CySA+ objective related to the question stem and eliminate the distractors that do not address the described activity. (Study note generated for this reviewer; verify against official CySA+ CS0-003 objectives.)",
+    "aiGenerated": true,
+    "bank": "reviewer-2026"
+  },
+  {
+    "id": "cysa-p2-q035",
+    "domain": "Incident Response and Management",
+    "question": "An analyst is imaging the hard drive that was obtained from the system of an employee who is suspected of going rogue. The analyst notes that the initial hash of the evidence drive does not match the resultant hash of the imaged copy. Which of the following best describes the reason for the conflicting investigative findings?",
+    "options": [
+      "Chain of custody was not maintained for the evidence drive.",
+      "Legal authorization was not obtained prior to seizing the evidence drive.",
+      "Data integrity of the imaged drive could not be verified.",
+      "Evidence drive imaging was performed without a write blocker."
+    ],
+    "correctAnswer": "Evidence drive imaging was performed without a write blocker.",
+    "explanation": "The marked answer 'Evidence drive imaging was performed without a write blocker.' is the best choice for this scenario. Review the CySA+ objective related to the question stem and eliminate the distractors that do not address the described activity. (Study note generated for this reviewer; verify against official CySA+ CS0-003 objectives.)",
+    "aiGenerated": true,
+    "bank": "reviewer-2026"
+  },
+  {
+    "id": "cysa-p2-q036",
+    "domain": "Security Operations",
+    "question": "When undertaking a cloud migration of Saas application, an organization system administration struggled with complexity of extending identity and access management in cloud-based assets. Which of the following service models would have reduce the complexity of this project?",
+    "options": [
+      "RADIUS",
+      "SDN",
+      "ZTNA",
+      "SWG"
+    ],
+    "correctAnswer": "ZTNA",
+    "explanation": "The marked answer 'ZTNA' is the best choice for this scenario. Review the CySA+ objective related to the question stem and eliminate the distractors that do not address the described activity. (Study note generated for this reviewer; verify against official CySA+ CS0-003 objectives.)",
+    "aiGenerated": true,
+    "bank": "reviewer-2026"
+  },
+  {
+    "id": "cysa-p2-q037",
+    "domain": "Reporting and Communication",
+    "question": "Which of the following is best suited for determining the methods of an adversary?",
+    "options": [
+      "OWASP",
+      "Penetration Test Framework",
+      "OSSITM",
+      "Diamond Model of Intrusion Analysis."
+    ],
+    "correctAnswer": "OWASP",
+    "explanation": "The marked answer 'OWASP' is the best choice for this scenario. Review the CySA+ objective related to the question stem and eliminate the distractors that do not address the described activity. (Study note generated for this reviewer; verify against official CySA+ CS0-003 objectives.)",
+    "aiGenerated": true,
+    "bank": "reviewer-2026"
+  },
+  {
+    "id": "cysa-p2-q038",
+    "domain": "Security Operations",
+    "question": "Which of the following would help an analyst to quickly find out whether the IP address in SIEM alert is known malicious IP address?",
+    "options": [
+      "Join an information sharing and analyst center specific to the company’s industry.",
+      "Upload threat intelligence to the IPS in STIX/TAXII format.",
+      "Add data enrichment for IP’s in the ingestion pipeline.",
+      "Review the threat feeds after viewing the SIEM alert."
+    ],
+    "correctAnswer": "Review the threat feeds after viewing the SIEM alert.",
+    "explanation": "The marked answer 'Review the threat feeds after viewing the SIEM alert.' is the best choice for this scenario. Review the CySA+ objective related to the question stem and eliminate the distractors that do not address the described activity. (Study note generated for this reviewer; verify against official CySA+ CS0-003 objectives.)",
+    "aiGenerated": true,
+    "bank": "reviewer-2026"
+  },
+  {
+    "id": "cysa-p2-q039",
+    "domain": "Reporting and Communication",
+    "question": "A security analyst is assessing the security of a cloud environment. The following output is generated when the assessment ruins • Authentication error • Instance not found on present location Which of the following should the analyst use to fix the issue?",
+    "options": [
+      "Run module_name and exec <module_name>",
+      "session < session_name and exec < module_name>",
+      "set_regions <region1> and set_key",
+      "whoami and –data <service_name>"
+    ],
+    "correctAnswer": "set_regions <region1> and set_key",
+    "explanation": "The marked answer 'set_regions <region1> and set_key' is the best choice for this scenario. Review the CySA+ objective related to the question stem and eliminate the distractors that do not address the described activity. (Study note generated for this reviewer; verify against official CySA+ CS0-003 objectives.)",
+    "aiGenerated": true,
+    "bank": "reviewer-2026"
+  },
+  {
+    "id": "cysa-p2-q040",
+    "domain": "Vulnerability Management",
+    "question": "A security analyst needs to provide evidence of regular vulnerability scanning on the company’s network for an auditing. Which of the following is an example of a tool that can produce such evidence?",
+    "options": [
+      "OpenVAS",
+      "Burp Suite",
+      "Nmap",
+      "Wireshark"
+    ],
+    "correctAnswer": "OpenVAS",
+    "explanation": "The marked answer 'OpenVAS' is the best choice for this scenario. Review the CySA+ objective related to the question stem and eliminate the distractors that do not address the described activity. (Study note generated for this reviewer; verify against official CySA+ CS0-003 objectives.)",
+    "aiGenerated": true,
+    "bank": "reviewer-2026"
+  },
+  {
+    "id": "cysa-p2-q041",
+    "domain": "Reporting and Communication",
+    "question": "Executives want compare certain metrics from the most recent and last reporting periods to determine whether metrics are increasing or decreasing. Which of the following would provide the necessary information to satisfy the request?",
+    "options": [
+      "Count Level",
+      "Trending Analysis",
+      "Impact Assessment",
+      "Severity Score"
+    ],
+    "correctAnswer": "Trending Analysis",
+    "explanation": "The marked answer 'Trending Analysis' is the best choice for this scenario. Review the CySA+ objective related to the question stem and eliminate the distractors that do not address the described activity. (Study note generated for this reviewer; verify against official CySA+ CS0-003 objectives.)",
+    "aiGenerated": true,
+    "bank": "reviewer-2026"
+  },
+  {
+    "id": "cysa-p2-q042",
+    "domain": "Security Operations",
+    "question": "Which of the following best describes the benefit of implementing PAM solution?",
+    "options": [
+      "Measuring and validating the integrity of the database.",
+      "Controlling and monitoring the use of administrative accounts.",
+      "Storing protecting PKI certificate private keys.",
+      "Configuring and enforcing password complexity requirements."
+    ],
+    "correctAnswer": "Controlling and monitoring the use of administrative accounts.",
+    "explanation": "The marked answer 'Controlling and monitoring the use of administrative accounts.' is the best choice for this scenario. Review the CySA+ objective related to the question stem and eliminate the distractors that do not address the described activity. (Study note generated for this reviewer; verify against official CySA+ CS0-003 objectives.)",
+    "aiGenerated": true,
+    "bank": "reviewer-2026"
+  },
+  {
+    "id": "cysa-p2-q043",
+    "domain": "Incident Response and Management",
+    "question": "A security analyst provides the management team with an after action report for a security incident. which of the following is the management team most likely to review in order to correct validated issues with the incident response process?",
+    "options": [
+      "Tabletop exercise",
+      "Lessson Learned",
+      "Root cause analysis",
+      "Forensic Analysis"
+    ],
+    "correctAnswer": "Lessson Learned",
+    "explanation": "The marked answer 'Lessson Learned' is the best choice for this scenario. Review the CySA+ objective related to the question stem and eliminate the distractors that do not address the described activity. (Study note generated for this reviewer; verify against official CySA+ CS0-003 objectives.)",
+    "aiGenerated": true,
+    "bank": "reviewer-2026"
+  },
+  {
+    "id": "cysa-p2-q044",
+    "domain": "Security Operations",
+    "question": "The Chief Information Officer (CIO) is requiring users to phase out a legacy system that no longer receives security updates because the systems will be decommissioned soon. Which of the following risk management strategies is the CIO using ?",
+    "options": [
+      "Avoidance",
+      "Mitigate",
+      "Acceptance",
+      "Transference"
+    ],
+    "correctAnswer": "Avoidance",
+    "explanation": "The marked answer 'Avoidance' is the best choice for this scenario. Review the CySA+ objective related to the question stem and eliminate the distractors that do not address the described activity. (Study note generated for this reviewer; verify against official CySA+ CS0-003 objectives.)",
+    "aiGenerated": true,
+    "bank": "reviewer-2026"
+  },
+  {
+    "id": "cysa-p2-q045",
+    "domain": "Incident Response and Management",
+    "question": "Which of the following best the reasons a root cause analysis is an important part of incident response process?",
+    "options": [
+      "Compliance teams can be legally required to conduct a post-incident root cause analysis to satisfy regulatory requirements.",
+      "Response teams can be used the analysis to isolate a system while the incident is ongoing to prevent further contamination",
+      "The organization can use the results of the analysis to provide stakeholders with assurances the customer data was disclosed.",
+      "The leadership team can be better allocated resources to address systemic issues that span multiple groups in an organization."
+    ],
+    "correctAnswer": "Response teams can be used the analysis to isolate a system while the incident is ongoing to prevent further contamination",
+    "explanation": "The marked answer 'Response teams can be used the analysis to isolate a system while the incident is ongoing to prevent further contamination' is the best choice for this scenario. Review the CySA+ objective related to the question stem and eliminate the distractors that do not address the described activity. (Study note generated for this reviewer; verify against official CySA+ CS0-003 objectives.)",
+    "aiGenerated": true,
+    "bank": "reviewer-2026"
+  },
+  {
+    "id": "cysa-p2-q046",
+    "domain": "Reporting and Communication",
+    "question": "A SOC manager reviews metrics from the last four weeks to investigate a recurring availability issue. The managers find similar events correlating to the times of the reported issues. Which of the following methods would the manager most likely use to resolve the issues?",
+    "options": [
+      "Vulnerability assessment",
+      "Root cause analysis",
+      "Recurrence Reports",
+      "Lesson Learned."
+    ],
+    "correctAnswer": "Recurrence Reports",
+    "explanation": "The marked answer 'Recurrence Reports' is the best choice for this scenario. Review the CySA+ objective related to the question stem and eliminate the distractors that do not address the described activity. (Study note generated for this reviewer; verify against official CySA+ CS0-003 objectives.)",
+    "aiGenerated": true,
+    "bank": "reviewer-2026"
+  },
+  {
+    "id": "cysa-p2-q047",
+    "domain": "Incident Response and Management",
+    "question": "A user clicks on a malicious adware link and malware successfully downloads to the machine. The malware has a script that invokes command and controls activity. Which of the following actions is the best way to contain the incident without any additional impact?",
+    "options": [
+      "Disable the user account until the malware investigation is complete.",
+      "Review EDR information to determine whether the file was detected and quarantined locally",
+      "Block the server on the proxy and firewall.",
+      "Submit a recategorization update to the vendor"
+    ],
+    "correctAnswer": "Review EDR information to determine whether the file was detected and quarantined locally",
+    "explanation": "The marked answer 'Review EDR information to determine whether the file was detected and quarantined locally' is the best choice for this scenario. Review the CySA+ objective related to the question stem and eliminate the distractors that do not address the described activity. (Study note generated for this reviewer; verify against official CySA+ CS0-003 objectives.)",
+    "aiGenerated": true,
+    "bank": "reviewer-2026"
+  },
+  {
+    "id": "cysa-p2-q048",
+    "domain": "Security Operations",
+    "question": "A SOC analyst observes reconnaissance activity from an IP address. The activity follows a pattern of a short burst toward a low number of targets. An open source review shows that the IP has a bad reputation. The perimeter firewall logs indicate the inbound traffic was allowed. The destination hosts are high value assets with EDR agents installed. Which of the following is the best actions for the SOC to take to protect against any further the source IP ?",
+    "options": [
+      "Add the IP address for to the EDR deny list",
+      "Create a SIEM signature to trigger on any activity from the source IP subnet detected by the web proxy or firewalls for immediate notifications.",
+      "Implement a prevention policy for IP on the firewall.",
+      "Activate the scan signature for the IP on the NGFWS"
+    ],
+    "correctAnswer": "Implement a prevention policy for IP on the firewall.",
+    "explanation": "The marked answer 'Implement a prevention policy for IP on the firewall.' is the best choice for this scenario. Review the CySA+ objective related to the question stem and eliminate the distractors that do not address the described activity. (Study note generated for this reviewer; verify against official CySA+ CS0-003 objectives.)",
+    "aiGenerated": true,
+    "bank": "reviewer-2026"
+  },
+  {
+    "id": "cysa-p2-q049",
+    "domain": "Vulnerability Management",
+    "question": "A security administrator is tasked with modifying the vulnerability scan process to reduce the networks traffic but maintain through checks. Which of the following scanning approaches should be implemented?",
+    "options": [
+      "Credentialed scans",
+      "Individual scans",
+      "Security Baseline scans",
+      "Agent based scans"
+    ],
+    "correctAnswer": "Agent based scans",
+    "explanation": "The marked answer 'Agent based scans' is the best choice for this scenario. Review the CySA+ objective related to the question stem and eliminate the distractors that do not address the described activity. (Study note generated for this reviewer; verify against official CySA+ CS0-003 objectives.)",
+    "aiGenerated": true,
+    "bank": "reviewer-2026"
+  },
+  {
+    "id": "cysa-p2-q050",
+    "domain": "Security Operations",
+    "question": "Which of the following is a circumstance in which a security operations manager would most likely consider using automation?",
+    "options": [
+      "The generation of NIDS rules based on received STIX messages.",
+      "The fulfillment of privileged access request to enterprise domain controllers.",
+      "The verification of employee identities prior to initial PKI enrollment",
+      "The analysis of suspected malware binaries captured by an email gateway."
+    ],
+    "correctAnswer": "The generation of NIDS rules based on received STIX messages.",
+    "explanation": "The marked answer 'The generation of NIDS rules based on received STIX messages.' is the best choice for this scenario. Review the CySA+ objective related to the question stem and eliminate the distractors that do not address the described activity. (Study note generated for this reviewer; verify against official CySA+ CS0-003 objectives.)",
+    "aiGenerated": true,
+    "bank": "reviewer-2026"
+  },
+  {
+    "id": "cysa-p2-q051",
+    "domain": "Incident Response and Management",
+    "question": "A third-party assessment of a recent incident determined that the incident response team spent too long trying to get the scope needed for the incident timeline and too much time was spent searching for false positives. Which of the following should the team work on first?",
+    "options": [
+      "Playbook edits",
+      "Ticket system automation",
+      "Detection Tuning",
+      "Standard Operating procedure refinement."
+    ],
+    "correctAnswer": "Standard Operating procedure refinement.",
+    "explanation": "The marked answer 'Standard Operating procedure refinement.' is the best choice for this scenario. Review the CySA+ objective related to the question stem and eliminate the distractors that do not address the described activity. (Study note generated for this reviewer; verify against official CySA+ CS0-003 objectives.)",
+    "aiGenerated": true,
+    "bank": "reviewer-2026"
+  },
+  {
+    "id": "cysa-p2-q052",
+    "domain": "Security Operations",
+    "question": "Users report issues accessing certain web application server on non-standard ports. The security team reports that the web application firewalls (WAF’S) do not block any traffic within the network. Endpoint detection and response (EDR) solutions do not report any alerts related to this traffic . Which of the following tools will most likely help identity the root cause of the access issues with these specific users?",
+    "options": [
+      "Tcpdump",
+      "Wireshark",
+      "MXToolBox",
+      "Virustotal"
+    ],
+    "correctAnswer": "Wireshark",
+    "explanation": "The marked answer 'Wireshark' is the best choice for this scenario. Review the CySA+ objective related to the question stem and eliminate the distractors that do not address the described activity. (Study note generated for this reviewer; verify against official CySA+ CS0-003 objectives.)",
+    "aiGenerated": true,
+    "bank": "reviewer-2026"
+  },
+  {
+    "id": "cysa-p2-q053",
+    "domain": "Incident Response and Management",
+    "question": "An organization is preparing for a disaster recovery exercise. Which of the following actions should be implemented first?",
+    "options": [
+      "Gather all internal stakeholders and review the actors according to the defined incident playbook.",
+      "Coordinate the supporting staff for the recovery process to ensure availability at the recovery site",
+      "Ensure that the vendors for the disaster recovery site is scheduled to support recovery",
+      "Identity a business-critical system and test by failing over the disabled recovery location."
+    ],
+    "correctAnswer": "Identity a business-critical system and test by failing over the disabled recovery location.",
+    "explanation": "The marked answer 'Identity a business-critical system and test by failing over the disabled recovery location.' is the best choice for this scenario. Review the CySA+ objective related to the question stem and eliminate the distractors that do not address the described activity. (Study note generated for this reviewer; verify against official CySA+ CS0-003 objectives.)",
+    "aiGenerated": true,
+    "bank": "reviewer-2026"
+  },
+  {
+    "id": "cysa-p2-q054",
+    "domain": "Security Operations",
+    "question": "A Chief Information Security Officer wants to map all of the attack vectors that the company faces each day. Which of the following recommendations should the company align its security controls around?",
+    "options": [
+      "OSSTMM",
+      "Diamond Model of Intrusion Analysis",
+      "OWASP",
+      "Mitre ATT&CK"
+    ],
+    "correctAnswer": "Mitre ATT&CK",
+    "explanation": "The marked answer 'Mitre ATT&CK' is the best choice for this scenario. Review the CySA+ objective related to the question stem and eliminate the distractors that do not address the described activity. (Study note generated for this reviewer; verify against official CySA+ CS0-003 objectives.)",
+    "aiGenerated": true,
+    "bank": "reviewer-2026"
+  },
+  {
+    "id": "cysa-p2-q055",
+    "domain": "Incident Response and Management",
+    "question": "Which of the following best describes the importance of KPI’S in an incident response exercise ?",
+    "options": [
+      "To identify the personal performance of each analyst",
+      "To describe how incident were resolved",
+      "To reveal what the team needs to prioritize",
+      "To expose which tools should be used."
+    ],
+    "correctAnswer": "To reveal what the team needs to prioritize",
+    "explanation": "The marked answer 'To reveal what the team needs to prioritize' is the best choice for this scenario. Review the CySA+ objective related to the question stem and eliminate the distractors that do not address the described activity. (Study note generated for this reviewer; verify against official CySA+ CS0-003 objectives.)",
+    "aiGenerated": true,
+    "bank": "reviewer-2026"
+  },
+  {
+    "id": "cysa-p2-q056",
+    "domain": "Security Operations",
+    "question": "The SOC received a threat intelligence notification indicating that an employee’s credential was found on the dark web. The user’s web and login activities were reviewed for malicious or anomalous connections, data uploads/downloads and exploits. A review of controls confirmed multifactors authentications was enabled. Which of the following should be done first to mitigate impact to the business networks and assets?",
+    "options": [
+      "Perform a forced password reset",
+      "Communicate the compromised credentials to the users",
+      "Perform an ad hoc AV scan on the user’s laptop",
+      "Review and ensure privileges assigned to the user’s account reflect least privileges"
+    ],
+    "correctAnswer": "Perform a forced password reset",
+    "explanation": "The marked answer 'Perform a forced password reset' is the best choice for this scenario. Review the CySA+ objective related to the question stem and eliminate the distractors that do not address the described activity. (Study note generated for this reviewer; verify against official CySA+ CS0-003 objectives.)",
+    "aiGenerated": true,
+    "bank": "reviewer-2026"
+  },
+  {
+    "id": "cysa-p2-q057",
+    "domain": "Security Operations",
+    "question": "Which of the following user simulated traffic to a website to evaluate performance?",
+    "options": [
+      "Log analysis",
+      "War gaming",
+      "Synthetic monitoring",
+      "Packet inspection."
+    ],
+    "correctAnswer": "Packet inspection.",
+    "explanation": "The marked answer 'Packet inspection.' is the best choice for this scenario. Review the CySA+ objective related to the question stem and eliminate the distractors that do not address the described activity. (Study note generated for this reviewer; verify against official CySA+ CS0-003 objectives.)",
+    "aiGenerated": true,
+    "bank": "reviewer-2026"
+  },
+  {
+    "id": "cysa-p2-q058",
+    "domain": "Incident Response and Management",
+    "question": "Which of the following is a reason why a SOC team members might spend extra time on a route incident prior to closing it ?",
+    "options": [
+      "To allow another team member to manage more tickets.",
+      "To increase the mean time to respond metric",
+      "To write report classifying the incident within the Mitre Att&ck framework",
+      "To create an automated process for handling if the next time."
+    ],
+    "correctAnswer": "To increase the mean time to respond metric",
+    "explanation": "The marked answer 'To increase the mean time to respond metric' is the best choice for this scenario. Review the CySA+ objective related to the question stem and eliminate the distractors that do not address the described activity. (Study note generated for this reviewer; verify against official CySA+ CS0-003 objectives.)",
+    "aiGenerated": true,
+    "bank": "reviewer-2026"
+  },
+  {
+    "id": "cysa-p2-q059",
+    "domain": "Incident Response and Management",
+    "question": "A security manager reviews the permission for the approved users of a shared folder and finds accounts that are not approved access list. While investigating an incident, a user discover data discrepancies in the file. Which of the following best describes this activity ?",
+    "options": [
+      "Filesystem anomaly",
+      "Illegal software",
+      "Unauthorized Changes",
+      "Data exfiltration"
+    ],
+    "correctAnswer": "Unauthorized Changes",
+    "explanation": "The marked answer 'Unauthorized Changes' is the best choice for this scenario. Review the CySA+ objective related to the question stem and eliminate the distractors that do not address the described activity. (Study note generated for this reviewer; verify against official CySA+ CS0-003 objectives.)",
+    "aiGenerated": true,
+    "bank": "reviewer-2026"
+  },
+  {
+    "id": "cysa-p2-q060",
+    "domain": "Incident Response and Management",
+    "question": "A user’s computer is performing slower than the day before and unexpected windows continually open and close. The users did not install any new programs and after the user restarted the desktop, the issue was not resolved. Which of the following incident response actions should be taken next?",
+    "options": [
+      "Restart in safe mode and start virus scan",
+      "Disconnect from the network and leave the PC turned on",
+      "Contain the device and implement a legal hold",
+      "Reformat the reimage the OS."
+    ],
+    "correctAnswer": "Restart in safe mode and start virus scan",
+    "explanation": "The marked answer 'Restart in safe mode and start virus scan' is the best choice for this scenario. Review the CySA+ objective related to the question stem and eliminate the distractors that do not address the described activity. (Study note generated for this reviewer; verify against official CySA+ CS0-003 objectives.)",
+    "aiGenerated": true,
+    "bank": "reviewer-2026"
+  },
+  {
+    "id": "cysa-p2-q061",
+    "domain": "Incident Response and Management",
+    "question": "An incident response manager conducts a tabletop exercise. Which of the following steps should be incident response manager take next?",
+    "options": [
+      "Containment",
+      "Response",
+      "Lesson Learned",
+      "Root cause analysis"
+    ],
+    "correctAnswer": "Lesson Learned",
+    "explanation": "The marked answer 'Lesson Learned' is the best choice for this scenario. Review the CySA+ objective related to the question stem and eliminate the distractors that do not address the described activity. (Study note generated for this reviewer; verify against official CySA+ CS0-003 objectives.)",
+    "aiGenerated": true,
+    "bank": "reviewer-2026"
+  },
+  {
+    "id": "cysa-p2-q062",
+    "domain": "Security Operations",
+    "question": "Which of the following technique would compensate for a time offset already logged events?",
+    "options": [
+      "Time normalization",
+      "Time synchronization",
+      "Time compensation",
+      "Time optimization"
+    ],
+    "correctAnswer": "Time compensation",
+    "explanation": "The marked answer 'Time compensation' is the best choice for this scenario. Review the CySA+ objective related to the question stem and eliminate the distractors that do not address the described activity. (Study note generated for this reviewer; verify against official CySA+ CS0-003 objectives.)",
+    "aiGenerated": true,
+    "bank": "reviewer-2026"
+  },
+  {
+    "id": "cysa-p2-q063",
+    "domain": "Vulnerability Management",
+    "question": "A security analyst is improving an organization’s vulnerability management program. The analyst cross-checks the current reports with the system’s infrastructure teams, but the reports do not accurately reflect the current patching levels. Which of the following will most likely correct report errors?",
+    "options": [
+      "Updating the engine of the vulnerability scanning tool",
+      "Installing patches through a centralized system",
+      "Configuring vulnerability scans to be centralized",
+      "Resetting the scanning tools plug in the defaults"
+    ],
+    "correctAnswer": "Installing patches through a centralized system",
+    "explanation": "The marked answer 'Installing patches through a centralized system' is the best choice for this scenario. Review the CySA+ objective related to the question stem and eliminate the distractors that do not address the described activity. (Study note generated for this reviewer; verify against official CySA+ CS0-003 objectives.)",
+    "aiGenerated": true,
+    "bank": "reviewer-2026"
+  },
+  {
+    "id": "cysa-p2-q064",
+    "domain": "Security Operations",
+    "question": "A security center operation analyst must determine which treat actor is targeting their industry based on similar attack vectors. Which of the following provides the best intelligence for attributor?",
+    "options": [
+      "AbuseIP",
+      "Spoofing, tampering, repudiation, information disclosure, denial of service and elevation of privilege",
+      "Tactics, Technique and procedures.",
+      "Internal Protocols"
+    ],
+    "correctAnswer": "Tactics, Technique and procedures.",
+    "explanation": "The marked answer 'Tactics, Technique and procedures.' is the best choice for this scenario. Review the CySA+ objective related to the question stem and eliminate the distractors that do not address the described activity. (Study note generated for this reviewer; verify against official CySA+ CS0-003 objectives.)",
+    "aiGenerated": true,
+    "bank": "reviewer-2026"
+  },
+  {
+    "id": "cysa-p2-q065",
+    "domain": "Vulnerability Management",
+    "question": "Several critical bugs were identified during a vulnerability scan. The SLA risk requirement is that all critical vulnerabilities should be patched within 24 hours. After sending a notification to the asset owners, the patch cannot be deployed due to planned, routine system upgrades. Which of the following is the best method to remediate the bugs?",
+    "options": [
+      "Reschedule the upgrade and deploy the patch",
+      "Request an exception to exclude the patch installation",
+      "Update the risk register and request a change to the SLA",
+      "Notify the incident response team and rerun the vulnerability scan"
+    ],
+    "correctAnswer": "Request an exception to exclude the patch installation",
+    "explanation": "The marked answer 'Request an exception to exclude the patch installation' is the best choice for this scenario. Review the CySA+ objective related to the question stem and eliminate the distractors that do not address the described activity. (Study note generated for this reviewer; verify against official CySA+ CS0-003 objectives.)",
+    "aiGenerated": true,
+    "bank": "reviewer-2026"
+  },
+  {
+    "id": "cysa-p2-q066",
+    "domain": "Vulnerability Management",
+    "question": "A security analyst has found a moderate risk item in an organization’s point of sale application. The organization is currently in a change freeze windows and has decided that the risk is not a high to correct at this time. Which of the following inhibitors to remediation does the scenario illustrate?",
+    "options": [
+      "Service level agreement",
+      "Business process interruption",
+      "Degrading functionality",
+      "Proprietary System"
+    ],
+    "correctAnswer": "Business process interruption",
+    "explanation": "The marked answer 'Business process interruption' is the best choice for this scenario. Review the CySA+ objective related to the question stem and eliminate the distractors that do not address the described activity. (Study note generated for this reviewer; verify against official CySA+ CS0-003 objectives.)",
+    "aiGenerated": true,
+    "bank": "reviewer-2026"
+  },
+  {
+    "id": "cysa-p2-q067",
+    "domain": "Security Operations",
+    "question": "Which of the following characteristics ensures the security of an automated information system is the most effective and economical?",
+    "options": [
+      "Originally designed to provide necessary security.",
+      "Subjected to intense security testing",
+      "Customized to meet specific security time.",
+      "Optimized prior to the addition of security."
+    ],
+    "correctAnswer": "Subjected to intense security testing",
+    "explanation": "The marked answer 'Subjected to intense security testing' is the best choice for this scenario. Review the CySA+ objective related to the question stem and eliminate the distractors that do not address the described activity. (Study note generated for this reviewer; verify against official CySA+ CS0-003 objectives.)",
+    "aiGenerated": true,
+    "bank": "reviewer-2026"
+  },
+  {
+    "id": "cysa-p2-q068",
+    "domain": "Vulnerability Management",
+    "question": "Which of the following most accurately describes the Cyber Kill Chain methodology?",
+    "options": [
+      "It used to correlate events to ascertain the TTPS’ of an attacker.",
+      "It is used to ascertain lateral movements of an attacker, enabling the process to be stopped.",
+      "It provides a clear model of how an attacker generally operates during an intrusion and in the actions to take each stage.",
+      "It outlines a clear path for determining the relationship between the attacker, the technology used and the target."
+    ],
+    "correctAnswer": "It provides a clear model of how an attacker generally operates during an intrusion and in the actions to take each stage.",
+    "explanation": "The marked answer 'It provides a clear model of how an attacker generally operates during an intrusion and in the actions to take each stage.' is the best choice for this scenario. Review the CySA+ objective related to the question stem and eliminate the distractors that do not address the described activity. (Study note generated for this reviewer; verify against official CySA+ CS0-003 objectives.)",
+    "aiGenerated": true,
+    "bank": "reviewer-2026"
+  },
+  {
+    "id": "cysa-p2-q069",
+    "domain": "Security Operations",
+    "question": "A security administrator needs to import PII data records from the production environment to the test environment for testing purposes. Which of the following would be the best protect data confidentiality?",
+    "options": [
+      "Data masking",
+      "Hashing",
+      "Watermarking",
+      "Encoding"
+    ],
+    "correctAnswer": "Data masking",
+    "explanation": "The marked answer 'Data masking' is the best choice for this scenario. Review the CySA+ objective related to the question stem and eliminate the distractors that do not address the described activity. (Study note generated for this reviewer; verify against official CySA+ CS0-003 objectives.)",
+    "aiGenerated": true,
+    "bank": "reviewer-2026"
+  },
+  {
+    "id": "cysa-p2-q070",
+    "domain": "Vulnerability Management",
+    "question": "A security operation analyst observes an attacker scanning network ports and systems. Which of the following describes this phase of the Cyber Kill Chain?",
+    "options": [
+      "Reconnaissance",
+      "Exploitation",
+      "Installation",
+      "Weaponization"
+    ],
+    "correctAnswer": "Reconnaissance",
+    "explanation": "The marked answer 'Reconnaissance' is the best choice for this scenario. Review the CySA+ objective related to the question stem and eliminate the distractors that do not address the described activity. (Study note generated for this reviewer; verify against official CySA+ CS0-003 objectives.)",
+    "aiGenerated": true,
+    "bank": "reviewer-2026"
+  },
+  {
+    "id": "cysa-p2-q071",
+    "domain": "Security Operations",
+    "question": "Several users received of a phishing email containing a malicious file bypassed the organization’s email security tools. Based on the SIEM logs, users did not open the file within the environment. In which of the following phases of the MITRE ATTA&CK framework was the attack stopped?",
+    "options": [
+      "Lateral movement",
+      "Execution",
+      "Initial Access",
+      "Discovery"
+    ],
+    "correctAnswer": "Lateral movement",
+    "explanation": "The marked answer 'Lateral movement' is the best choice for this scenario. Review the CySA+ objective related to the question stem and eliminate the distractors that do not address the described activity. (Study note generated for this reviewer; verify against official CySA+ CS0-003 objectives.)",
+    "aiGenerated": true,
+    "bank": "reviewer-2026"
+  },
+  {
+    "id": "cysa-p2-q072",
+    "domain": "Vulnerability Management",
+    "question": "After a recent vulnerability report for servers is a presented a business must decides whether to secure the company’s web-based storefront or shut it down. The developer is not able to fix the zero-day vulnerability because a patch does not exist yet. Which of the following is the best options for the business?",
+    "options": [
+      "Limit the API request for the new transaction until a patch exist",
+      "Take the storefront offline until a patch exists",
+      "Identity the degrading functionality",
+      "Put a WAF in front of the storefront."
+    ],
+    "correctAnswer": "Put a WAF in front of the storefront.",
+    "explanation": "The marked answer 'Put a WAF in front of the storefront.' is the best choice for this scenario. Review the CySA+ objective related to the question stem and eliminate the distractors that do not address the described activity. (Study note generated for this reviewer; verify against official CySA+ CS0-003 objectives.)",
+    "aiGenerated": true,
+    "bank": "reviewer-2026"
+  },
+  {
+    "id": "cysa-img-001",
+    "bank": "reviewer-2026",
+    "domain": "Security Operations",
+    "question": "A security analyst scans a host and generates the output shown in the exhibit. Which of the following best describes the output?",
+    "options": [
+      "The host is unresponsive to ICMP request",
+      "The host is running vulnerable mail server.",
+      "The host is allowing unsecured FTP connections.",
+      "The host is vulnerable to web-based exploits."
+    ],
+    "correctAnswer": "The host is vulnerable to web-based exploits.",
+    "explanation": "The scan shows an Apache web server (Apache/2.4.29 on Ubuntu) and OpenSSH on a Linux host. Of the choices given, the host being subject to web-based exploits is the marked answer in the source reviewer.",
+    "image": "/bank-images/r2026-nmap-host.jpg",
+    "imageCaption": "Nmap service/version scan of the target host.",
+    "aiGenerated": true
+  },
+  {
+    "id": "cysa-img-002",
+    "bank": "reviewer-2026",
+    "domain": "Security Operations",
+    "question": "A company reports that user plain-text credentials have been disclosed from their network. A security analyst runs a scan and receives the output shown in the exhibit. Which of the following computers is the source of the leaked credentials?",
+    "options": [
+      "10.205.8.14",
+      "10.205.8.15",
+      "10.205.8.16",
+      "10.205.8.17"
+    ],
+    "correctAnswer": "10.205.8.17",
+    "explanation": "The scan of 10.205.8.17 shows port 21/TCP open (FTP), a service that transmits credentials in plain text. This matches the marked answer in the source reviewer.",
+    "image": "/bank-images/r2026-leaked-creds.jpg",
+    "imageCaption": "Nmap scan report for 10.205.8.14 – 10.205.8.17.",
+    "aiGenerated": true
+  },
+  {
+    "id": "cysa-img-003",
+    "bank": "reviewer-2026",
+    "domain": "Vulnerability Management",
+    "question": "An analyst is reviewing the SSL scan output from a web server shown in the exhibit. The analyst needs to immediately disable ciphers that do not comply with company security standards. Which of the following ciphers is the least secure and should be disabled?",
+    "options": [
+      "128-bit DHE-RSA-AES128-GCM-SHA256 DHE 2048 bits",
+      "ECDHE-RSA-AES256-GCM-SHA384 Curve P-384 DHE 384",
+      "DES-CBC3-SHA",
+      "AES256-GCM-SHA384"
+    ],
+    "correctAnswer": "DES-CBC3-SHA",
+    "explanation": "DES-CBC3-SHA is Triple-DES (3DES), a legacy 64-bit block cipher considered weak and non-compliant with modern standards. This matches the marked answer in the source reviewer.",
+    "image": "/bank-images/r2026-ssl-ciphers.jpg",
+    "imageCaption": "Accepted cipher suites from the SSL scan.",
+    "aiGenerated": true
+  },
+  {
+    "id": "cysa-img-004",
+    "bank": "reviewer-2026",
+    "domain": "Vulnerability Management",
+    "question": "A security analyst needs to identify a computer to mitigate based on the following requirements: the attack method is network based with low complexity, no privileges or user interaction is needed, and the confidentiality and availability impact is high with a low integrity impact. Given the CVSS 3.1 output shown in the exhibit, which of the following machines should the analyst mitigate? (Computer1: CVSS3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:H/I:L/A:H; Computer2: CVSS3.1/AV:L/AC:L/PR:N/UI:N/S:U/C:H/I:L/A:H; Computer3: CVSS3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:L/A:H; Computer4: CVSS3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:L/A:H)",
+    "options": [
+      "Computer1",
+      "Computer2",
+      "Computer3",
+      "Computer4"
+    ],
+    "correctAnswer": "Computer4",
+    "explanation": "Only Computer4 matches every requirement: AV:N (network), AC:L (low complexity), PR:N/UI:N (no privileges or interaction), C:H/A:H with I:L. This matches the marked answer in the source reviewer.",
+    "image": "/bank-images/r2026-cvss-mitigate.jpg",
+    "imageCaption": "CVSS 3.1 vectors for Computer1 – Computer4.",
+    "aiGenerated": true
+  },
+  {
+    "id": "cysa-img-005",
+    "bank": "reviewer-2026",
+    "domain": "Vulnerability Management",
+    "question": "An analyst needs to include a new network-segmented remote office into the monthly Nessus vulnerability scans. After completing the scan, the analyst finds the errors shown in the exhibit (ERR_REACH destination unreachable, ERR_TIMEOUT, ERR_FAIL). Which of the following is the best solution?",
+    "options": [
+      "Opening ports from the scan engine to all remote office devices",
+      "Recommending the organization installs vulnerability scan agents",
+      "Creating a scan template to perform discovery scans",
+      "Including credentials into the current scan template"
+    ],
+    "correctAnswer": "Opening ports from the scan engine to all remote office devices",
+    "explanation": "The errors show the scan engine cannot reach the remote targets (destination unreachable / timeouts), indicating a firewall or segmentation block. Allowing the scan engine through to the remote devices is the marked answer in the source reviewer.",
+    "image": "/bank-images/r2026-nessus-errors.jpg",
+    "imageCaption": "Nessus scan error log for the remote office.",
+    "aiGenerated": true
+  },
+  {
+    "id": "cysa-img-006",
+    "bank": "reviewer-2026",
+    "domain": "Security Operations",
+    "question": "An analyst reviews the following system logs from a recent breach attempt (timestamps 12:51:12 – 12:51:25, user Berry, commands including whoami and activity as root, shown in the exhibit). Which of the following techniques did the attacker attempt to use?",
+    "options": [
+      "Exfiltration",
+      "Remote code execution",
+      "Privilege escalation",
+      "Spoofing"
+    ],
+    "correctAnswer": "Privilege escalation",
+    "explanation": "The logs show the attacker moving from a user context (Berry) to root-level commands such as whoami returned as root, indicating a privilege-escalation attempt. This matches the marked answer in the source reviewer.",
+    "image": "/bank-images/r2026-breach-logs.jpg",
+    "imageCaption": "System log excerpt from the breach attempt.",
+    "aiGenerated": true
+  },
+  {
+    "id": "cysa-img-007",
+    "bank": "reviewer-2026",
+    "domain": "Security Operations",
+    "question": "A security analyst is trying to validate the results of a web application scan with Burp Suite. The analyst sends the request shown in the exhibit (a file parameter pointing to a server-side file). Which of the following vulnerabilities is the security analyst trying to validate?",
+    "options": [
+      "SQL injection",
+      "LFI",
+      "XSS",
+      "CSRF"
+    ],
+    "correctAnswer": "LFI",
+    "explanation": "The Burp request manipulates a file parameter to read server-side files, which is characteristic of Local File Inclusion (LFI) validation. This matches the marked answer in the source reviewer.",
+    "image": "/bank-images/r2026-burp-lfi.jpg",
+    "imageCaption": "Burp Suite request used for validation.",
+    "aiGenerated": true
+  },
+  {
+    "id": "cysa-img-008",
+    "bank": "reviewer-2026",
+    "domain": "Reporting and Communication",
+    "question": "An analyst reviews a summarized vulnerability report through a governance, risk, and compliance (GRC) reporting tool. The report shown in the exhibit correlates asset information from the configuration management database (CMDB) against detected vulnerabilities. Which of the following servers should the analyst prioritize based on the target value, the risk, and the likelihood of exploitation?",
+    "options": [
+      "PRODWEB-02",
+      "MPC-Control",
+      "DEVWIN11-01",
+      "PRODWEB-01"
+    ],
+    "correctAnswer": "PRODWEB-01",
+    "explanation": "PRODWEB-01 combines a high asset value, public exposure, a high CVSS (8.2 Apache Tomcat) finding, and an available patch — the strongest prioritize-first case. This matches the marked answer in the source reviewer.",
+    "image": "/bank-images/r2026-grc-report.jpg",
+    "imageCaption": "GRC report: CVSS, asset value, exposure, patch availability.",
+    "aiGenerated": true
+  },
+  {
+    "id": "cysa-img-009",
+    "bank": "reviewer-2026",
+    "domain": "Incident Response and Management",
+    "question": "An analyst receives an alert about potentially suspicious activity on a Windows server and reviews the log shown in the exhibit (Event ID 4688, process creation of C:\\Windows\\System32\\cmd.exe with command line \"C:\\Windows\\System32\\cmd.exe\" /c whoami, spawned by w3wp.exe). Which of the following steps should the analyst take next to confirm initial access?",
+    "options": [
+      "Investigate the server's web application logs to identify suspicious Hypertext Transfer Protocol requests.",
+      "Hunt for logs that contain the same commands running on other systems across the environment.",
+      "Search for additional process execution logs, focusing on the user across all Windows systems.",
+      "Identify additional processes created by w3wp.exe around the same time on the server."
+    ],
+    "correctAnswer": "Investigate the server's web application logs to identify suspicious Hypertext Transfer Protocol requests.",
+    "explanation": "The suspicious process was spawned by w3wp.exe (the IIS web worker), suggesting the web application as the entry point. Reviewing the web application logs for malicious HTTP requests is the marked next step in the source reviewer.",
+    "image": "/bank-images/r2026-win-event.jpg",
+    "imageCaption": "Windows Security event 4688: cmd.exe spawned by w3wp.exe.",
+    "aiGenerated": true
+  },
+  {
+    "id": "cysa-img-010",
+    "bank": "reviewer-2026",
+    "domain": "Vulnerability Management",
+    "question": "Given the CVSS 3.1 string shown in the exhibit (CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:H/I:L/A:H), which of the following attributes correctly describes this vulnerability?",
+    "options": [
+      "A user is required to exploit this vulnerability.",
+      "The vulnerability is network based.",
+      "The vulnerability does not affect confidentiality.",
+      "The complexity to exploit the vulnerability is high."
+    ],
+    "correctAnswer": "The vulnerability is network based.",
+    "explanation": "The vector contains AV:N (Attack Vector: Network), so the vulnerability is network based. This matches the marked answer in the source reviewer.",
+    "image": "/bank-images/r2026-cvss-string.jpg",
+    "imageCaption": "CVSS 3.1 vector string from the source reviewer.",
+    "aiGenerated": true
+  }
+]
