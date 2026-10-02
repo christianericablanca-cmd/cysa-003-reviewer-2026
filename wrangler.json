@@ -1,5 +1,17 @@
 {
   "$schema": "./node_modules/wrangler/config-schema.json",
-  "name": "cysa-reviewer",
-  "compatibility_date": "2026-10-02"
+  "name": "cysa-003-reviewer-2026",
+  "compatibility_date": "2026-10-02",
+  "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
+  "main": ".open-next/worker.js",
+  "assets": {
+    "directory": ".open-next/assets",
+    "binding": "ASSETS"
+  },
+  "services": [
+    {
+      "binding": "WORKER_SELF_REFERENCE",
+      "service": "cysa-003-reviewer-2026"
+    }
+  ]
 }
