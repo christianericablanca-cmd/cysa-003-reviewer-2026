@@ -5,6 +5,7 @@ import Link from "next/link";
 import { ArrowLeft, ArrowRight, Shuffle, RotateCcw, Flag, Crosshair, Layers } from "lucide-react";
 import { getQuestions, getBanks, getDomains, filterByBank, resolveBank, shuffle, type Question, type Bank, type BankFilter } from "@/lib/questions";
 import { store, type ExamResult } from "@/lib/storage";
+import { consumePracticeGotoDomain } from "@/lib/learn";
 import { scaledScore, percentage } from "@/lib/scoring";
 import { Button, Card, Badge, Progress, Skeleton, EmptyState, cn } from "@/components/ui";
 import { QuestionCard, ExplanationBox } from "@/components/quiz/QuestionCard";
@@ -59,6 +60,12 @@ export default function PracticePage() {
           const fresh = shuffle(poolIds);
           setOrder(fresh);
           setOptOrders(buildOptOrders(fresh, true));
+        }
+        // One-shot handoff from Learn ("Practice this domain")
+        const goto = consumePracticeGotoDomain();
+        if (goto && getDomains(filterByBank(qs, b)).includes(goto)) {
+          setDomainFilter(goto);
+          setIdx(0);
         }
         setReady(true);
       })

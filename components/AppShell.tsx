@@ -2,15 +2,16 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Home, Dumbbell, FileText, BookmarkCheck, ShieldHalf, FlaskConical } from "lucide-react";
+import { Home, Dumbbell, FileText, BookmarkCheck, ShieldHalf, FlaskConical, GraduationCap } from "lucide-react";
 import { cn } from "@/components/ui";
 
 const NAV = [
-  { href: "/", label: "Home", icon: Home },
-  { href: "/practice", label: "Practice", icon: Dumbbell },
-  { href: "/exam", label: "Exam", icon: FileText },
-  { href: "/review", label: "Review", icon: BookmarkCheck },
-  { href: "/labs", label: "Hands-on", icon: FlaskConical },
+  { href: "/", label: "Home", icon: Home, mobile: true },
+  { href: "/practice", label: "Practice", icon: Dumbbell, mobile: true },
+  { href: "/exam", label: "Exam", icon: FileText, mobile: true },
+  { href: "/learn", label: "Learn", icon: GraduationCap, mobile: true },
+  { href: "/review", label: "Review", icon: BookmarkCheck, mobile: true },
+  { href: "/labs", label: "Hands-on", icon: FlaskConical, mobile: false },
 ];
 
 export function AppShell({ children }: { children: React.ReactNode }) {
@@ -93,7 +94,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
         className="fixed inset-x-0 bottom-0 z-30 border-t border-white/10 bg-[#0A0F1E]/97 pb-[env(safe-area-inset-bottom)] backdrop-blur md:hidden"
       >
         <div className="grid grid-cols-5">
-          {NAV.map((n) => {
+          {NAV.filter((n) => n.mobile).map((n) => {
             const active = n.href === "/" ? pathname === "/" : pathname.startsWith(n.href);
             return (
               <Link
