@@ -160,6 +160,7 @@ export default function ReviewPage() {
                       onToggleFlag={() => toggleFlag(q.id)}
                       strikeable
                       focusKey={q.id}
+                      notesInteractive
                     >
                       {retry ? <ExplanationBox question={q} correct={retry === q.correctAnswer} /> : null}
                     </QuestionCard>

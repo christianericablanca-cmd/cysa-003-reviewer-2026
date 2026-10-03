@@ -29,6 +29,10 @@ export type Question = {
   aiGenerated: boolean;
   image?: string;
   imageCaption?: string;
+  /** Readable transcript of the exhibit image (for blurry screenshots). */
+  exhibitText?: string;
+  /** Distractor notes keyed by exact option text (correct option has no entry). */
+  optionNotes?: Record<string, string>;
 };
 
 export type QuestionValidationError = {
@@ -91,6 +95,17 @@ export function validateQuestions(data: unknown): {
     else issues.push("bank must be cysa-100 or reviewer-2026");
   }
   if (o?.image !== undefined && typeof o.image !== "string") issues.push("image must be string");
+  if (o?.exhibitText !== undefined && typeof o.exhibitText !== "string") issues.push("exhibitText must be string");
+  if (o?.optionNotes !== undefined) {
+    if (typeof o.optionNotes !== "object" || o.optionNotes === null || Array.isArray(o.optionNotes)) {
+      issues.push("optionNotes must be an object");
+    } else {
+      for (const [k, v] of Object.entries(o.optionNotes as Record<string, unknown>)) {
+        if (typeof v !== "string" || (v as string).length === 0) issues.push(`optionNotes[${k}] must be a non-empty string`);
+        else if (Array.isArray(o?.options) && !(o.options as string[]).includes(k)) issues.push(`optionNotes key does not match any option: ${k}`);
+      }
+    }
+  }
     if (issues.length > 0) errors.push({ id, issues });
     else valid.push(item as Question);
   }

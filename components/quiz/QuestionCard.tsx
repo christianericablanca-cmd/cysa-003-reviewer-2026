@@ -57,6 +57,8 @@ export function OptionsList({
   showCorrect = true,
   optionOrder,
   strikeable = false,
+  notes,
+  notesInteractive = false,
 }: {
   question: Question;
   selected?: string;
@@ -65,11 +67,17 @@ export function OptionsList({
   showCorrect?: boolean;
   optionOrder?: number[];
   strikeable?: boolean;
+  /** Per-option notes keyed by exact option text. */
+  notes?: Record<string, string>;
+  /** When true, tapping a locked option expands its note instead of doing nothing. */
+  notesInteractive?: boolean;
 }) {
   const order = optionOrder ?? [0, 1, 2, 3];
   // Pearson-style strikethrough: right-click an option to eliminate it visually.
   // Local per-question state; the parent remounts per question via key={question.id}.
   const [struck, setStruck] = useState<number[]>([]);
+  // Expanded option text for per-option notes (practice/review after answering).
+  const [expanded, setExpanded] = useState<string | null>(null);
   function toggleStrike(i: number) {
     setStruck((s) => (s.includes(i) ? s.filter((x) => x !== i) : [...s, i]));
   }
@@ -80,6 +88,10 @@ export function OptionsList({
         const isSelected = selected === opt;
         const isCorrect = question.correctAnswer === opt;
         const isStruck = struck.includes(i) && !isSelected;
+        const isExpanded = expanded === opt;
+        const noteText = isCorrect
+          ? question.explanation
+          : (notes?.[opt] ?? "Incorrect — see the correct answer and explanation below.");
         let cls = "border-white/10 bg-white/[0.03] hover:border-cyan-400/50 hover:bg-cyan-500/[0.07]";
         let status: string | null = null;
         if (locked && showCorrect) {
@@ -96,13 +108,19 @@ export function OptionsList({
           cls = "border-cyan-400/70 bg-cyan-500/10 shadow-[0_0_16px_rgba(34,211,238,0.2)]";
         }
         return (
+          <div key={optIdx}>
           <button
-            key={optIdx}
             role="radio"
             aria-checked={isSelected}
-            aria-label={`Option ${LETTERS[i]}: ${opt}${status ? ` (${status})` : ""}${isStruck ? " (eliminated)" : ""}`}
-            disabled={locked}
-            onClick={() => onSelect(opt)}
+            aria-label={`Option ${LETTERS[i]}: ${opt}${status ? ` (${status})` : ""}${isStruck ? " (eliminated)" : ""}${locked && notesInteractive ? ". Activate to read why." : ""}`}
+            disabled={locked && !notesInteractive}
+            onClick={() => {
+              if (locked && notesInteractive) {
+                setExpanded((e) => (e === opt ? null : opt));
+                return;
+              }
+              onSelect(opt);
+            }}
             onContextMenu={
               strikeable && !locked
                 ? (e) => {
@@ -151,7 +169,23 @@ export function OptionsList({
             {!locked && isSelected ? (
               <span className="mt-1 shrink-0 text-xs font-semibold text-cyan-300">Selected</span>
             ) : null}
+            {locked && notesInteractive ? (
+              <span className="mt-1 shrink-0 font-mono text-[11px] text-slate-500" aria-hidden="true">
+                {isExpanded ? "▴" : "▾ why?"}
+              </span>
+            ) : null}
           </button>
+          {locked && notesInteractive && isExpanded ? (
+            <div className="rise-in mt-1.5 rounded-xl border border-white/10 bg-black/30 px-3.5 py-2.5">
+              <p className="text-[13px] leading-relaxed text-slate-300">
+                <span className={cn("font-bold", isCorrect ? "text-emerald-300" : "text-amber-300")}>
+                  {isCorrect ? "Why this is right: " : "Why not: "}
+                </span>
+                {noteText}
+              </p>
+            </div>
+          ) : null}
+          </div>
         );
       })}
     </div>
@@ -171,6 +205,8 @@ export function QuestionCard({
   optionOrder,
   strikeable = false,
   focusKey,
+  notes,
+  notesInteractive = false,
   children,
 }: {
   question: Question;
@@ -186,6 +222,8 @@ export function QuestionCard({
   strikeable?: boolean;
   /** When this changes (new question), move screen-reader/keyboard focus to the stem. */
   focusKey?: string;
+  notes?: Record<string, string>;
+  notesInteractive?: boolean;
   children?: React.ReactNode;
 }) {
   const stemRef = useRef<HTMLHeadingElement>(null);
@@ -228,6 +266,16 @@ export function QuestionCard({
         {question.question}
       </h2>
       {question.image ? <ExhibitFigure src={question.image} caption={question.imageCaption} /> : null}
+      {question.exhibitText ? (
+        <details className="mt-3 rounded-xl border border-white/10 bg-black/30 px-3.5 py-2.5">
+          <summary className="cursor-pointer font-mono text-xs text-cyan-300">
+            Exhibit transcript — read instead of squinting
+          </summary>
+          <pre className="mt-2 overflow-x-auto whitespace-pre-wrap font-mono text-xs leading-relaxed text-slate-300">
+            {question.exhibitText}
+          </pre>
+        </details>
+      ) : null}
       <div className="mt-4">
         <OptionsList
           question={question}
@@ -237,6 +285,8 @@ export function QuestionCard({
           showCorrect={showCorrect}
           optionOrder={optionOrder}
           strikeable={strikeable}
+          notes={notes ?? question.optionNotes}
+          notesInteractive={notesInteractive}
         />
       </div>
       {children}

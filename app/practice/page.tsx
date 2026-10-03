@@ -304,11 +304,12 @@ export default function PracticePage() {
                 optionOrder={optOrders[current.id]}
                 strikeable
                 focusKey={current.id}
+                notesInteractive
               >
                 {locked ? <ExplanationBox question={current} correct={correct} /> : null}
               </QuestionCard>
               <p className="mt-2 font-mono text-[11px] text-slate-600">
-                Keys 1–4 answer · ←/→ navigate · right-click eliminates an option
+                Keys 1–4 answer · ←/→ navigate · right-click eliminates an option · tap any option after answering for its note
               </p>
             </div>
 
