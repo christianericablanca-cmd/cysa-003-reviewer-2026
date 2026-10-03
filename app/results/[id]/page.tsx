@@ -5,6 +5,7 @@ import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import { RotateCcw, BookmarkCheck } from "lucide-react";
 import { getQuestions, type Question } from "@/lib/questions";
+import { getAllDomains, findRelatedTopics, type LearnDomain } from "@/lib/learn";
 import { store, type ExamResult } from "@/lib/storage";
 import { formatDurationShort } from "@/lib/scoring";
 import { Button, Card, Badge, EmptyState, Skeleton } from "@/components/ui";
@@ -15,6 +16,11 @@ export default function ResultPage() {
   const router = useRouter();
   const [result, setResult] = useState<ExamResult | null | undefined>(undefined);
   const [questions, setQuestions] = useState<Question[] | null>(null);
+  const [learnDoms, setLearnDoms] = useState<LearnDomain[]>([]);
+
+  useEffect(() => {
+    getAllDomains().then(setLearnDoms).catch(() => {});
+  }, []);
 
   useEffect(() => {
     const r = store.getResultById(params.id);
@@ -134,6 +140,22 @@ export default function ResultPage() {
                   </p>
                 </div>
                 <p className="mt-2 text-xs leading-relaxed text-slate-400">{q!.explanation}</p>
+                {learnDoms.length > 0 ? (
+                  <div className="mt-2">
+                    <p className="font-mono text-[11px] font-bold tracking-widest text-slate-500">STUDY THIS CONCEPT</p>
+                    <div className="mt-1 flex flex-wrap gap-2">
+                      {findRelatedTopics({ domain: q!.domain, question: q!.question, options: [...q!.options] }, learnDoms).map((r) => (
+                        <Link
+                          key={`${r.domainId}/${r.slug}`}
+                          href={`/learn/${r.domainId}/${r.slug}`}
+                          className="rounded-full border border-cyan-400/40 bg-cyan-500/10 px-2.5 py-1 text-[11px] font-semibold text-cyan-200 hover:bg-cyan-500/20"
+                        >
+                          📖 {r.title}
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+                ) : null}
                 <Link href="/practice" className="mt-2 inline-block text-xs font-semibold text-cyan-300 underline underline-offset-2">
                   Retry in practice →
                 </Link>

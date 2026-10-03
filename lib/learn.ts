@@ -71,6 +71,74 @@ export function flattenDomain(dom: LearnDomain): FlatTopic[] {
   return out;
 }
 
+/** Learn domain id -> quiz question domain string (names differ slightly). */
+export const LEARN_TO_QUIZ_DOMAIN: Record<string, string> = {
+  "security-operations": "Security Operations",
+  "vulnerability-management": "Vulnerability Management",
+  "incident-response": "Incident Response and Management",
+  "reporting-communication": "Reporting and Communication",
+};
+
+const STOPWORDS = new Set(
+  "what,which,that,with,from,have,has,are,was,were,will,would,should,could,there,their,about,into,through,during,before,after,when,where,while,does,doing,done,than,then,also,between,both,each,other,such,only,most,more,many,much,very,just,than,too,using,used,often,well,even,ever,never,always,however,although,though,despite,toward,towards,upon,within,without,inc,including,following,based,two,three,four,five,first,second,analyst,organization,company".split(",")
+);
+
+/** Short tokens that carry signal in SOC vocabulary (ports, tools, artifacts). */
+const KEEP_SHORT = new Set(
+  "port,open,ports,log,logs,dns,ids,ips,cve,ioc,ioa,soc,edr,usb,mfa,vpn,waf,apt,dos,sms,ntp,ssh,rdp,smb,ftp,tcp,udp,tls,ssl,lan,wan,iam".split(",")
+);
+
+function keywords(text: string): Set<string> {
+  const words = text
+    .toLowerCase()
+    .replace(/[^a-z0-9\s]/g, " ")
+    .split(/\s+/)
+    .filter((w) => w.length > 3 || KEEP_SHORT.has(w) || (/^\d+$/.test(w) && w.length >= 2));
+  const out = new Set<string>();
+  for (const w of words) {
+    if (w.length > 3 && !STOPWORDS.has(w)) out.add(w);
+    else if (KEEP_SHORT.has(w)) out.add(w);
+    else if (/^\d+$/.test(w) && w.length >= 2 && w.length <= 5) out.add("num" + w);
+  }
+  return out;
+}
+
+export type RelatedTopic = { domainId: string; domainName: string; slug: string; title: string; score: number };
+
+/** Score learn topics against a quiz question by keyword overlap. */
+export function findRelatedTopics(
+  question: { domain: string; question: string; options: string[] },
+  doms: LearnDomain[],
+  limit = 2
+): RelatedTopic[] {
+  const learnId = Object.keys(LEARN_TO_QUIZ_DOMAIN).find((k) => LEARN_TO_QUIZ_DOMAIN[k] === question.domain);
+  const qkeys = keywords(`${question.question} ${question.options.join(" ")}`);
+  const scoreFlat = (flats: { d: LearnDomain; f: FlatTopic }[]): RelatedTopic[] => {
+    const scored: RelatedTopic[] = [];
+    for (const { d, f } of flats) {
+      const t = f.topic;
+      const text = `${t.title} ${t.description} ${t.concepts.map((c) => `${c.term} ${c.text}`).join(" ")} ${t.keyTerms.map((k) => `${k.term} ${k.def}`).join(" ")} ${t.exam.join(" ")}`;
+      const tkeys = keywords(text);
+      let score = 0;
+      for (const w of qkeys) if (tkeys.has(w)) score += w.length > 6 ? 2 : 1;
+      // title hits weigh more
+      const titleKeys = keywords(t.title);
+      for (const w of qkeys) if (titleKeys.has(w)) score += 2;
+      if (score > 0) scored.push({ domainId: d.id, domainName: d.name, slug: t.slug, title: t.title, score });
+    }
+    return scored.sort((a, b) => b.score - a.score);
+  };
+  // Prefer same-domain topics (the quiz domain mapping is source-faithful).
+  const same = learnId
+    ? scoreFlat(doms.filter((d) => d.id === learnId).flatMap((d) => flattenDomain(d).map((f) => ({ d, f }))))
+    : [];
+  const strong = same.filter((r) => r.score >= 3);
+  if (strong.length > 0) return strong.slice(0, limit);
+  // Fallback: a few quiz items carry a debatable source domain — search everything.
+  const all = scoreFlat(doms.flatMap((d) => flattenDomain(d).map((f) => ({ d, f }))));
+  return all.slice(0, limit);
+}
+
 // ---------- progress / bookmarks / checks (localStorage, versioned) ----------
 const LP_KEY = "cysa-reviewer:v1:learn";
 const GOTO_KEY = "cysa-reviewer:v1:learn-goto";
@@ -184,10 +252,11 @@ export const learnStore = {
   },
 };
 
-/** Handoff: learn -> practice domain filter (consumed once by /practice on mount). */
-export function setPracticeGotoDomain(domainName: string) {
+/** Handoff: learn -> practice domain filter (consumed once by /practice on mount).
+ *  Stores the LEARN domain id; practice maps it to the quiz domain name. */
+export function setPracticeGotoDomain(domainId: string) {
   try {
-    localStorage.setItem(GOTO_KEY, domainName);
+    localStorage.setItem(GOTO_KEY, domainId);
   } catch {}
 }
 export function consumePracticeGotoDomain(): string | null {

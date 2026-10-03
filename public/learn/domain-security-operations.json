@@ -1,1 +1,1317 @@
-{"id": "security-operations", "name": "Security Operations", "weight": "33% of exam", "blurb": "Analysis, detection, and monitoring — the largest CySA+ domain. Learn how SOC analysts collect data, detect threats, and respond with the right tools.", "modules": [{"id": "soc-foundations", "title": "SOC Foundations", "blurb": "The data and visibility every analyst works with: SIEM, logs, and the network.", "topics": [{"id": "siem-fundamentals", "slug": "siem-fundamentals", "title": "SIEM Fundamentals", "description": "What a SIEM does, how correlation turns logs into alerts, and how analysts work a SIEM queue.", "what": ["A SIEM (Security Information and Event Management) collects security logs from many systems — servers, firewalls, endpoints, applications — and brings them into one place for analysis.", "More technically, a SIEM ingests events, normalizes them into a common format, correlates related events against detection rules, and generates alerts for analysts to triage."], "why": ["The SOC cannot watch hundreds of systems individually. The SIEM is the analyst's single pane of glass: it turns millions of daily events into a prioritized queue of things worth investigating.", "Almost every CySA+ scenario starts at a SIEM alert, so understanding this pipeline decides whether you read questions correctly."], "concepts": [{"term": "Log collection", "text": "Agents or syslog forward events from endpoints, servers, and network gear to the SIEM."}, {"term": "Normalization", "text": "Different log formats are parsed into common fields (source IP, user, timestamp) so rules work across vendors."}, {"term": "Correlation", "text": "Rules link related events — e.g., five failed logins plus one success from the same IP — into a single incident."}, {"term": "Alerting and triage", "text": "Correlated events become alerts with severity; analysts validate true positives and close false positives."}, {"term": "Dashboards and retention", "text": "Dashboards summarize posture; retention policies decide how long raw logs stay searchable for forensics."}], "example": "A user authenticates from Manila, then five minutes later from an IP in another country. Neither login alone is alarming, but the SIEM correlates both events, flags impossible travel, and opens one alert instead of two disconnected logins.", "scenario": {"title": "Tier 1 triage: impossible travel", "story": "You are a Tier 1 SOC analyst. The SIEM fires: user j.santos authenticated successfully from Manila at 09:02 and from a foreign IP at 09:07.", "walkthrough": [{"label": "Observed activity", "text": "Two successful logins, geographically impossible within five minutes."}, {"label": "Initial hypothesis", "text": "Either credential compromise or legitimate travel with a VPN exit node."}, {"label": "Evidence to collect", "text": "Authentication logs, source IPs and geolocation, user travel calendar, MFA push records, recent password resets."}, {"label": "Analysis", "text": "No travel on file, no MFA push answered, and the second IP has poor threat reputation."}, {"label": "Decision", "text": "Treat as likely compromise: contain first, then confirm."}, {"label": "Next action", "text": "Force password reset, revoke sessions, isolate the workstation, escalate to Tier 2 with a timeline."}]}, "technical": {"title": "What the data looks like", "text": "A normalized SIEM event keeps the same fields regardless of source, which is what makes one correlation rule work everywhere.", "code": {"lang": "json", "text": "{\n  \"timestamp\": \"2026-05-11T09:07:22Z\",\n  \"source_ip\": \"41.21.18.102\",\n  \"user\": \"j.santos\",\n  \"event\": \"authentication_success\",\n  \"geo\": \"Lagos, NG\",\n  \"rule\": \"impossible_travel_5min\"\n}"}}, "exam": ["CySA+ tests whether you know what the analyst does FIRST with an alert: investigate and validate it — never escalate, reboot, or delete before confirming it is real.", "Expect scenarios where two benign events become malicious only through correlation.", "Know the pipeline order: collect, normalize, correlate, alert, triage."], "confusions": [{"a": "SIEM", "b": "SOAR", "text": "SIEM detects and shows you what happened. SOAR automates what you do about it (playbooks, blocking, tickets)."}, {"a": "Alert", "b": "Incident", "text": "An alert is a notification worth checking. An incident is a confirmed security event that triggers response."}, {"a": "False positive", "b": "False negative", "text": "A false positive is benign activity flagged as bad. A false negative is a real attack the tools missed — far more dangerous."}], "keyTerms": [{"term": "SIEM", "def": "Central platform that collects, normalizes, correlates, and alerts on security events.", "example": "Splunk or QRadar firing an impossible-travel alert."}, {"term": "Correlation", "def": "Linking related events into one meaningful detection.", "example": "Five failed logins plus one success from one IP becoming a brute-force alert."}, {"term": "Normalization", "def": "Parsing vendor logs into common fields.", "example": "Cisco, Windows, and Linux logins all mapped to user + source IP."}, {"term": "Triage", "def": "Validating and prioritizing alerts: true vs false positive.", "example": "Closing a VPN-caused travel alert as benign."}], "mistakes": ["Escalating or acting on an alert before validating it is real.", "Treating every alert as an incident — most need triage first.", "Ignoring tuning: noisy rules cause alert fatigue and missed real attacks."], "examTips": ["FIRST action on any alert is always investigate and validate.", "Correlation questions hinge on two events that are harmless alone.", "Alert fatigue is reduced by tuning use cases, not by hiring more analysts."], "takeaway": "SIEM turns scattered logs into correlated, triage-ready alerts — and your first move is always to validate.", "checks": [{"q": "What is the primary purpose of a SIEM?", "options": ["Encrypting log traffic", "Blocking malicious IPs automatically", "Collecting and correlating logs for analysis", "Patching vulnerable systems"], "answer": "Collecting and correlating logs for analysis", "explain": "SIEM detects and informs; blocking and patching belong to other controls."}, {"q": "Two logins from distant countries five minutes apart fire one alert. What made this detectable?", "options": ["Log rotation", "Correlation of related events", "Password complexity", "Firewall blocking"], "answer": "Correlation of related events", "explain": "Neither login alone is alarming — linking them creates the detection."}, {"q": "What should an analyst do FIRST with a new critical SIEM alert?", "options": ["Notify executives", "Reboot the host", "Investigate and validate the alert", "Delete duplicates"], "answer": "Investigate and validate the alert", "explain": "Validation always comes before escalation or action."}]}, {"id": "log-sources-analysis", "slug": "log-sources-analysis", "title": "Log Sources and Analysis", "description": "Which logs answer which questions: Windows auth, Linux auth, web, DNS, firewall — and how analysts read them.", "what": ["Every system writes logs, and each log type answers different questions. Windows records logons in the Security log (Event ID 4624 success, 4625 failure, 4688 process creation). Linux records authentication in /var/log/auth.log. Web servers log every request, firewalls log every allowed or denied connection.", "Analysis means knowing which log to open first for a given symptom, then filtering for the who, what, when, and where."], "why": ["Analysts live in logs. When an alert fires, the next five minutes are spent pulling the right logs — grabbing the wrong one wastes the investigation and, on the exam, picks the wrong answer."], "concepts": [{"term": "Windows Security log", "text": "4624 logon success, 4625 logon failure, 4688 process creation — the core Windows triad."}, {"term": "/var/log/auth.log", "text": "Linux SSH and sudo activity; first stop for brute-force questions."}, {"term": "Web access logs", "text": "Apache/Nginx logs show requests, status codes, and user agents — key for web attacks."}, {"term": "Firewall logs", "text": "Allowed/denied flows by IP and port — key for lateral movement and C2."}, {"term": "4688 process creation", "text": "Shows parent-child process chains, e.g., w3wp.exe spawning cmd.exe — a classic web-shell sign."}], "example": "Investigating SSH brute force: open /var/log/auth.log, filter for Failed password, group by source IP. One IP with hundreds of failures in a minute is your attacker — the log tells you exactly what to block.", "scenario": {"title": "Web shell via IIS worker", "story": "Event ID 4688 shows w3wp.exe (the IIS web worker) spawning C:\\Windows\\System32\\cmd.exe with the command whoami.", "walkthrough": [{"label": "Observed activity", "text": "Web-server process launching a command shell — never normal."}, {"label": "Initial hypothesis", "text": "Web application compromise leading to command execution."}, {"label": "Evidence to collect", "text": "Web application logs for suspicious HTTP requests, the 4688 parent chain, and sibling w3wp.exe children."}, {"label": "Analysis", "text": "whoami is reconnaissance; the attacker is mapping the compromised host."}, {"label": "Decision", "text": "Confirm initial access through the web app before broadening the hunt."}, {"label": "Next action", "text": "Review web application logs for malicious requests, then isolate if confirmed."}]}, "technical": {"title": "Reading auth failures fast", "text": "A one-line Linux pattern every analyst memorizes: filter auth.log for failures and count by IP.", "code": {"lang": "bash", "text": "grep \"Failed password\" /var/log/auth.log \\\n  | awk '{print $11}' | sort | uniq -c | sort -nr | head"}}, "exam": ["CySA+ loves asking which log FIRST: SSH brute force goes to auth.log, Windows logons to the Security log, web login attacks to Apache access logs.", "Event ID 4688 plus w3wp.exe spawning cmd.exe means confirm initial access via web logs.", "Know 4624/4625/4688 cold."], "confusions": [{"a": "4624", "b": "4625", "text": "4624 is logon success, 4625 is logon failure — brute force hunts start at 4625."}, {"a": "/var/log/auth.log", "b": "/var/log/syslog", "text": "auth.log covers authentication; syslog covers general system messages."}, {"a": "Firewall logs", "b": "Web logs", "text": "Firewalls see network flows; web logs see application requests. Different questions need different logs."}], "keyTerms": [{"term": "Event ID 4688", "def": "Windows process-creation event showing parent and child processes plus command lines.", "example": "w3wp.exe spawning cmd.exe /c whoami."}, {"term": "auth.log", "def": "Linux authentication log; home of SSH brute-force evidence.", "example": "Hundreds of Failed password lines from one IP."}, {"term": "Access log", "def": "Web server record of every HTTP request with status code.", "example": "Bursts of 404s revealing directory brute-forcing."}], "mistakes": ["Opening firewall logs for an application-login problem.", "Forgetting that 4625 (failure) is where brute force lives, not 4624.", "Rebooting before collecting volatile log evidence."], "examTips": ["Match the symptom to the log: SSH goes to auth.log, Windows logons to Security, web logins to access logs.", "w3wp.exe plus cmd.exe always points at web logs next.", "Bursts of 404s in access logs mean directory brute force."], "takeaway": "Right log first, then filter: auth.log for SSH, Security log for Windows logons, access logs for web attacks.", "checks": [{"q": "Which log best detects SSH brute force?", "options": ["Web server logs", "DNS captures", "/var/log/auth.log", "Antivirus logs"], "answer": "/var/log/auth.log", "explain": "SSH authentication attempts land in auth.log."}, {"q": "Event 4688 shows w3wp.exe spawning cmd.exe. What next?", "options": ["Reinstall Windows", "Review web application logs", "Disable the firewall", "Reset all passwords"], "answer": "Review web application logs", "explain": "The IIS worker suggests web entry — confirm via web logs."}, {"q": "Apache logs show rapid 404s for random paths. What is it?", "options": ["SQL injection", "Directory brute force", "XSS", "DDoS"], "answer": "Directory brute force", "explain": "Probing many nonexistent paths is directory enumeration."}]}, {"id": "network-monitoring", "slug": "network-monitoring", "title": "Network Monitoring and Analysis", "description": "IDS/IPS, NetFlow, full packet capture, and Wireshark/TCPDUMP — seeing what crosses the wire.", "what": ["Network monitoring inspects traffic between systems. IDS watches and alerts (detection), IPS watches and blocks (prevention). NetFlow summarizes who talked to whom. Full packet capture with Wireshark or TCPDUMP records everything for deep analysis.", "Each method trades detail for scale: packets give everything but drown you in data; flows scale but hide payloads."], "why": ["Lateral movement, C2 beacons, and exfiltration all cross the network. When hosts go quiet, the wire still talks — and exam scenarios constantly ask which tool captures anomalous traffic from a host."], "concepts": [{"term": "IDS vs IPS", "text": "IDS is passive detection and alerting; IPS sits inline and can block. Know which the scenario needs."}, {"term": "NetFlow", "text": "Flow records (source, destination, ports, bytes) — great for finding C2 patterns at scale."}, {"term": "Full packet capture", "text": "Complete packets via Wireshark/TCPDUMP — the deepest, heaviest evidence."}, {"term": "Signatures vs anomalies", "text": "Signature detection matches known bad; anomaly detection flags deviations from baseline."}, {"term": "TCPDUMP vs Wireshark", "text": "TCPDUMP is the CLI capture workhorse on compromised hosts; Wireshark is its graphical analysis sibling."}], "example": "Catching anomalous traffic from a compromised host: run TCPDUMP for a focused capture, open it in Wireshark, and look for regular beacons to an unknown external IP — the C2 heartbeat.", "scenario": {"title": "The midnight beacon", "story": "NetFlow shows a workstation calling one external IP every 60 seconds, all night, with small identical payloads.", "walkthrough": [{"label": "Observed activity", "text": "Perfect-interval outbound connections to a rare external IP."}, {"label": "Initial hypothesis", "text": "Command-and-control beaconing."}, {"label": "Evidence to collect", "text": "Full packet capture of the flow, DNS history for the destination, EDR process data on the host."}, {"label": "Analysis", "text": "Payloads are encrypted blobs; timing is mechanical, not human."}, {"label": "Decision", "text": "Treat as C2 until proven otherwise."}, {"label": "Next action", "text": "Isolate the host, block the IP at the firewall, image for forensics."}]}, "technical": {"title": "Capture first, ask later", "text": "When a host looks compromised, grab packets before the trail goes cold.", "code": {"lang": "bash", "text": "tcpdump -i any host 10.10.5.23 -w capture.pcap\n# then open capture.pcap in Wireshark and filter:\n# ip.addr == 41.21.18.102"}}, "exam": ["Capturing anomalous host traffic means TCPDUMP and Wireshark — not scanners, not SIEM.", "IDS alerts while IPS blocks; read the scenario's verb carefully.", "Regular-interval small outbound flows scream C2 beaconing."], "confusions": [{"a": "IDS", "b": "IPS", "text": "IDS detects and alerts; IPS prevents by blocking inline."}, {"a": "NetFlow", "b": "Packet capture", "text": "NetFlow summarizes connections; capture keeps full payloads."}, {"a": "TCPDUMP", "b": "Nmap", "text": "TCPDUMP captures traffic; Nmap probes hosts. Different jobs."}], "keyTerms": [{"term": "IDS/IPS", "def": "Detection (alert) versus prevention (block) network sensors.", "example": "Snort alerting on a signature vs dropping the packets."}, {"term": "NetFlow", "def": "Summarized connection metadata for pattern hunting.", "example": "Spotting hourly beacons to one foreign IP."}, {"term": "C2 beaconing", "def": "Regular malware check-ins with attacker infrastructure.", "example": "60-second identical outbound connections all night."}], "mistakes": ["Reaching for a vulnerability scanner when you need a packet capture.", "Confusing IDS (alerts) with IPS (blocks).", "Capturing everything with no filter, then drowning in packets."], "examTips": ["Anomalous traffic capture is always TCPDUMP/Wireshark.", "Mechanical timing plus rare external IP equals C2.", "Read whether the scenario wants detection or prevention."], "takeaway": "Flows find the pattern, packets prove it: NetFlow to spot beacons, TCPDUMP/Wireshark to confirm.", "checks": [{"q": "Best tools to capture anomalous traffic from a host?", "options": ["Nessus and OpenVAS", "TCPDUMP and Wireshark", "SIEM and SOAR", "Nmap and Dig"], "answer": "TCPDUMP and Wireshark", "explain": "Capture and analysis beat scanners for live traffic."}, {"q": "An IDS fires but traffic continues. Why?", "options": ["It is passive detection only", "It is misconfigured", "It needs rebooting", "It only works on Wi-Fi"], "answer": "It is passive detection only", "explain": "IDS alerts; only IPS blocks inline."}, {"q": "Hourly identical outbound connections suggest?", "options": ["Video streaming", "C2 beaconing", "Software updates", "Email sync"], "answer": "C2 beaconing", "explain": "Mechanical timing to a rare host is the beacon signature."}]}]}, {"id": "detection-response-tools", "title": "Detection Tools: EDR, XDR and SOAR", "blurb": "Endpoint visibility plus automated response: what EDR/XDR see and what SOAR does about it.", "topics": [{"id": "edr-xdr", "slug": "edr-xdr", "title": "EDR and XDR", "description": "Endpoint detection and response, extended across the estate — quarantine, timelines, and threat hunting on hosts.", "what": ["EDR (Endpoint Detection and Response) lives on workstations and servers, recording process executions, file changes, and network connections. When something malicious runs, EDR can isolate the host, kill processes, and roll back changes.", "XDR (Extended Detection and Response) correlates EDR telemetry with email, network, identity, and cloud signals into one incident view."], "why": ["Servers and laptops are wherepayloads execute. When logs point at a host, EDR tells you exactly what ran, what it touched, and lets you quarantine in one click — the exam constantly asks how to contain a host without extra impact."], "concepts": [{"term": "Isolation/quarantine", "text": "Cutting a host off the network while keeping it on for investigation."}, {"term": "Process tree", "text": "Parent-child execution chains showing how malware launched."}, {"term": "Behavioral detection", "text": "Flagging malicious patterns (e.g., Office spawning PowerShell) rather than hashes."}, {"term": "XDR correlation", "text": "Merging endpoint, email, identity, and network telemetry into one story."}, {"term": "Rollback/remediation", "text": "Reverting malicious changes after containment."}], "example": "Adware drops a script that beacons to C2. EDR flags the unusual parent-child chain, shows the file was never quarantined locally, and the analyst isolates the host with one action — no reimaging, no pulling cables across the office.", "scenario": {"title": "Adware with a C2 script", "story": "A user clicked a malicious adware link. The payload downloaded and now beacons outbound.", "walkthrough": [{"label": "Observed activity", "text": "EDR alert: new executable with C2-style network behavior."}, {"label": "Initial hypothesis", "text": "Commodity malware with command-and-control."}, {"label": "Evidence to collect", "text": "EDR process tree, file reputation, firewall/proxy logs for the destination."}, {"label": "Analysis", "text": "Script invokes C2; file undetected by AV."}, {"label": "Decision", "text": "Contain at the endpoint — minimal business impact."}, {"label": "Next action", "text": "Verify EDR detected it and quarantine locally; block the destination domain."}]}, "technical": {"title": "The process tree tells the story", "text": "Read executions bottom-up: which legitimate parent launched the malicious child?", "code": {"lang": "text", "text": "outlook.exe\n └─ invoice.scr          <- user double-clicked\n     └─ powershell.exe -enc ...   <- living off the land\n         └─ whoami / mimikatz     <- discovery & credential theft"}}, "exam": ["Contain-without-impact almost always means check EDR and quarantine locally.", "EDR answers what ran and what it touched; SIEM answers what happened across systems.", "XDR is EDR correlated across email, network, identity, and cloud."], "confusions": [{"a": "EDR", "b": "Antivirus", "text": "AV blocks known malware; EDR records behavior, hunts, and responds."}, {"a": "EDR", "b": "XDR", "text": "EDR covers endpoints; XDR correlates endpoints plus email, network, identity, cloud."}, {"a": "Quarantine", "b": "Reimage", "text": "Quarantine isolates for study; reimaging wipes evidence — investigate first."}], "keyTerms": [{"term": "EDR", "def": "Endpoint agent recording and responding to host activity.", "example": "Isolating a laptop that ran invoice.scr."}, {"term": "XDR", "def": "Cross-domain detection joining endpoint, email, network, identity signals.", "example": "One incident tying phishing email to endpoint execution."}, {"term": "Isolation", "def": "Network-quarantining a host while leaving it powered for forensics.", "example": "EDR isolate action during active C2."}], "mistakes": ["Reimaging before collecting EDR timelines and process trees.", "Disabling user accounts when the malware, not the account, is the problem.", "Treating AV alerts as a substitute for EDR investigation."], "examTips": ["Contain without impact equals EDR quarantine.", "Parent-child process chains reveal living-off-the-land attacks.", "XDR questions hinge on correlating multiple domains."], "takeaway": "EDR shows what ran and lets you freeze the host; XDR connects that host to the whole attack.", "checks": [{"q": "Malware beacons from a host. Lowest-impact containment?", "options": ["Pull the power cable", "Reimage immediately", "Verify EDR detection and quarantine locally", "Delete the user account"], "answer": "Verify EDR detection and quarantine locally", "explain": "EDR quarantine contains without destroying evidence or work."}, {"q": "What does XDR add over EDR?", "options": ["Faster disks", "Correlation across email, network, identity, cloud", "More antivirus signatures", "Longer passwords"], "answer": "Correlation across email, network, identity, cloud", "explain": "The X is extended, cross-domain telemetry."}, {"q": "Outlook spawning PowerShell spawning whoami indicates?", "options": ["Normal updates", "Living-off-the-land attack chain", "Backup job", "Printer driver"], "answer": "Living-off-the-land attack chain", "explain": "Legitimate tools chained for malicious ends."}]}, {"id": "soar-automation", "slug": "soar-automation", "title": "SOAR and Security Automation", "description": "Playbooks that enrich, decide, and act in seconds: when to automate and what stays human.", "what": ["SOAR (Security Orchestration, Automation, and Response) connects tools through playbooks: when an alert fires, the playbook enriches it with threat intel, checks asset criticality, blocks indicators, opens tickets, and only then involves a human.", "Automation suits high-volume, repeatable decisions (phishing triage, IOC blocking, STIX-driven rule creation). Human judgment stays for novel malware, privileged access, and identity proofing."], "why": ["SOCs drown in alerts. SOAR buys back analyst hours and enforces consistent response — and CySA+ repeatedly asks where automation fits versus where humans must stay in the loop."], "concepts": [{"term": "Playbook", "text": "A defined automated workflow: trigger, enrichment, decision, action."}, {"term": "Orchestration", "text": "Coordinating many tools (SIEM, firewall, EDR, ticketing) as one motion."}, {"term": "Enrichment", "text": "Appending context (reputation, asset value, intel) before decisions."}, {"term": "Human-in-the-loop", "text": "Keeping analysts on novel, risky, or privileged decisions."}, {"term": "STIX-driven rules", "text": "Machine-readable intel auto-generating NIDS rules — a classic safe automation."}], "example": "Phishing triage mandate: cut triage time 20%. A SOAR playbook detonates attachments in a sandbox, extracts URLs, checks reputation, and closes benign reports automatically — analysts only see real threats.", "scenario": {"title": "STIX in, rules out", "story": "Fresh STIX indicators arrive describing attacker infrastructure. Hundreds of NIDS rules need creating before the next shift.", "walkthrough": [{"label": "Observed activity", "text": "Machine-readable threat intel, high volume, well-structured."}, {"label": "Initial hypothesis", "text": "Safe to automate: deterministic conversion, reviewable output."}, {"label": "Evidence to collect", "text": "STIX confidence scores, affected sensor coverage."}, {"label": "Analysis", "text": "Rule generation is repeatable with clear success criteria."}, {"label": "Decision", "text": "Automate generation; humans sample-verify."}, {"label": "Next action", "text": "Deploy generated NIDS rules, keep malware analysis and access approvals manual."}]}, "technical": {"title": "A phishing playbook sketch", "text": "Triggers and actions of a typical triage playbook.", "code": {"lang": "text", "text": "TRIGGER: email reported to phishing mailbox\n1. extract attachments + URLs\n2. detonate in sandbox (Joe Sandbox)\n3. reputation-check URLs + sender\n4. IF malicious: quarantine mailbox, block URL, open ticket\n5. ELSE: close as benign, log decision"}}, "exam": ["SOAR answers involve orchestration, enrichment, and playbooks — never detection itself.", "Automate repeatable high-volume work (STIX rules); keep malware binaries, privileged access, and identity proofing human.", "Cutting triage time points to SOAR, not more analysts or more SIEM rules."], "confusions": [{"a": "SOAR", "b": "SIEM", "text": "SIEM detects and shows; SOAR orchestrates response actions."}, {"a": "Automation", "b": "Orchestration", "text": "Automation does single tasks; orchestration coordinates many tools into one workflow."}, {"a": "Playbook", "b": "Runbook", "text": "Playbooks automate; runbooks document manual steps."}], "keyTerms": [{"term": "SOAR", "def": "Platform orchestrating tools through automated response playbooks.", "example": "Auto-triaging phishing reports in seconds."}, {"term": "Playbook", "def": "Codified response workflow with triggers and actions.", "example": "STIX intake generating NIDS rules."}, {"term": "Enrichment", "def": "Adding intel and asset context to raw alerts.", "example": "Appending reputation scores before triage."}], "mistakes": ["Automating privileged access approvals or identity proofing.", "Buying SOAR expecting it to detect threats.", "Automating malware verdicts without analyst review."], "examTips": ["Phishing triage speed equals SOAR.", "STIX-to-NIDS-rules is the textbook safe automation.", "If the task needs judgment, the answer keeps a human."], "takeaway": "SOAR turns repeatable response into playbooks; judgment-heavy work stays human.", "checks": [{"q": "Primary function of SOAR?", "options": ["Encrypting SIEM logs", "Automating and orchestrating response workflows", "Detecting zero-days in packets", "Writing compliance reports"], "answer": "Automating and orchestrating response workflows", "explain": "Orchestrated response is the definition."}, {"q": "Safe to automate?", "options": ["Approving domain admin access", "Generating NIDS rules from STIX", "Analyzing novel malware", "Enrolling PKI identities"], "answer": "Generating NIDS rules from STIX", "explain": "Deterministic, high-volume, reviewable — ideal for automation."}, {"q": "Cut phishing triage time 20%: best move?", "options": ["More analysts", "Integrate a SOAR platform", "More SIEM rules", "Awareness posters"], "answer": "Integrate a SOAR platform", "explain": "Playbooks compress triage time consistently."}]}]}, {"id": "soc-frameworks-identity", "title": "Frameworks and Identity in the SOC", "blurb": "ATT&CK, Kill Chain, Diamond Model for thinking; MFA, SSO, and access hygiene for defense.", "topics": [{"id": "mitre-attack-frameworks", "slug": "mitre-attack-frameworks", "title": "MITRE ATT&CK, Kill Chain, and Diamond", "description": "Three lenses for attacker behavior: tactics catalog, attack phases, and intrusion analysis.", "what": ["MITRE ATT&CK catalogs adversary tactics (why: Initial Access, Execution, Persistence, Exfiltration) and techniques (how). Analysts map observed behavior to tactics to understand and hunt.", "The Cyber Kill Chain orders intrusions into seven phases: Reconnaissance, Weaponization, Delivery, Exploitation, Installation, Command and Control, Actions on Objectives.", "The Diamond Model analyzes every intrusion as four vertices: Adversary, Capability, Infrastructure, Victim."], "why": ["Frameworks turn scattered alerts into a story: where the attacker is in their campaign and what comes next. Exam scenarios constantly ask which tactic or phase an observation belongs to."], "concepts": [{"term": "Tactic vs technique", "text": "Tactic is the goal (Persistence); technique is the method (new local account)."}, {"term": "Kill Chain order", "text": "Recon, Weaponize, Deliver, Exploit, Install, C2, Act — break any link to stop the attack."}, {"term": "Diamond vertices", "text": "Adversary uses Capability over Infrastructure against Victim — pivot on any vertex."}, {"term": "IOA vs IOC", "text": "Indicators of Attack are behaviors in progress (odd PowerShell); Indicators of Compromise are forensic artifacts (hashes, C2 IPs)."}], "example": "A new local account appears on a server: ATT&CK tactic Persistence. Outbound beacons follow: C2. Same campaign on the Kill Chain: Installation then Command and Control. Diamond: capability (account creation tooling) against victim server.", "scenario": {"title": "Name that tactic", "story": "SIEM shows failed logins then a success from one IP, then odd outbound traffic.", "walkthrough": [{"label": "Observed activity", "text": "Brute-force pattern followed by success plus exfil-like flows."}, {"label": "Initial hypothesis", "text": "Credential attack progressing toward theft."}, {"label": "Evidence to collect", "text": "Auth logs, session activity, egress volumes."}, {"label": "Analysis", "text": "Map to ATT&CK: Credential Access, then Collection and Exfiltration."}, {"label": "Decision", "text": "Active intrusion, not recon."}, {"label": "Next action", "text": "Isolate, rotate credentials, hunt for persistence."}]}, "technical": {"title": "Mapping cheat sheet", "text": "Fast mappings analysts memorize.", "code": {"lang": "text", "text": "Phishing attachment opened     -> Initial Access\nStolen creds used on VPN        -> Valid Accounts / Lateral Movement\nMiners launched on cloud hosts  -> Impact\nOdd PowerShell at 2 AM          -> IOA (behavior in progress)\nKnown bad hash on disk          -> IOC (forensic artifact)"}}, "exam": ["Phase names matter: Initial Access and Lateral Movement signal ATT&CK; Recon-to-Actions signals Kill Chain.", "IOA is behavior in progress; IOC is evidence of compromise.", "New accounts for access equals Persistence."], "confusions": [{"a": "ATT&CK tactic", "b": "ATT&CK technique", "text": "Tactics are goals; techniques are implementations."}, {"a": "Kill Chain", "b": "ATT&CK", "text": "Kill Chain is seven ordered phases; ATT&CK is a tactics catalog without strict order."}, {"a": "IOA", "b": "IOC", "text": "Attack indicators are live behaviors; compromise indicators are leftovers."}], "keyTerms": [{"term": "MITRE ATT&CK", "def": "Catalog of adversary tactics and techniques.", "example": "Mapping miners to Impact."}, {"term": "Kill Chain", "def": "Seven-phase intrusion model from recon to actions.", "example": "Blocking delivery to break the chain."}, {"term": "Diamond Model", "def": "Adversary-Capability-Infrastructure-Victim analysis.", "example": "Pivoting from a C2 IP to the victim set."}, {"term": "TTP", "def": "Tactics, Techniques, Procedures — the how of adversaries.", "example": "TTPs in a threat intel report."}], "mistakes": ["Calling every malicious event Exfiltration — map the actual behavior.", "Mixing Kill Chain phases with ATT&CK tactics.", "Treating IOAs and IOCs as interchangeable."], "examTips": ["Phase names in the stem reveal the framework.", "Unusual live behavior equals IOA; artifacts equal IOC.", "Account creation for access equals Persistence."], "takeaway": "ATT&CK names the goal, Kill Chain orders the campaign, Diamond connects the dots.", "checks": [{"q": "Miners launched on cloud hosts map to which tactic?", "options": ["Execution", "Credential Access", "Initial Access", "Impact"], "answer": "Impact", "explain": "Resource hijacking and disruption is Impact."}, {"q": "Odd PowerShell at 2 AM is an example of?", "options": ["IOC", "IOA", "CVE", "Risk"], "answer": "IOA", "explain": "Live suspicious behavior is an attack indicator."}, {"q": "Seven stages Recon-to-Actions is?", "options": ["ATT&CK", "STRIDE", "Cyber Kill Chain", "Diamond"], "answer": "Cyber Kill Chain", "explain": "Ordered phases are the Kill Chain signature."}]}, {"id": "identity-soc", "slug": "identity-soc", "title": "Identity Under Attack", "description": "MFA, SSO, credential attacks, and access hygiene — because identity is the perimeter.", "what": ["Most breaches involve credentials: phishing steals them, spraying and stuffing guess them, and impossible-travel alerts catch their reuse. Defenses layer MFA (something you know, have, or are), SSO (one login, many apps), and least-privilege access reviews.", "Analysts read authentication logs the way network analysts read packets: failures, successes, locations, and impossible sequences."], "why": ["Identity attacks are the most common exam scenario family — brute force, spraying, stuffing, impossible travel, dark-web credential reuse. One mental model answers them all."], "concepts": [{"term": "MFA", "text": "Two or more factors; even with MFA, force resets on leaked credentials."}, {"term": "Brute force vs spraying vs stuffing", "text": "Many passwords on one account vs few passwords on many accounts vs leaked pairs replayed."}, {"term": "Impossible travel", "text": "Logins too far apart in space and close in time — validate before acting."}, {"term": "SSO", "text": "One identity provider session for many apps — convenient, high-value target."}, {"term": "Least privilege", "text": "Minimum access needed; review and trim regularly."}], "example": "Dark-web alert: an employee's password is circulating. MFA is on, but the password must still die first — force a reset, then confirm no anomalous sessions, then review the account's privileges.", "scenario": {"title": "Leaked credential, MFA on — now what?", "story": "Threat intel flags an employee credential on the dark web. Web and login activity look clean so far, and MFA is enabled.", "walkthrough": [{"label": "Observed activity", "text": "Credential exposure, no confirmed misuse yet."}, {"label": "Initial hypothesis", "text": "Account at risk; MFA raises the bar but password reuse threatens other systems."}, {"label": "Evidence to collect", "text": "Login anomalies, session tokens, uploads/downloads, privilege level."}, {"label": "Analysis", "text": "No misuse yet, but the secret is burned."}, {"label": "Decision", "text": "Kill the credential first, investigate in parallel."}, {"label": "Next action", "text": "Forced password reset, session revocation, then privilege review."}]}, "technical": {"title": "Attack shapes in logs", "text": "Recognize the three credential attacks by their log shape.", "code": {"lang": "text", "text": "Brute force : many passwords x ONE account, rapid\nSpraying     : ONE password x MANY accounts, slow\nStuffing     : leaked pairs replayed across services\nDefense      : lockouts + MFA + forced resets + monitoring"}}, "exam": ["Leaked credential plus MFA still means reset first.", "Impossible travel: validate (VPN? travel?) before escalating.", "Know the three shapes: brute force, spraying, stuffing."], "confusions": [{"a": "Brute force", "b": "Password spraying", "text": "Brute force hammers one account; spraying spreads few guesses across many."}, {"a": "MFA", "b": "Invincibility", "text": "MFA raises the bar hugely but leaked passwords still get reset."}, {"a": "Authentication", "b": "Authorization", "text": "Authentication proves who you are; authorization decides what you may do."}], "keyTerms": [{"term": "MFA", "def": "Multi-factor authentication combining knowledge, possession, inherence.", "example": "Password plus push approval."}, {"term": "Credential stuffing", "def": "Replaying leaked username-password pairs at scale.", "example": "Failures across hundreds of accounts at once."}, {"term": "Impossible travel", "def": "Logins too distant, too fast to be one human.", "example": "Manila then Lagos in five minutes."}], "mistakes": ["Skipping the reset because MFA is on.", "Escalating impossible travel without checking VPN and travel.", "Confusing spraying with brute force."], "examTips": ["Reset is first for exposed credentials, MFA or not.", "Validate travel alerts before action.", "Shape of logins reveals the attack type."], "takeaway": "Credentials are the perimeter: learn the three attack shapes and always kill exposed secrets first.", "checks": [{"q": "Credential on dark web, MFA on. First step?", "options": ["Email the user", "Force a password reset", "Run an AV scan", "Review privileges"], "answer": "Force a password reset", "explain": "The burned secret must die before anything else."}, {"q": "One password tried on many accounts slowly is?", "options": ["Brute force", "Password spraying", "XSS", "Phishing"], "answer": "Password spraying", "explain": "Few passwords spread wide is spraying."}, {"q": "Manila then Lagos in 5 minutes suggests?", "options": ["VPN always", "Check travel/VPN, treat as compromise", "Ignore it", "Reinstall the laptop"], "answer": "Check travel/VPN, treat as compromise", "explain": "Validate first, then contain if unexplained."}]}, {"id": "threat-intel", "slug": "threat-intel", "title": "Threat Intelligence and TIPs", "description": "IOCs, IOAs, STIX/TAXII, and threat-intel platforms — turning outside knowledge into detections.", "what": ["Threat intelligence is evidence-based knowledge about adversaries: their indicators, behaviors, and infrastructure. IOCs (hashes, IPs, domains) say what is bad; IOAs (behaviors like odd PowerShell) say what bad looks like in progress.", "A TIP (Threat Intelligence Platform) aggregates IOCs from feeds, enriches and deduplicates them, and pushes them to SIEM, firewalls, and EDR. STIX is the format, TAXII the transport."], "why": ["No SOC sees every attacker alone. Intel lets a small team punch above its weight — and exam questions constantly test whether you know what a TIP actually does versus SOAR, SIEM, or firewalls."], "concepts": [{"term": "IOC", "text": "Atomic evidence: hashes, IPs, domains tied to malicious activity."}, {"term": "IOA", "text": "Behavioral evidence of an attack underway."}, {"term": "TIP", "text": "Platform aggregating, enriching, and distributing intel."}, {"term": "STIX/TAXII", "text": "STIX structures intel; TAXII shares it machine-to-machine."}, {"term": "Enrichment", "text": "Appending reputation and context to raw indicators."}], "example": "Threat intel names an attacker IP. The TIP pushes it to the firewall for blocking and to the SIEM for retro-hunting — one feed, detection plus prevention, no manual copy-paste.", "scenario": {"title": "Feed to firewall in minutes", "story": "A trusted feed publishes C2 domains used in active phishing. Your users click links all day.", "walkthrough": [{"label": "Observed activity", "text": "High-confidence malicious domains, short-lived."}, {"label": "Initial hypothesis", "text": "Blocking plus hunting beats either alone."}, {"label": "Evidence to collect", "text": "Feed confidence, expiry, historical DNS hits internally."}, {"label": "Analysis", "text": "Domains are fresh and targeted at your sector."}, {"label": "Decision", "text": "Push to controls and hunt history simultaneously."}, {"label": "Next action", "text": "TIP pushes block + retro-hunt; review hits with Tier 2."}]}, "technical": {"title": "STIX sighting sketch", "text": "How intel looks machine-readable.", "code": {"lang": "json", "text": "{\n  \"type\": \"indicator\",\n  \"pattern\": \"[ipv4-addr:value = '41.21.18.102']\",\n  \"labels\": [\"malicious-activity\"],\n  \"confidence\": 92,\n  \"valid_until\": \"2026-06-01T00:00:00Z\"\n}"}}, "exam": ["TIP use case is aggregating external IOCs — not encrypting, remediating, or writing firewall rules itself.", "STIX structures, TAXII transports.", "Automation enriching alerts with intel before review is SOAR orchestration."], "confusions": [{"a": "IOC", "b": "IOA", "text": "IOCs are artifacts (hashes, IPs); IOAs are behaviors in progress."}, {"a": "TIP", "b": "SOAR", "text": "TIP manages knowledge; SOAR executes response."}, {"a": "STIX", "b": "TAXII", "text": "STIX is the language; TAXII is the delivery truck."}], "keyTerms": [{"term": "IOC", "def": "Evidence of compromise: hashes, IPs, domains.", "example": "A C2 IP from a feed."}, {"term": "TIP", "def": "Platform collecting and sharing threat intel.", "example": "Auto-pushing IOCs to the firewall."}, {"term": "STIX/TAXII", "def": "Structured intel format and its sharing protocol.", "example": "STIX rule auto-creating a NIDS signature."}], "mistakes": ["Calling firewall rule-writing a TIP function.", "Treating intel as fully trusted without confidence and expiry.", "Manually copying IOCs instead of using the TIP pipeline."], "examTips": ["TIP equals aggregation of external IOCs.", "STIX/TAXII split appears often — format vs transport.", "Intel enrichment before analyst review equals SOAR."], "takeaway": "Intel turns outside sightings into inside detections: aggregate, enrich, push, hunt.", "checks": [{"q": "Best TIP use case?", "options": ["Encrypting web traffic", "Automating remediation", "Aggregating external IOCs", "Writing VLAN rules"], "answer": "Aggregating external IOCs", "explain": "Aggregation and sharing is the TIP's job."}, {"q": "STIX vs TAXII?", "options": ["Same thing", "STIX structures, TAXII transports", "TAXII structures, STIX transports", "Both are firewalls"], "answer": "STIX structures, TAXII transports", "explain": "Format versus sharing protocol."}, {"q": "Automation enriching alerts pre-review is?", "options": ["Pentesting", "SOAR orchestration", "PBQ work", "Log rotation"], "answer": "SOAR orchestration", "explain": "Enrichment pipelines are orchestration."}]}]}]}
+{
+  "id": "security-operations",
+  "name": "Security Operations",
+  "weight": "33% of exam",
+  "blurb": "Analysis, detection, and monitoring — the largest CySA+ domain. Learn how SOC analysts collect data, detect threats, and respond with the right tools.",
+  "modules": [
+    {
+      "id": "soc-foundations",
+      "title": "SOC Foundations",
+      "blurb": "The data and visibility every analyst works with: SIEM, logs, and the network.",
+      "topics": [
+        {
+          "id": "siem-fundamentals",
+          "slug": "siem-fundamentals",
+          "title": "SIEM Fundamentals",
+          "description": "What a SIEM does, how correlation turns logs into alerts, and how analysts work a SIEM queue.",
+          "what": [
+            "A SIEM (Security Information and Event Management) collects security logs from many systems — servers, firewalls, endpoints, applications — and brings them into one place for analysis.",
+            "More technically, a SIEM ingests events, normalizes them into a common format, correlates related events against detection rules, and generates alerts for analysts to triage."
+          ],
+          "why": [
+            "The SOC cannot watch hundreds of systems individually. The SIEM is the analyst's single pane of glass: it turns millions of daily events into a prioritized queue of things worth investigating.",
+            "Almost every CySA+ scenario starts at a SIEM alert, so understanding this pipeline decides whether you read questions correctly."
+          ],
+          "concepts": [
+            {
+              "term": "Log collection",
+              "text": "Agents or syslog forward events from endpoints, servers, and network gear to the SIEM."
+            },
+            {
+              "term": "Normalization",
+              "text": "Different log formats are parsed into common fields (source IP, user, timestamp) so rules work across vendors."
+            },
+            {
+              "term": "Correlation",
+              "text": "Rules link related events — e.g., five failed logins plus one success from the same IP — into a single incident."
+            },
+            {
+              "term": "Alerting and triage",
+              "text": "Correlated events become alerts with severity; analysts validate true positives and close false positives."
+            },
+            {
+              "term": "Dashboards and retention",
+              "text": "Dashboards summarize posture; retention policies decide how long raw logs stay searchable for forensics."
+            }
+          ],
+          "example": "A user authenticates from Manila, then five minutes later from an IP in another country. Neither login alone is alarming, but the SIEM correlates both events, flags impossible travel, and opens one alert instead of two disconnected logins.",
+          "scenario": {
+            "title": "Tier 1 triage: impossible travel",
+            "story": "You are a Tier 1 SOC analyst. The SIEM fires: user j.santos authenticated successfully from Manila at 09:02 and from a foreign IP at 09:07.",
+            "walkthrough": [
+              {
+                "label": "Observed activity",
+                "text": "Two successful logins, geographically impossible within five minutes."
+              },
+              {
+                "label": "Initial hypothesis",
+                "text": "Either credential compromise or legitimate travel with a VPN exit node."
+              },
+              {
+                "label": "Evidence to collect",
+                "text": "Authentication logs, source IPs and geolocation, user travel calendar, MFA push records, recent password resets."
+              },
+              {
+                "label": "Analysis",
+                "text": "No travel on file, no MFA push answered, and the second IP has poor threat reputation."
+              },
+              {
+                "label": "Decision",
+                "text": "Treat as likely compromise: contain first, then confirm."
+              },
+              {
+                "label": "Next action",
+                "text": "Force password reset, revoke sessions, isolate the workstation, escalate to Tier 2 with a timeline."
+              }
+            ]
+          },
+          "technical": {
+            "title": "What the data looks like",
+            "text": "A normalized SIEM event keeps the same fields regardless of source, which is what makes one correlation rule work everywhere.",
+            "code": {
+              "lang": "json",
+              "text": "{\n  \"timestamp\": \"2026-05-11T09:07:22Z\",\n  \"source_ip\": \"41.21.18.102\",\n  \"user\": \"j.santos\",\n  \"event\": \"authentication_success\",\n  \"geo\": \"Lagos, NG\",\n  \"rule\": \"impossible_travel_5min\"\n}"
+            }
+          },
+          "exam": [
+            "CySA+ tests whether you know what the analyst does FIRST with an alert: investigate and validate it — never escalate, reboot, or delete before confirming it is real.",
+            "Expect scenarios where two benign events become malicious only through correlation.",
+            "Know the pipeline order: collect, normalize, correlate, alert, triage."
+          ],
+          "confusions": [
+            {
+              "a": "SIEM",
+              "b": "SOAR",
+              "text": "SIEM detects and shows you what happened. SOAR automates what you do about it (playbooks, blocking, tickets)."
+            },
+            {
+              "a": "Alert",
+              "b": "Incident",
+              "text": "An alert is a notification worth checking. An incident is a confirmed security event that triggers response."
+            },
+            {
+              "a": "False positive",
+              "b": "False negative",
+              "text": "A false positive is benign activity flagged as bad. A false negative is a real attack the tools missed — far more dangerous."
+            }
+          ],
+          "keyTerms": [
+            {
+              "term": "SIEM",
+              "def": "Central platform that collects, normalizes, correlates, and alerts on security events.",
+              "example": "Splunk or QRadar firing an impossible-travel alert."
+            },
+            {
+              "term": "Correlation",
+              "def": "Linking related events into one meaningful detection.",
+              "example": "Five failed logins plus one success from one IP becoming a brute-force alert."
+            },
+            {
+              "term": "Normalization",
+              "def": "Parsing vendor logs into common fields.",
+              "example": "Cisco, Windows, and Linux logins all mapped to user + source IP."
+            },
+            {
+              "term": "Triage",
+              "def": "Validating and prioritizing alerts: true vs false positive.",
+              "example": "Closing a VPN-caused travel alert as benign."
+            }
+          ],
+          "mistakes": [
+            "Escalating or acting on an alert before validating it is real.",
+            "Treating every alert as an incident — most need triage first.",
+            "Ignoring tuning: noisy rules cause alert fatigue and missed real attacks."
+          ],
+          "examTips": [
+            "FIRST action on any alert is always investigate and validate.",
+            "Correlation questions hinge on two events that are harmless alone.",
+            "Alert fatigue is reduced by tuning use cases, not by hiring more analysts."
+          ],
+          "takeaway": "SIEM turns scattered logs into correlated, triage-ready alerts — and your first move is always to validate.",
+          "checks": [
+            {
+              "q": "What is the primary purpose of a SIEM?",
+              "options": [
+                "Encrypting log traffic",
+                "Blocking malicious IPs automatically",
+                "Collecting and correlating logs for analysis",
+                "Patching vulnerable systems"
+              ],
+              "answer": "Collecting and correlating logs for analysis",
+              "explain": "SIEM detects and informs; blocking and patching belong to other controls."
+            },
+            {
+              "q": "Two logins from distant countries five minutes apart fire one alert. What made this detectable?",
+              "options": [
+                "Log rotation",
+                "Correlation of related events",
+                "Password complexity",
+                "Firewall blocking"
+              ],
+              "answer": "Correlation of related events",
+              "explain": "Neither login alone is alarming — linking them creates the detection."
+            },
+            {
+              "q": "What should an analyst do FIRST with a new critical SIEM alert?",
+              "options": [
+                "Notify executives",
+                "Reboot the host",
+                "Investigate and validate the alert",
+                "Delete duplicates"
+              ],
+              "answer": "Investigate and validate the alert",
+              "explain": "Validation always comes before escalation or action."
+            }
+          ]
+        },
+        {
+          "id": "log-sources-analysis",
+          "slug": "log-sources-analysis",
+          "title": "Log Sources and Analysis",
+          "description": "Which logs answer which questions: Windows auth, Linux auth, web, DNS, firewall — and how analysts read them.",
+          "what": [
+            "Every system writes logs, and each log type answers different questions. Windows records logons in the Security log (Event ID 4624 success, 4625 failure, 4688 process creation). Linux records authentication in /var/log/auth.log. Web servers log every request, firewalls log every allowed or denied connection.",
+            "Analysis means knowing which log to open first for a given symptom, then filtering for the who, what, when, and where."
+          ],
+          "why": [
+            "Analysts live in logs. When an alert fires, the next five minutes are spent pulling the right logs — grabbing the wrong one wastes the investigation and, on the exam, picks the wrong answer."
+          ],
+          "concepts": [
+            {
+              "term": "Windows Security log",
+              "text": "4624 logon success, 4625 logon failure, 4688 process creation — the core Windows triad."
+            },
+            {
+              "term": "/var/log/auth.log",
+              "text": "Linux SSH and sudo activity; first stop for brute-force questions."
+            },
+            {
+              "term": "Web access logs",
+              "text": "Apache/Nginx logs show requests, status codes, and user agents — key for web attacks."
+            },
+            {
+              "term": "Firewall logs",
+              "text": "Allowed/denied flows by IP and port — key for lateral movement and C2."
+            },
+            {
+              "term": "4688 process creation",
+              "text": "Shows parent-child process chains, e.g., w3wp.exe spawning cmd.exe — a classic web-shell sign."
+            }
+          ],
+          "example": "Investigating SSH brute force: open /var/log/auth.log, filter for Failed password, group by source IP. One IP with hundreds of failures in a minute is your attacker — the log tells you exactly what to block.",
+          "scenario": {
+            "title": "Web shell via IIS worker",
+            "story": "Event ID 4688 shows w3wp.exe (the IIS web worker) spawning C:\\Windows\\System32\\cmd.exe with the command whoami.",
+            "walkthrough": [
+              {
+                "label": "Observed activity",
+                "text": "Web-server process launching a command shell — never normal."
+              },
+              {
+                "label": "Initial hypothesis",
+                "text": "Web application compromise leading to command execution."
+              },
+              {
+                "label": "Evidence to collect",
+                "text": "Web application logs for suspicious HTTP requests, the 4688 parent chain, and sibling w3wp.exe children."
+              },
+              {
+                "label": "Analysis",
+                "text": "whoami is reconnaissance; the attacker is mapping the compromised host."
+              },
+              {
+                "label": "Decision",
+                "text": "Confirm initial access through the web app before broadening the hunt."
+              },
+              {
+                "label": "Next action",
+                "text": "Review web application logs for malicious requests, then isolate if confirmed."
+              }
+            ]
+          },
+          "technical": {
+            "title": "Reading auth failures fast",
+            "text": "A one-line Linux pattern every analyst memorizes: filter auth.log for failures and count by IP.",
+            "code": {
+              "lang": "bash",
+              "text": "grep \"Failed password\" /var/log/auth.log \\\n  | awk '{print $11}' | sort | uniq -c | sort -nr | head"
+            }
+          },
+          "exam": [
+            "CySA+ loves asking which log FIRST: SSH brute force goes to auth.log, Windows logons to the Security log, web login attacks to Apache access logs.",
+            "Event ID 4688 plus w3wp.exe spawning cmd.exe means confirm initial access via web logs.",
+            "Know 4624/4625/4688 cold."
+          ],
+          "confusions": [
+            {
+              "a": "4624",
+              "b": "4625",
+              "text": "4624 is logon success, 4625 is logon failure — brute force hunts start at 4625."
+            },
+            {
+              "a": "/var/log/auth.log",
+              "b": "/var/log/syslog",
+              "text": "auth.log covers authentication; syslog covers general system messages."
+            },
+            {
+              "a": "Firewall logs",
+              "b": "Web logs",
+              "text": "Firewalls see network flows; web logs see application requests. Different questions need different logs."
+            }
+          ],
+          "keyTerms": [
+            {
+              "term": "Event ID 4688",
+              "def": "Windows process-creation event showing parent and child processes plus command lines.",
+              "example": "w3wp.exe spawning cmd.exe /c whoami."
+            },
+            {
+              "term": "auth.log",
+              "def": "Linux authentication log; home of SSH brute-force evidence.",
+              "example": "Hundreds of Failed password lines from one IP."
+            },
+            {
+              "term": "Access log",
+              "def": "Web server record of every HTTP request with status code.",
+              "example": "Bursts of 404s revealing directory brute-forcing."
+            }
+          ],
+          "mistakes": [
+            "Opening firewall logs for an application-login problem.",
+            "Forgetting that 4625 (failure) is where brute force lives, not 4624.",
+            "Rebooting before collecting volatile log evidence."
+          ],
+          "examTips": [
+            "Match the symptom to the log: SSH goes to auth.log, Windows logons to Security, web logins to access logs.",
+            "w3wp.exe plus cmd.exe always points at web logs next.",
+            "Bursts of 404s in access logs mean directory brute force."
+          ],
+          "takeaway": "Right log first, then filter: auth.log for SSH, Security log for Windows logons, access logs for web attacks.",
+          "checks": [
+            {
+              "q": "Which log best detects SSH brute force?",
+              "options": [
+                "Web server logs",
+                "DNS captures",
+                "/var/log/auth.log",
+                "Antivirus logs"
+              ],
+              "answer": "/var/log/auth.log",
+              "explain": "SSH authentication attempts land in auth.log."
+            },
+            {
+              "q": "Event 4688 shows w3wp.exe spawning cmd.exe. What next?",
+              "options": [
+                "Reinstall Windows",
+                "Review web application logs",
+                "Disable the firewall",
+                "Reset all passwords"
+              ],
+              "answer": "Review web application logs",
+              "explain": "The IIS worker suggests web entry — confirm via web logs."
+            },
+            {
+              "q": "Apache logs show rapid 404s for random paths. What is it?",
+              "options": [
+                "SQL injection",
+                "Directory brute force",
+                "XSS",
+                "DDoS"
+              ],
+              "answer": "Directory brute force",
+              "explain": "Probing many nonexistent paths is directory enumeration."
+            }
+          ]
+        },
+        {
+          "id": "network-monitoring",
+          "slug": "network-monitoring",
+          "title": "Network Monitoring and Analysis",
+          "description": "IDS/IPS, NetFlow, full packet capture, and Wireshark/TCPDUMP — seeing what crosses the wire.",
+          "what": [
+            "Network monitoring inspects traffic between systems. IDS watches and alerts (detection), IPS watches and blocks (prevention). NetFlow summarizes who talked to whom. Full packet capture with Wireshark or TCPDUMP records everything for deep analysis.",
+            "Each method trades detail for scale: packets give everything but drown you in data; flows scale but hide payloads."
+          ],
+          "why": [
+            "Lateral movement, C2 beacons, and exfiltration all cross the network. When hosts go quiet, the wire still talks — and exam scenarios constantly ask which tool captures anomalous traffic from a host."
+          ],
+          "concepts": [
+            {
+              "term": "IDS vs IPS",
+              "text": "IDS is passive detection and alerting; IPS sits inline and can block. Know which the scenario needs."
+            },
+            {
+              "term": "NetFlow",
+              "text": "Flow records (source, destination, ports, bytes) — great for finding C2 patterns at scale."
+            },
+            {
+              "term": "Full packet capture",
+              "text": "Complete packets via Wireshark/TCPDUMP — the deepest, heaviest evidence."
+            },
+            {
+              "term": "Signatures vs anomalies",
+              "text": "Signature detection matches known bad; anomaly detection flags deviations from baseline."
+            },
+            {
+              "term": "TCPDUMP vs Wireshark",
+              "text": "TCPDUMP is the CLI capture workhorse on compromised hosts; Wireshark is its graphical analysis sibling."
+            },
+            {
+              "term": "Common ports",
+              "text": "Know key ports cold for service identification: 22 SSH, 25 SMTP, 53 DNS, 80/443 HTTP(S), 445 SMB, 3389 RDP."
+            }
+          ],
+          "example": "Catching anomalous traffic from a compromised host: run TCPDUMP for a focused capture, open it in Wireshark, and look for regular beacons to an unknown external IP — the C2 heartbeat.",
+          "scenario": {
+            "title": "The midnight beacon",
+            "story": "NetFlow shows a workstation calling one external IP every 60 seconds, all night, with small identical payloads.",
+            "walkthrough": [
+              {
+                "label": "Observed activity",
+                "text": "Perfect-interval outbound connections to a rare external IP."
+              },
+              {
+                "label": "Initial hypothesis",
+                "text": "Command-and-control beaconing."
+              },
+              {
+                "label": "Evidence to collect",
+                "text": "Full packet capture of the flow, DNS history for the destination, EDR process data on the host."
+              },
+              {
+                "label": "Analysis",
+                "text": "Payloads are encrypted blobs; timing is mechanical, not human."
+              },
+              {
+                "label": "Decision",
+                "text": "Treat as C2 until proven otherwise."
+              },
+              {
+                "label": "Next action",
+                "text": "Isolate the host, block the IP at the firewall, image for forensics."
+              }
+            ]
+          },
+          "technical": {
+            "title": "Capture first, ask later",
+            "text": "When a host looks compromised, grab packets before the trail goes cold.",
+            "code": {
+              "lang": "bash",
+              "text": "tcpdump -i any host 10.10.5.23 -w capture.pcap\n# then open capture.pcap in Wireshark and filter:\n# ip.addr == 41.21.18.102"
+            }
+          },
+          "exam": [
+            "Capturing anomalous host traffic means TCPDUMP and Wireshark — not scanners, not SIEM.",
+            "IDS alerts while IPS blocks; read the scenario's verb carefully.",
+            "Regular-interval small outbound flows scream C2 beaconing."
+          ],
+          "confusions": [
+            {
+              "a": "IDS",
+              "b": "IPS",
+              "text": "IDS detects and alerts; IPS prevents by blocking inline."
+            },
+            {
+              "a": "NetFlow",
+              "b": "Packet capture",
+              "text": "NetFlow summarizes connections; capture keeps full payloads."
+            },
+            {
+              "a": "TCPDUMP",
+              "b": "Nmap",
+              "text": "TCPDUMP captures traffic; Nmap probes hosts. Different jobs."
+            }
+          ],
+          "keyTerms": [
+            {
+              "term": "IDS/IPS",
+              "def": "Detection (alert) versus prevention (block) network sensors.",
+              "example": "Snort alerting on a signature vs dropping the packets."
+            },
+            {
+              "term": "NetFlow",
+              "def": "Summarized connection metadata for pattern hunting.",
+              "example": "Spotting hourly beacons to one foreign IP."
+            },
+            {
+              "term": "C2 beaconing",
+              "def": "Regular malware check-ins with attacker infrastructure.",
+              "example": "60-second identical outbound connections all night."
+            }
+          ],
+          "mistakes": [
+            "Reaching for a vulnerability scanner when you need a packet capture.",
+            "Confusing IDS (alerts) with IPS (blocks).",
+            "Capturing everything with no filter, then drowning in packets."
+          ],
+          "examTips": [
+            "Anomalous traffic capture is always TCPDUMP/Wireshark.",
+            "Mechanical timing plus rare external IP equals C2.",
+            "Read whether the scenario wants detection or prevention."
+          ],
+          "takeaway": "Flows find the pattern, packets prove it: NetFlow to spot beacons, TCPDUMP/Wireshark to confirm.",
+          "checks": [
+            {
+              "q": "Best tools to capture anomalous traffic from a host?",
+              "options": [
+                "Nessus and OpenVAS",
+                "TCPDUMP and Wireshark",
+                "SIEM and SOAR",
+                "Nmap and Dig"
+              ],
+              "answer": "TCPDUMP and Wireshark",
+              "explain": "Capture and analysis beat scanners for live traffic."
+            },
+            {
+              "q": "An IDS fires but traffic continues. Why?",
+              "options": [
+                "It is passive detection only",
+                "It is misconfigured",
+                "It needs rebooting",
+                "It only works on Wi-Fi"
+              ],
+              "answer": "It is passive detection only",
+              "explain": "IDS alerts; only IPS blocks inline."
+            },
+            {
+              "q": "Hourly identical outbound connections suggest?",
+              "options": [
+                "Video streaming",
+                "C2 beaconing",
+                "Software updates",
+                "Email sync"
+              ],
+              "answer": "C2 beaconing",
+              "explain": "Mechanical timing to a rare host is the beacon signature."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "detection-response-tools",
+      "title": "Detection Tools: EDR, XDR and SOAR",
+      "blurb": "Endpoint visibility plus automated response: what EDR/XDR see and what SOAR does about it.",
+      "topics": [
+        {
+          "id": "edr-xdr",
+          "slug": "edr-xdr",
+          "title": "EDR and XDR",
+          "description": "Endpoint detection and response, extended across the estate — quarantine, timelines, and threat hunting on hosts.",
+          "what": [
+            "EDR (Endpoint Detection and Response) lives on workstations and servers, recording process executions, file changes, and network connections. When something malicious runs, EDR can isolate the host, kill processes, and roll back changes.",
+            "XDR (Extended Detection and Response) correlates EDR telemetry with email, network, identity, and cloud signals into one incident view."
+          ],
+          "why": [
+            "Servers and laptops are wherepayloads execute. When logs point at a host, EDR tells you exactly what ran, what it touched, and lets you quarantine in one click — the exam constantly asks how to contain a host without extra impact."
+          ],
+          "concepts": [
+            {
+              "term": "Isolation/quarantine",
+              "text": "Cutting a host off the network while keeping it on for investigation."
+            },
+            {
+              "term": "Process tree",
+              "text": "Parent-child execution chains showing how malware launched."
+            },
+            {
+              "term": "Behavioral detection",
+              "text": "Flagging malicious patterns (e.g., Office spawning PowerShell) rather than hashes."
+            },
+            {
+              "term": "XDR correlation",
+              "text": "Merging endpoint, email, identity, and network telemetry into one story."
+            },
+            {
+              "term": "Rollback/remediation",
+              "text": "Reverting malicious changes after containment."
+            }
+          ],
+          "example": "Adware drops a script that beacons to C2. EDR flags the unusual parent-child chain, shows the file was never quarantined locally, and the analyst isolates the host with one action — no reimaging, no pulling cables across the office.",
+          "scenario": {
+            "title": "Adware with a C2 script",
+            "story": "A user clicked a malicious adware link. The payload downloaded and now beacons outbound.",
+            "walkthrough": [
+              {
+                "label": "Observed activity",
+                "text": "EDR alert: new executable with C2-style network behavior."
+              },
+              {
+                "label": "Initial hypothesis",
+                "text": "Commodity malware with command-and-control."
+              },
+              {
+                "label": "Evidence to collect",
+                "text": "EDR process tree, file reputation, firewall/proxy logs for the destination."
+              },
+              {
+                "label": "Analysis",
+                "text": "Script invokes C2; file undetected by AV."
+              },
+              {
+                "label": "Decision",
+                "text": "Contain at the endpoint — minimal business impact."
+              },
+              {
+                "label": "Next action",
+                "text": "Verify EDR detected it and quarantine locally; block the destination domain."
+              }
+            ]
+          },
+          "technical": {
+            "title": "The process tree tells the story",
+            "text": "Read executions bottom-up: which legitimate parent launched the malicious child?",
+            "code": {
+              "lang": "text",
+              "text": "outlook.exe\n └─ invoice.scr          <- user double-clicked\n     └─ powershell.exe -enc ...   <- living off the land\n         └─ whoami / mimikatz     <- discovery & credential theft"
+            }
+          },
+          "exam": [
+            "Contain-without-impact almost always means check EDR and quarantine locally.",
+            "EDR answers what ran and what it touched; SIEM answers what happened across systems.",
+            "XDR is EDR correlated across email, network, identity, and cloud."
+          ],
+          "confusions": [
+            {
+              "a": "EDR",
+              "b": "Antivirus",
+              "text": "AV blocks known malware; EDR records behavior, hunts, and responds."
+            },
+            {
+              "a": "EDR",
+              "b": "XDR",
+              "text": "EDR covers endpoints; XDR correlates endpoints plus email, network, identity, cloud."
+            },
+            {
+              "a": "Quarantine",
+              "b": "Reimage",
+              "text": "Quarantine isolates for study; reimaging wipes evidence — investigate first."
+            }
+          ],
+          "keyTerms": [
+            {
+              "term": "EDR",
+              "def": "Endpoint agent recording and responding to host activity.",
+              "example": "Isolating a laptop that ran invoice.scr."
+            },
+            {
+              "term": "XDR",
+              "def": "Cross-domain detection joining endpoint, email, network, identity signals.",
+              "example": "One incident tying phishing email to endpoint execution."
+            },
+            {
+              "term": "Isolation",
+              "def": "Network-quarantining a host while leaving it powered for forensics.",
+              "example": "EDR isolate action during active C2."
+            }
+          ],
+          "mistakes": [
+            "Reimaging before collecting EDR timelines and process trees.",
+            "Disabling user accounts when the malware, not the account, is the problem.",
+            "Treating AV alerts as a substitute for EDR investigation."
+          ],
+          "examTips": [
+            "Contain without impact equals EDR quarantine.",
+            "Parent-child process chains reveal living-off-the-land attacks.",
+            "XDR questions hinge on correlating multiple domains."
+          ],
+          "takeaway": "EDR shows what ran and lets you freeze the host; XDR connects that host to the whole attack.",
+          "checks": [
+            {
+              "q": "Malware beacons from a host. Lowest-impact containment?",
+              "options": [
+                "Pull the power cable",
+                "Reimage immediately",
+                "Verify EDR detection and quarantine locally",
+                "Delete the user account"
+              ],
+              "answer": "Verify EDR detection and quarantine locally",
+              "explain": "EDR quarantine contains without destroying evidence or work."
+            },
+            {
+              "q": "What does XDR add over EDR?",
+              "options": [
+                "Faster disks",
+                "Correlation across email, network, identity, cloud",
+                "More antivirus signatures",
+                "Longer passwords"
+              ],
+              "answer": "Correlation across email, network, identity, cloud",
+              "explain": "The X is extended, cross-domain telemetry."
+            },
+            {
+              "q": "Outlook spawning PowerShell spawning whoami indicates?",
+              "options": [
+                "Normal updates",
+                "Living-off-the-land attack chain",
+                "Backup job",
+                "Printer driver"
+              ],
+              "answer": "Living-off-the-land attack chain",
+              "explain": "Legitimate tools chained for malicious ends."
+            }
+          ]
+        },
+        {
+          "id": "soar-automation",
+          "slug": "soar-automation",
+          "title": "SOAR and Security Automation",
+          "description": "Playbooks that enrich, decide, and act in seconds: when to automate and what stays human.",
+          "what": [
+            "SOAR (Security Orchestration, Automation, and Response) connects tools through playbooks: when an alert fires, the playbook enriches it with threat intel, checks asset criticality, blocks indicators, opens tickets, and only then involves a human.",
+            "Automation suits high-volume, repeatable decisions (phishing triage, IOC blocking, STIX-driven rule creation). Human judgment stays for novel malware, privileged access, and identity proofing."
+          ],
+          "why": [
+            "SOCs drown in alerts. SOAR buys back analyst hours and enforces consistent response — and CySA+ repeatedly asks where automation fits versus where humans must stay in the loop."
+          ],
+          "concepts": [
+            {
+              "term": "Playbook",
+              "text": "A defined automated workflow: trigger, enrichment, decision, action."
+            },
+            {
+              "term": "Orchestration",
+              "text": "Coordinating many tools (SIEM, firewall, EDR, ticketing) as one motion."
+            },
+            {
+              "term": "Enrichment",
+              "text": "Appending context (reputation, asset value, intel) before decisions."
+            },
+            {
+              "term": "Human-in-the-loop",
+              "text": "Keeping analysts on novel, risky, or privileged decisions."
+            },
+            {
+              "term": "STIX-driven rules",
+              "text": "Machine-readable intel auto-generating NIDS rules — a classic safe automation."
+            }
+          ],
+          "example": "Phishing triage mandate: cut triage time 20%. A SOAR playbook detonates attachments in a sandbox, extracts URLs, checks reputation, and closes benign reports automatically — analysts only see real threats.",
+          "scenario": {
+            "title": "STIX in, rules out",
+            "story": "Fresh STIX indicators arrive describing attacker infrastructure. Hundreds of NIDS rules need creating before the next shift.",
+            "walkthrough": [
+              {
+                "label": "Observed activity",
+                "text": "Machine-readable threat intel, high volume, well-structured."
+              },
+              {
+                "label": "Initial hypothesis",
+                "text": "Safe to automate: deterministic conversion, reviewable output."
+              },
+              {
+                "label": "Evidence to collect",
+                "text": "STIX confidence scores, affected sensor coverage."
+              },
+              {
+                "label": "Analysis",
+                "text": "Rule generation is repeatable with clear success criteria."
+              },
+              {
+                "label": "Decision",
+                "text": "Automate generation; humans sample-verify."
+              },
+              {
+                "label": "Next action",
+                "text": "Deploy generated NIDS rules, keep malware analysis and access approvals manual."
+              }
+            ]
+          },
+          "technical": {
+            "title": "A phishing playbook sketch",
+            "text": "Triggers and actions of a typical triage playbook.",
+            "code": {
+              "lang": "text",
+              "text": "TRIGGER: email reported to phishing mailbox\n1. extract attachments + URLs\n2. detonate in sandbox (Joe Sandbox)\n3. reputation-check URLs + sender\n4. IF malicious: quarantine mailbox, block URL, open ticket\n5. ELSE: close as benign, log decision"
+            }
+          },
+          "exam": [
+            "SOAR answers involve orchestration, enrichment, and playbooks — never detection itself.",
+            "Automate repeatable high-volume work (STIX rules); keep malware binaries, privileged access, and identity proofing human.",
+            "Cutting triage time points to SOAR, not more analysts or more SIEM rules."
+          ],
+          "confusions": [
+            {
+              "a": "SOAR",
+              "b": "SIEM",
+              "text": "SIEM detects and shows; SOAR orchestrates response actions."
+            },
+            {
+              "a": "Automation",
+              "b": "Orchestration",
+              "text": "Automation does single tasks; orchestration coordinates many tools into one workflow."
+            },
+            {
+              "a": "Playbook",
+              "b": "Runbook",
+              "text": "Playbooks automate; runbooks document manual steps."
+            }
+          ],
+          "keyTerms": [
+            {
+              "term": "SOAR",
+              "def": "Platform orchestrating tools through automated response playbooks.",
+              "example": "Auto-triaging phishing reports in seconds."
+            },
+            {
+              "term": "Playbook",
+              "def": "Codified response workflow with triggers and actions.",
+              "example": "STIX intake generating NIDS rules."
+            },
+            {
+              "term": "Enrichment",
+              "def": "Adding intel and asset context to raw alerts.",
+              "example": "Appending reputation scores before triage."
+            }
+          ],
+          "mistakes": [
+            "Automating privileged access approvals or identity proofing.",
+            "Buying SOAR expecting it to detect threats.",
+            "Automating malware verdicts without analyst review."
+          ],
+          "examTips": [
+            "Phishing triage speed equals SOAR.",
+            "STIX-to-NIDS-rules is the textbook safe automation.",
+            "If the task needs judgment, the answer keeps a human."
+          ],
+          "takeaway": "SOAR turns repeatable response into playbooks; judgment-heavy work stays human.",
+          "checks": [
+            {
+              "q": "Primary function of SOAR?",
+              "options": [
+                "Encrypting SIEM logs",
+                "Automating and orchestrating response workflows",
+                "Detecting zero-days in packets",
+                "Writing compliance reports"
+              ],
+              "answer": "Automating and orchestrating response workflows",
+              "explain": "Orchestrated response is the definition."
+            },
+            {
+              "q": "Safe to automate?",
+              "options": [
+                "Approving domain admin access",
+                "Generating NIDS rules from STIX",
+                "Analyzing novel malware",
+                "Enrolling PKI identities"
+              ],
+              "answer": "Generating NIDS rules from STIX",
+              "explain": "Deterministic, high-volume, reviewable — ideal for automation."
+            },
+            {
+              "q": "Cut phishing triage time 20%: best move?",
+              "options": [
+                "More analysts",
+                "Integrate a SOAR platform",
+                "More SIEM rules",
+                "Awareness posters"
+              ],
+              "answer": "Integrate a SOAR platform",
+              "explain": "Playbooks compress triage time consistently."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "soc-frameworks-identity",
+      "title": "Frameworks and Identity in the SOC",
+      "blurb": "ATT&CK, Kill Chain, Diamond Model for thinking; MFA, SSO, and access hygiene for defense.",
+      "topics": [
+        {
+          "id": "mitre-attack-frameworks",
+          "slug": "mitre-attack-frameworks",
+          "title": "MITRE ATT&CK, Kill Chain, and Diamond",
+          "description": "Three lenses for attacker behavior: tactics catalog, attack phases, and intrusion analysis.",
+          "what": [
+            "MITRE ATT&CK catalogs adversary tactics (why: Initial Access, Execution, Persistence, Exfiltration) and techniques (how). Analysts map observed behavior to tactics to understand and hunt.",
+            "The Cyber Kill Chain orders intrusions into seven phases: Reconnaissance, Weaponization, Delivery, Exploitation, Installation, Command and Control, Actions on Objectives.",
+            "The Diamond Model analyzes every intrusion as four vertices: Adversary, Capability, Infrastructure, Victim."
+          ],
+          "why": [
+            "Frameworks turn scattered alerts into a story: where the attacker is in their campaign and what comes next. Exam scenarios constantly ask which tactic or phase an observation belongs to."
+          ],
+          "concepts": [
+            {
+              "term": "Tactic vs technique",
+              "text": "Tactic is the goal (Persistence); technique is the method (new local account)."
+            },
+            {
+              "term": "Kill Chain order",
+              "text": "Recon, Weaponize, Deliver, Exploit, Install, C2, Act — break any link to stop the attack."
+            },
+            {
+              "term": "Diamond vertices",
+              "text": "Adversary uses Capability over Infrastructure against Victim — pivot on any vertex."
+            },
+            {
+              "term": "IOA vs IOC",
+              "text": "Indicators of Attack are behaviors in progress (odd PowerShell); Indicators of Compromise are forensic artifacts (hashes, C2 IPs)."
+            }
+          ],
+          "example": "A new local account appears on a server: ATT&CK tactic Persistence. Outbound beacons follow: C2. Same campaign on the Kill Chain: Installation then Command and Control. Diamond: capability (account creation tooling) against victim server.",
+          "scenario": {
+            "title": "Name that tactic",
+            "story": "SIEM shows failed logins then a success from one IP, then odd outbound traffic.",
+            "walkthrough": [
+              {
+                "label": "Observed activity",
+                "text": "Brute-force pattern followed by success plus exfil-like flows."
+              },
+              {
+                "label": "Initial hypothesis",
+                "text": "Credential attack progressing toward theft."
+              },
+              {
+                "label": "Evidence to collect",
+                "text": "Auth logs, session activity, egress volumes."
+              },
+              {
+                "label": "Analysis",
+                "text": "Map to ATT&CK: Credential Access, then Collection and Exfiltration."
+              },
+              {
+                "label": "Decision",
+                "text": "Active intrusion, not recon."
+              },
+              {
+                "label": "Next action",
+                "text": "Isolate, rotate credentials, hunt for persistence."
+              }
+            ]
+          },
+          "technical": {
+            "title": "Mapping cheat sheet",
+            "text": "Fast mappings analysts memorize.",
+            "code": {
+              "lang": "text",
+              "text": "Phishing attachment opened     -> Initial Access\nStolen creds used on VPN        -> Valid Accounts / Lateral Movement\nMiners launched on cloud hosts  -> Impact\nOdd PowerShell at 2 AM          -> IOA (behavior in progress)\nKnown bad hash on disk          -> IOC (forensic artifact)"
+            }
+          },
+          "exam": [
+            "Phase names matter: Initial Access and Lateral Movement signal ATT&CK; Recon-to-Actions signals Kill Chain.",
+            "IOA is behavior in progress; IOC is evidence of compromise.",
+            "New accounts for access equals Persistence."
+          ],
+          "confusions": [
+            {
+              "a": "ATT&CK tactic",
+              "b": "ATT&CK technique",
+              "text": "Tactics are goals; techniques are implementations."
+            },
+            {
+              "a": "Kill Chain",
+              "b": "ATT&CK",
+              "text": "Kill Chain is seven ordered phases; ATT&CK is a tactics catalog without strict order."
+            },
+            {
+              "a": "IOA",
+              "b": "IOC",
+              "text": "Attack indicators are live behaviors; compromise indicators are leftovers."
+            }
+          ],
+          "keyTerms": [
+            {
+              "term": "MITRE ATT&CK",
+              "def": "Catalog of adversary tactics and techniques.",
+              "example": "Mapping miners to Impact."
+            },
+            {
+              "term": "Kill Chain",
+              "def": "Seven-phase intrusion model from recon to actions.",
+              "example": "Blocking delivery to break the chain."
+            },
+            {
+              "term": "Diamond Model",
+              "def": "Adversary-Capability-Infrastructure-Victim analysis.",
+              "example": "Pivoting from a C2 IP to the victim set."
+            },
+            {
+              "term": "TTP",
+              "def": "Tactics, Techniques, Procedures — the how of adversaries.",
+              "example": "TTPs in a threat intel report."
+            }
+          ],
+          "mistakes": [
+            "Calling every malicious event Exfiltration — map the actual behavior.",
+            "Mixing Kill Chain phases with ATT&CK tactics.",
+            "Treating IOAs and IOCs as interchangeable."
+          ],
+          "examTips": [
+            "Phase names in the stem reveal the framework.",
+            "Unusual live behavior equals IOA; artifacts equal IOC.",
+            "Account creation for access equals Persistence."
+          ],
+          "takeaway": "ATT&CK names the goal, Kill Chain orders the campaign, Diamond connects the dots.",
+          "checks": [
+            {
+              "q": "Miners launched on cloud hosts map to which tactic?",
+              "options": [
+                "Execution",
+                "Credential Access",
+                "Initial Access",
+                "Impact"
+              ],
+              "answer": "Impact",
+              "explain": "Resource hijacking and disruption is Impact."
+            },
+            {
+              "q": "Odd PowerShell at 2 AM is an example of?",
+              "options": [
+                "IOC",
+                "IOA",
+                "CVE",
+                "Risk"
+              ],
+              "answer": "IOA",
+              "explain": "Live suspicious behavior is an attack indicator."
+            },
+            {
+              "q": "Seven stages Recon-to-Actions is?",
+              "options": [
+                "ATT&CK",
+                "STRIDE",
+                "Cyber Kill Chain",
+                "Diamond"
+              ],
+              "answer": "Cyber Kill Chain",
+              "explain": "Ordered phases are the Kill Chain signature."
+            }
+          ]
+        },
+        {
+          "id": "identity-soc",
+          "slug": "identity-soc",
+          "title": "Identity Under Attack",
+          "description": "MFA, SSO, credential attacks, and access hygiene — because identity is the perimeter.",
+          "what": [
+            "Most breaches involve credentials: phishing steals them, spraying and stuffing guess them, and impossible-travel alerts catch their reuse. Defenses layer MFA (something you know, have, or are), SSO (one login, many apps), and least-privilege access reviews.",
+            "Analysts read authentication logs the way network analysts read packets: failures, successes, locations, and impossible sequences."
+          ],
+          "why": [
+            "Identity attacks are the most common exam scenario family — brute force, spraying, stuffing, impossible travel, dark-web credential reuse. One mental model answers them all."
+          ],
+          "concepts": [
+            {
+              "term": "MFA",
+              "text": "Two or more factors; even with MFA, force resets on leaked credentials."
+            },
+            {
+              "term": "Brute force vs spraying vs stuffing",
+              "text": "Many passwords on one account vs few passwords on many accounts vs leaked pairs replayed."
+            },
+            {
+              "term": "Impossible travel",
+              "text": "Logins too far apart in space and close in time — validate before acting."
+            },
+            {
+              "term": "SSO",
+              "text": "One identity provider session for many apps — convenient, high-value target."
+            },
+            {
+              "term": "Least privilege",
+              "text": "Minimum access needed; review and trim regularly."
+            },
+            {
+              "term": "Email authentication",
+              "text": "SPF, DKIM, and DMARC verify senders. Analysts check DKIM signatures and Received headers to confirm origin and spot spoofing."
+            }
+          ],
+          "example": "Dark-web alert: an employee's password is circulating. MFA is on, but the password must still die first — force a reset, then confirm no anomalous sessions, then review the account's privileges.",
+          "scenario": {
+            "title": "Leaked credential, MFA on — now what?",
+            "story": "Threat intel flags an employee credential on the dark web. Web and login activity look clean so far, and MFA is enabled.",
+            "walkthrough": [
+              {
+                "label": "Observed activity",
+                "text": "Credential exposure, no confirmed misuse yet."
+              },
+              {
+                "label": "Initial hypothesis",
+                "text": "Account at risk; MFA raises the bar but password reuse threatens other systems."
+              },
+              {
+                "label": "Evidence to collect",
+                "text": "Login anomalies, session tokens, uploads/downloads, privilege level."
+              },
+              {
+                "label": "Analysis",
+                "text": "No misuse yet, but the secret is burned."
+              },
+              {
+                "label": "Decision",
+                "text": "Kill the credential first, investigate in parallel."
+              },
+              {
+                "label": "Next action",
+                "text": "Forced password reset, session revocation, then privilege review."
+              }
+            ]
+          },
+          "technical": {
+            "title": "Attack shapes in logs",
+            "text": "Recognize the three credential attacks by their log shape.",
+            "code": {
+              "lang": "text",
+              "text": "Brute force : many passwords x ONE account, rapid\nSpraying     : ONE password x MANY accounts, slow\nStuffing     : leaked pairs replayed across services\nDefense      : lockouts + MFA + forced resets + monitoring"
+            }
+          },
+          "exam": [
+            "Leaked credential plus MFA still means reset first.",
+            "Impossible travel: validate (VPN? travel?) before escalating.",
+            "Know the three shapes: brute force, spraying, stuffing."
+          ],
+          "confusions": [
+            {
+              "a": "Brute force",
+              "b": "Password spraying",
+              "text": "Brute force hammers one account; spraying spreads few guesses across many."
+            },
+            {
+              "a": "MFA",
+              "b": "Invincibility",
+              "text": "MFA raises the bar hugely but leaked passwords still get reset."
+            },
+            {
+              "a": "Authentication",
+              "b": "Authorization",
+              "text": "Authentication proves who you are; authorization decides what you may do."
+            }
+          ],
+          "keyTerms": [
+            {
+              "term": "MFA",
+              "def": "Multi-factor authentication combining knowledge, possession, inherence.",
+              "example": "Password plus push approval."
+            },
+            {
+              "term": "Credential stuffing",
+              "def": "Replaying leaked username-password pairs at scale.",
+              "example": "Failures across hundreds of accounts at once."
+            },
+            {
+              "term": "Impossible travel",
+              "def": "Logins too distant, too fast to be one human.",
+              "example": "Manila then Lagos in five minutes."
+            }
+          ],
+          "mistakes": [
+            "Skipping the reset because MFA is on.",
+            "Escalating impossible travel without checking VPN and travel.",
+            "Confusing spraying with brute force."
+          ],
+          "examTips": [
+            "Reset is first for exposed credentials, MFA or not.",
+            "Validate travel alerts before action.",
+            "Shape of logins reveals the attack type."
+          ],
+          "takeaway": "Credentials are the perimeter: learn the three attack shapes and always kill exposed secrets first.",
+          "checks": [
+            {
+              "q": "Credential on dark web, MFA on. First step?",
+              "options": [
+                "Email the user",
+                "Force a password reset",
+                "Run an AV scan",
+                "Review privileges"
+              ],
+              "answer": "Force a password reset",
+              "explain": "The burned secret must die before anything else."
+            },
+            {
+              "q": "One password tried on many accounts slowly is?",
+              "options": [
+                "Brute force",
+                "Password spraying",
+                "XSS",
+                "Phishing"
+              ],
+              "answer": "Password spraying",
+              "explain": "Few passwords spread wide is spraying."
+            },
+            {
+              "q": "Manila then Lagos in 5 minutes suggests?",
+              "options": [
+                "VPN always",
+                "Check travel/VPN, treat as compromise",
+                "Ignore it",
+                "Reinstall the laptop"
+              ],
+              "answer": "Check travel/VPN, treat as compromise",
+              "explain": "Validate first, then contain if unexplained."
+            }
+          ]
+        },
+        {
+          "id": "threat-intel",
+          "slug": "threat-intel",
+          "title": "Threat Intelligence and TIPs",
+          "description": "IOCs, IOAs, STIX/TAXII, and threat-intel platforms — turning outside knowledge into detections.",
+          "what": [
+            "Threat intelligence is evidence-based knowledge about adversaries: their indicators, behaviors, and infrastructure. IOCs (hashes, IPs, domains) say what is bad; IOAs (behaviors like odd PowerShell) say what bad looks like in progress.",
+            "A TIP (Threat Intelligence Platform) aggregates IOCs from feeds, enriches and deduplicates them, and pushes them to SIEM, firewalls, and EDR. STIX is the format, TAXII the transport."
+          ],
+          "why": [
+            "No SOC sees every attacker alone. Intel lets a small team punch above its weight — and exam questions constantly test whether you know what a TIP actually does versus SOAR, SIEM, or firewalls."
+          ],
+          "concepts": [
+            {
+              "term": "IOC",
+              "text": "Atomic evidence: hashes, IPs, domains tied to malicious activity."
+            },
+            {
+              "term": "IOA",
+              "text": "Behavioral evidence of an attack underway."
+            },
+            {
+              "term": "TIP",
+              "text": "Platform aggregating, enriching, and distributing intel."
+            },
+            {
+              "term": "STIX/TAXII",
+              "text": "STIX structures intel; TAXII shares it machine-to-machine."
+            },
+            {
+              "term": "Enrichment",
+              "text": "Appending reputation and context to raw indicators."
+            }
+          ],
+          "example": "Threat intel names an attacker IP. The TIP pushes it to the firewall for blocking and to the SIEM for retro-hunting — one feed, detection plus prevention, no manual copy-paste.",
+          "scenario": {
+            "title": "Feed to firewall in minutes",
+            "story": "A trusted feed publishes C2 domains used in active phishing. Your users click links all day.",
+            "walkthrough": [
+              {
+                "label": "Observed activity",
+                "text": "High-confidence malicious domains, short-lived."
+              },
+              {
+                "label": "Initial hypothesis",
+                "text": "Blocking plus hunting beats either alone."
+              },
+              {
+                "label": "Evidence to collect",
+                "text": "Feed confidence, expiry, historical DNS hits internally."
+              },
+              {
+                "label": "Analysis",
+                "text": "Domains are fresh and targeted at your sector."
+              },
+              {
+                "label": "Decision",
+                "text": "Push to controls and hunt history simultaneously."
+              },
+              {
+                "label": "Next action",
+                "text": "TIP pushes block + retro-hunt; review hits with Tier 2."
+              }
+            ]
+          },
+          "technical": {
+            "title": "STIX sighting sketch",
+            "text": "How intel looks machine-readable.",
+            "code": {
+              "lang": "json",
+              "text": "{\n  \"type\": \"indicator\",\n  \"pattern\": \"[ipv4-addr:value = '41.21.18.102']\",\n  \"labels\": [\"malicious-activity\"],\n  \"confidence\": 92,\n  \"valid_until\": \"2026-06-01T00:00:00Z\"\n}"
+            }
+          },
+          "exam": [
+            "TIP use case is aggregating external IOCs — not encrypting, remediating, or writing firewall rules itself.",
+            "STIX structures, TAXII transports.",
+            "Automation enriching alerts with intel before review is SOAR orchestration."
+          ],
+          "confusions": [
+            {
+              "a": "IOC",
+              "b": "IOA",
+              "text": "IOCs are artifacts (hashes, IPs); IOAs are behaviors in progress."
+            },
+            {
+              "a": "TIP",
+              "b": "SOAR",
+              "text": "TIP manages knowledge; SOAR executes response."
+            },
+            {
+              "a": "STIX",
+              "b": "TAXII",
+              "text": "STIX is the language; TAXII is the delivery truck."
+            }
+          ],
+          "keyTerms": [
+            {
+              "term": "IOC",
+              "def": "Evidence of compromise: hashes, IPs, domains.",
+              "example": "A C2 IP from a feed."
+            },
+            {
+              "term": "TIP",
+              "def": "Platform collecting and sharing threat intel.",
+              "example": "Auto-pushing IOCs to the firewall."
+            },
+            {
+              "term": "STIX/TAXII",
+              "def": "Structured intel format and its sharing protocol.",
+              "example": "STIX rule auto-creating a NIDS signature."
+            }
+          ],
+          "mistakes": [
+            "Calling firewall rule-writing a TIP function.",
+            "Treating intel as fully trusted without confidence and expiry.",
+            "Manually copying IOCs instead of using the TIP pipeline."
+          ],
+          "examTips": [
+            "TIP equals aggregation of external IOCs.",
+            "STIX/TAXII split appears often — format vs transport.",
+            "Intel enrichment before analyst review equals SOAR."
+          ],
+          "takeaway": "Intel turns outside sightings into inside detections: aggregate, enrich, push, hunt.",
+          "checks": [
+            {
+              "q": "Best TIP use case?",
+              "options": [
+                "Encrypting web traffic",
+                "Automating remediation",
+                "Aggregating external IOCs",
+                "Writing VLAN rules"
+              ],
+              "answer": "Aggregating external IOCs",
+              "explain": "Aggregation and sharing is the TIP's job."
+            },
+            {
+              "q": "STIX vs TAXII?",
+              "options": [
+                "Same thing",
+                "STIX structures, TAXII transports",
+                "TAXII structures, STIX transports",
+                "Both are firewalls"
+              ],
+              "answer": "STIX structures, TAXII transports",
+              "explain": "Format versus sharing protocol."
+            },
+            {
+              "q": "Automation enriching alerts pre-review is?",
+              "options": [
+                "Pentesting",
+                "SOAR orchestration",
+                "PBQ work",
+                "Log rotation"
+              ],
+              "answer": "SOAR orchestration",
+              "explain": "Enrichment pipelines are orchestration."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

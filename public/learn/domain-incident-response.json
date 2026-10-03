@@ -525,6 +525,10 @@
             {
               "term": "C2 callback",
               "text": "Malware phoning home — the behavior that condemns it."
+            },
+            {
+              "term": "Malicious attachments",
+              "text": "Executable payloads delivered by email: .scr screensavers, weaponized Office macros, and crafted PDFs. Never open to test — detonate in a sandbox."
             }
           ],
           "example": "Suspicious Invoice PDF arrives: strings show no scripts (fast static triage), but policy says detonate — Cuckoo shows it dropping an executable and beaconing. Verdict: malicious, with a behavior report attached.",

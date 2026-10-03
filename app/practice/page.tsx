@@ -5,7 +5,7 @@ import Link from "next/link";
 import { ArrowLeft, ArrowRight, Shuffle, RotateCcw, Flag, Crosshair, Layers } from "lucide-react";
 import { getQuestions, getBanks, getDomains, filterByBank, resolveBank, shuffle, type Question, type Bank, type BankFilter } from "@/lib/questions";
 import { store, type ExamResult } from "@/lib/storage";
-import { consumePracticeGotoDomain } from "@/lib/learn";
+import { consumePracticeGotoDomain, LEARN_TO_QUIZ_DOMAIN, getAllDomains, findRelatedTopics, type LearnDomain } from "@/lib/learn";
 import { scaledScore, percentage } from "@/lib/scoring";
 import { Button, Card, Badge, Progress, Skeleton, EmptyState, cn } from "@/components/ui";
 import { QuestionCard, ExplanationBox } from "@/components/quiz/QuestionCard";
@@ -25,6 +25,7 @@ function buildOptOrders(ids: string[], rand: boolean): Record<string, number[]> 
 export default function PracticePage() {
   const [questions, setQuestions] = useState<Question[] | null>(null);
   const [banks, setBanks] = useState<Bank[]>([]);
+  const [learnDoms, setLearnDoms] = useState<LearnDomain[]>([]);
   const [loadError, setLoadError] = useState<string | null>(null);
   const [bank, setBank] = useState<BankFilter>("all");
   const [order, setOrder] = useState<string[]>([]);
@@ -61,16 +62,22 @@ export default function PracticePage() {
           setOrder(fresh);
           setOptOrders(buildOptOrders(fresh, true));
         }
-        // One-shot handoff from Learn ("Practice this domain")
+        // One-shot handoff from Learn ("Practice this domain").
+        // Stored value is a LEARN domain id; map it to the quiz domain name.
         const goto = consumePracticeGotoDomain();
-        if (goto && getDomains(filterByBank(qs, b)).includes(goto)) {
-          setDomainFilter(goto);
+        const gotoDomain = (goto && LEARN_TO_QUIZ_DOMAIN[goto]) || goto;
+        if (gotoDomain && getDomains(filterByBank(qs, b)).includes(gotoDomain)) {
+          setDomainFilter(gotoDomain);
           setIdx(0);
         }
         setReady(true);
       })
       .catch((e) => setLoadError(e instanceof Error ? e.message : "Failed to load questions"));
     sessionStart.current = Date.now();
+  }, []);
+
+  useEffect(() => {
+    getAllDomains().then(setLearnDoms).catch(() => {});
   }, []);
 
   const byId = useMemo(() => new Map((questions ?? []).map((q) => [q.id, q])), [questions]);
@@ -85,6 +92,16 @@ export default function PracticePage() {
   const safeIdx = Math.min(idx, Math.max(0, filteredOrder.length - 1));
   const currentId = filteredOrder[safeIdx];
   const current = currentId ? byId.get(currentId) : undefined;
+  const related = useMemo(
+    () =>
+      current && learnDoms.length > 0
+        ? findRelatedTopics({ domain: current.domain, question: current.question, options: [...current.options] }, learnDoms).map((r) => ({
+            href: `/learn/${r.domainId}/${r.slug}`,
+            title: r.title,
+          }))
+        : [],
+    [current, learnDoms]
+  );
 
   // persist after every answer/flag change
   useEffect(() => {
@@ -313,7 +330,7 @@ export default function PracticePage() {
                 focusKey={current.id}
                 notesInteractive
               >
-                {locked ? <ExplanationBox question={current} correct={correct} /> : null}
+                {locked ? <ExplanationBox question={current} correct={correct} related={related} /> : null}
               </QuestionCard>
               <p className="mt-2 font-mono text-[11px] text-slate-600">
                 Keys 1–4 answer · ←/→ navigate · right-click eliminates an option · tap any option after answering for its note

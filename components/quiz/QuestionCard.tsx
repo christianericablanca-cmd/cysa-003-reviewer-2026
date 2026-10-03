@@ -294,7 +294,11 @@ export function QuestionCard({
   );
 }
 
-export function ExplanationBox({ question, correct }: { question: Question; correct: boolean }) {
+export function ExplanationBox({ question, correct, related }: {
+  question: Question;
+  correct: boolean;
+  related?: { href: string; title: string }[];
+}) {
   return (
     <div
       role="status"
@@ -312,6 +316,20 @@ export function ExplanationBox({ question, correct }: { question: Question; corr
         <p className="mt-2 text-xs text-slate-500">
           Study note prepared for this reviewer — not an official CompTIA explanation.
         </p>
+      ) : null}
+      {related && related.length > 0 ? (
+        <div className="mt-3 border-t border-white/10 pt-2.5">
+          <p className="font-mono text-[11px] font-bold tracking-widest text-slate-500">STUDY THIS CONCEPT</p>
+          <ul className="mt-1.5 flex flex-col gap-1">
+            {related.map((r) => (
+              <li key={r.href}>
+                <a href={r.href} className="text-xs font-semibold text-cyan-300 underline underline-offset-2 hover:text-cyan-200">
+                  📖 {r.title} →
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
       ) : null}
     </div>
   );

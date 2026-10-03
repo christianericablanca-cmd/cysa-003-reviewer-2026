@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { Search, Flag, XCircle } from "lucide-react";
 import { getQuestions, getBanks, getDomains, filterByBank, resolveBank, type Question, type Bank, type BankFilter } from "@/lib/questions";
+import { getAllDomains, findRelatedTopics, type LearnDomain } from "@/lib/learn";
 import { store } from "@/lib/storage";
 import { Button, Card, Badge, Skeleton, EmptyState, cn } from "@/components/ui";
 import { QuestionCard, ExplanationBox } from "@/components/quiz/QuestionCard";
@@ -11,6 +12,7 @@ import { QuestionCard, ExplanationBox } from "@/components/quiz/QuestionCard";
 export default function ReviewPage() {
   const [questions, setQuestions] = useState<Question[] | null>(null);
   const [banks, setBanks] = useState<Bank[]>([]);
+  const [learnDoms, setLearnDoms] = useState<LearnDomain[]>([]);
   const [bank, setBank] = useState<BankFilter>("all");
   const [query, setQuery] = useState("");
   const [domain, setDomain] = useState<string | "all">("all");
@@ -33,6 +35,7 @@ export default function ReviewPage() {
     // eslint-disable-next-line react-hooks/set-state-in-effect -- mount hydration from external store
     setFlags(store.getFlags());
     setWrongMap(store.getWrong());
+    getAllDomains().then(setLearnDoms).catch(() => {});
   }, []);
 
   const domains = useMemo(() => (questions ? getDomains(questions) : []), [questions]);
@@ -162,7 +165,20 @@ export default function ReviewPage() {
                       focusKey={q.id}
                       notesInteractive
                     >
-                      {retry ? <ExplanationBox question={q} correct={retry === q.correctAnswer} /> : null}
+                      {retry ? (
+                        <ExplanationBox
+                          question={q}
+                          correct={retry === q.correctAnswer}
+                          related={
+                            learnDoms.length > 0
+                              ? findRelatedTopics({ domain: q.domain, question: q.question, options: [...q.options] }, learnDoms).map((r) => ({
+                                  href: `/learn/${r.domainId}/${r.slug}`,
+                                  title: r.title,
+                                }))
+                              : []
+                          }
+                        />
+                      ) : null}
                     </QuestionCard>
                     <Button variant="ghost" size="sm" className="mt-2" onClick={() => setOpenId(null)}>
                       Collapse

@@ -212,9 +212,9 @@ export function DomainProgress({ pct, ...rest }: { pct: number; className?: stri
   return <Progress value={pct} {...rest} />;
 }
 
-export function PracticeDomainButton({ domainName }: { domainName: string }) {
+export function PracticeDomainButton({ domainId }: { domainId: string }) {
   return (
-    <Link href="/practice" onClick={() => setPracticeGotoDomain(domainName)}>
+    <Link href="/practice" onClick={() => setPracticeGotoDomain(domainId)}>
       <Button variant="secondary" size="sm" className="w-full">Practice this domain →</Button>
     </Link>
   );

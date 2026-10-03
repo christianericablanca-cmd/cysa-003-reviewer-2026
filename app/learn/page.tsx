@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { GraduationCap, Search, Bookmark, ArrowRight, FlaskConical, AlertTriangle, RotateCcw } from "lucide-react";
+import { GraduationCap, Search, Bookmark, FlaskConical, AlertTriangle, RotateCcw } from "lucide-react";
 import { getDomainIndex, getAllDomains, learnStore, flattenDomain, type LearnDomain, type DomainMeta } from "@/lib/learn";
 import { Button, Card, Badge, Progress, Skeleton, EmptyState } from "@/components/ui";
 import { DomainProgress } from "@/components/learn/learn-ui";
@@ -67,6 +67,18 @@ export default function LearnDashboard() {
   })();
 
   const weak = doms ? learnStore.weakTopics(doms).slice(0, 5) : [];
+
+  const recent = (() => {
+    if (!doms) return [];
+    const out: { domain: LearnDomain; slug: string; title: string }[] = [];
+    for (const k of store.recent.slice(0, 5)) {
+      const [d, s] = k.split("/");
+      const dom = doms.find((x) => x.id === d);
+      const f = dom ? flattenDomain(dom).find((t) => t.topic.slug === s) : undefined;
+      if (dom && f) out.push({ domain: dom, slug: s, title: f.topic.title });
+    }
+    return out;
+  })();
 
   if (error) {
     return <EmptyState title="Could not load curriculum" hint={error} action={<Button onClick={() => window.location.reload()}>Retry</Button>} />;
@@ -144,23 +156,28 @@ export default function LearnDashboard() {
                 </div>
                 <p className="mt-2 line-clamp-2 text-xs leading-relaxed text-slate-400">{d.blurb}</p>
                 <DomainProgress pct={p.pct} className="mt-3" />
-                <div className="mt-3 flex flex-col gap-1.5">
-                  {topics.slice(0, 4).map((t) => (
-                    <TopicRow
-                      key={t.topic.slug}
-                      href={`/learn/${d.id}/${t.topic.slug}`}
-                      title={t.topic.title}
-                      done={!!store.completed[`${d.id}/${t.topic.slug}`]}
-                    />
-                  ))}
-                  {topics.length > 4 ? (
-                    <Link
-                      href={`/learn/${d.id}/${topics[4].topic.slug}`}
-                      className="flex items-center justify-between rounded-lg px-2 py-1.5 text-xs font-semibold text-cyan-300 hover:bg-white/5"
-                    >
-                      + {topics.length - 4} more in {d.name} <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
-                    </Link>
-                  ) : null}
+                <div className="mt-3 flex flex-col gap-2.5">
+                  {d.modules.map((m) => {
+                    const mDone = m.topics.filter((t) => store.completed[`${d.id}/${t.slug}`]).length;
+                    return (
+                      <div key={m.id}>
+                        <div className="flex items-baseline justify-between gap-2 px-2">
+                          <p className="truncate text-xs font-bold text-slate-200">{m.title}</p>
+                          <p className="shrink-0 font-mono text-[11px] text-slate-500">{mDone}/{m.topics.length}</p>
+                        </div>
+                        <div className="mt-0.5 flex flex-col gap-0.5">
+                          {m.topics.map((t) => (
+                            <TopicRow
+                              key={t.slug}
+                              href={`/learn/${d.id}/${t.slug}`}
+                              title={t.title}
+                              done={!!store.completed[`${d.id}/${t.slug}`]}
+                            />
+                          ))}
+                        </div>
+                      </div>
+                    );
+                  })}
                 </div>
               </Card>
             );
@@ -176,6 +193,23 @@ export default function LearnDashboard() {
               </Link>
               <p className="mt-0.5 text-xs text-slate-500">{recommended.domain.name} · {recommended.module.title}</p>
               <p className="mt-2 line-clamp-2 text-xs leading-relaxed text-slate-400">{recommended.topic.description}</p>
+            </Card>
+          ) : null}
+
+          {recent.length > 0 ? (
+            <Card className="p-5">
+              <p className="font-mono text-[11px] font-bold tracking-widest text-slate-400">
+                RECENTLY VIEWED
+              </p>
+              <ul className="mt-2 flex flex-col gap-1">
+                {recent.map((r) => (
+                  <li key={`${r.domain.id}/${r.slug}`}>
+                    <Link href={`/learn/${r.domain.id}/${r.slug}`} className="block truncate rounded-lg px-2 py-1.5 text-sm text-slate-200 hover:bg-white/5">
+                      {r.title}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
             </Card>
           ) : null}
 

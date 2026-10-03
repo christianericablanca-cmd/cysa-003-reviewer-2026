@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
-import { ArrowLeft, ArrowRight, ChevronRight, Zap, BookOpen } from "lucide-react";
+import { ArrowLeft, ArrowRight, ChevronRight, Zap, BookOpen, FlaskConical } from "lucide-react";
 import { getDomain, flattenDomain, learnStore, type LearnDomain } from "@/lib/learn";
 import { Button, Card, Badge, Skeleton, EmptyState } from "@/components/ui";
 import { Callout, CodeBlock, TopicChecks, QuickReview, CompleteButton, BookmarkButton, PracticeDomainButton } from "@/components/learn/learn-ui";
@@ -13,7 +13,7 @@ export default function TopicPage() {
   const router = useRouter();
   const [dom, setDom] = useState<LearnDomain | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const [mode, setMode] = useState<"full" | "quick">("full");
+  const [mode, setMode] = useState<"full" | "quick" | "deep">("full");
 
   useEffect(() => {
     getDomain(params.domain)
@@ -90,12 +90,97 @@ export default function TopicPage() {
         >
           <Zap className="h-3.5 w-3.5" aria-hidden="true" /> Quick review
         </button>
+        <button
+          onClick={() => setMode("deep")}
+          aria-pressed={mode === "deep"}
+          title="Advanced pass: implementation, adversaries, and exam angles"
+          className={`flex flex-1 items-center justify-center gap-1.5 rounded-xl border px-3 py-2 text-xs font-bold ${mode === "deep" ? "border-cyan-400/60 bg-cyan-500/15 text-cyan-200" : "border-white/10 text-slate-400"}`}
+        >
+          <FlaskConical className="h-3.5 w-3.5" aria-hidden="true" /> Deep dive
+        </button>
       </div>
+
+      {/* Mobile curriculum drawer */}
+      <details className="rounded-2xl border border-white/10 bg-white/[0.02] lg:hidden">
+        <summary className="cursor-pointer list-none px-4 py-3 text-sm font-bold text-slate-200 focus-visible:outline-2 focus-visible:outline-cyan-400">
+          <span className="font-mono text-[11px] text-slate-500">CURRICULUM · </span>
+          {dom.name} — {flat.length} topics
+        </summary>
+        <div className="max-h-80 overflow-y-auto border-t border-white/5 px-2 py-2">
+          {dom.modules.map((m) => (
+            <details key={m.id} open={m.id === cur.module.id} className="mb-1">
+              <summary className="cursor-pointer rounded-lg px-2 py-2 text-xs font-bold text-slate-300 hover:bg-white/5">
+                {m.title}
+              </summary>
+              <ul className="mb-1 ml-2 flex flex-col border-l border-white/10 pl-2">
+                {flat.filter((f) => f.module.id === m.id).map((f) => {
+                  const active = f.topic.slug === t.slug;
+                  const done = learnStore.isComplete(dom.id, f.topic.slug);
+                  return (
+                    <li key={f.topic.slug}>
+                      <Link
+                        href={`/learn/${dom.id}/${f.topic.slug}`}
+                        aria-current={active ? "page" : undefined}
+                        className={`flex items-center gap-2 rounded-lg px-2 py-2 text-[13px] ${active ? "bg-cyan-500/15 font-bold text-cyan-100" : "text-slate-400"}`}
+                      >
+                        <span aria-hidden="true" className={done ? "text-emerald-400" : ""}>{done ? "✓" : "○"}</span>
+                        <span className="truncate">{f.topic.title}</span>
+                      </Link>
+                    </li>
+                  );
+                })}
+              </ul>
+            </details>
+          ))}
+        </div>
+      </details>
 
       <div className="grid items-start gap-4 lg:grid-cols-[minmax(0,1fr)_260px]">
         <div className="min-w-0">
           {mode === "quick" ? (
             <QuickReview topic={t} />
+          ) : mode === "deep" ? (
+            <div className="flex flex-col gap-4">
+              <Callout kind="analyst" title="DEEP DIVE — ADVANCED PASS">
+                Implementation detail, adversary behavior, and exam angles. Assumes you already know the basics above — this is the second, harder pass.
+              </Callout>
+              <Card className="p-5">
+                <h2 className="text-base font-bold text-white">How it works under the hood</h2>
+                <p className="mt-2 text-sm leading-relaxed text-slate-300">{t.technical.text}</p>
+                {t.technical.code ? (
+                  <div className="mt-3"><CodeBlock lang={t.technical.code.lang} text={t.technical.code.text} /></div>
+                ) : null}
+              </Card>
+              <Callout kind="analyst" title={`ADVERSARY VIEW — ${t.scenario.title}`}>
+                <p className="italic text-slate-200">“{t.scenario.story}”</p>
+                <ol className="mt-3 flex flex-col gap-2">
+                  {t.scenario.walkthrough.map((w) => (
+                    <li key={w.label} className="rounded-xl bg-black/30 p-3">
+                      <p className="font-mono text-[11px] font-bold uppercase tracking-widest text-cyan-400">{w.label}</p>
+                      <p className="mt-0.5 text-[13px] leading-relaxed text-slate-300">{w.text}</p>
+                    </li>
+                  ))}
+                </ol>
+              </Callout>
+              <Callout kind="exam" title="WHAT CYSA+ WANTS YOU TO UNDERSTAND">
+                <ul className="flex list-disc flex-col gap-1.5 pl-5">
+                  {t.exam.map((e, i) => <li key={i}>{e}</li>)}
+                </ul>
+              </Callout>
+              <Card className="p-5">
+                <h2 className="text-base font-bold text-white">Don’t confuse these</h2>
+                <div className="mt-3 flex flex-col gap-2">
+                  {t.confusions.map((c) => (
+                    <div key={c.a + c.b} className="rounded-xl border border-amber-400/20 bg-amber-500/[0.04] p-3">
+                      <p className="text-sm font-bold text-amber-200">{c.a} vs {c.b}</p>
+                      <p className="mt-1 text-xs leading-relaxed text-slate-300">{c.text}</p>
+                    </div>
+                  ))}
+                </div>
+              </Card>
+              <TopicChecks domainId={dom.id} slug={t.slug} topic={t} />
+              <Callout kind="takeaway" title="">{t.takeaway}</Callout>
+            </div>
           ) : (
             <div className="flex flex-col gap-4">
               <Card className="p-5" >
@@ -244,7 +329,7 @@ export default function TopicPage() {
             </Card>
             <Card className="flex flex-col gap-2 p-4">
               <CompleteButton domainId={dom.id} slug={t.slug} />
-              <PracticeDomainButton domainName={dom.name} />
+              <PracticeDomainButton domainId={dom.id} />
             </Card>
             <Card className="p-4">
               <p className="text-xs font-bold uppercase tracking-widest text-slate-400">In this module</p>
@@ -275,7 +360,7 @@ export default function TopicPage() {
       {/* Mobile complete */}
       <div className="lg:hidden">
         <CompleteButton domainId={dom.id} slug={t.slug} />
-        <div className="mt-2"><PracticeDomainButton domainName={dom.name} /></div>
+        <div className="mt-2"><PracticeDomainButton domainId={dom.id} /></div>
       </div>
     </div>
   );
