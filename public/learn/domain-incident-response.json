@@ -1,0 +1,1149 @@
+{
+  "id": "incident-response",
+  "name": "Incident Response Management",
+  "weight": "20% of exam",
+  "blurb": "When prevention fails: the response lifecycle, forensics, malware analysis, hunting, and learning from every incident.",
+  "modules": [
+    {
+      "id": "response-lifecycle",
+      "title": "Response Lifecycle",
+      "blurb": "From preparation to lessons learned: how incidents are run, contained, and closed.",
+      "topics": [
+        {
+          "id": "ir-lifecycle",
+          "slug": "ir-lifecycle",
+          "title": "The Incident Response Lifecycle",
+          "description": "Preparation through lessons learned: the six phases every analyst runs, in order.",
+          "what": [
+            "Incident response follows a lifecycle: Preparation (plans, playbooks, tools, training), Detection and Analysis (find and scope), Containment (stop the spread), Eradication (remove the cause), Recovery (restore safely), and Lessons Learned (improve). NIST SP 800-61 is the reference model.",
+            "Each phase has an exit before the next begins: you do not eradicate what you have not contained, and you do not recover what you have not eradicated."
+          ],
+          "why": [
+            "Every IR scenario question is secretly asking which phase you are in and what that phase permits. Knowing the order answers containment-vs-eradication-vs-recovery questions instantly."
+          ],
+          "concepts": [
+            {
+              "term": "Preparation",
+              "text": "Plans, playbooks, roles, tools, and tabletop rehearsals before anything happens."
+            },
+            {
+              "term": "Detection & Analysis",
+              "text": "Confirming alerts, scoping impact, and declaring incidents."
+            },
+            {
+              "term": "Containment",
+              "text": "Short-term isolation to stop spread; long-term holds for sustained operations."
+            },
+            {
+              "term": "Eradication & Recovery",
+              "text": "Removing causes and vulnerabilities, then restoring and monitoring."
+            },
+            {
+              "term": "Lessons Learned",
+              "text": "Post-incident review improving people, process, and tooling."
+            }
+          ],
+          "example": "Ransomware hits file shares at 2 AM. Preparation pays off: the on-call analyst opens the ransomware playbook instead of improvising — isolate first, then eradicate, then recover from clean backups, then review.",
+          "scenario": {
+            "title": "2 AM ransomware",
+            "story": "Help desk reports encrypted file shares spreading across departments. The ransomware playbook is on the shelf.",
+            "walkthrough": [
+              {
+                "label": "Observed activity",
+                "text": "Rapidly spreading encryption, ransom notes appearing."
+              },
+              {
+                "label": "Initial hypothesis",
+                "text": "Active ransomware incident, not a drill."
+              },
+              {
+                "label": "Evidence to collect",
+                "text": "Patient zero, encryption scope, C2 callbacks, backup integrity."
+              },
+              {
+                "label": "Analysis",
+                "text": "Lateral movement confirmed via SMB; backups appear clean."
+              },
+              {
+                "label": "Decision",
+                "text": "Declare a major incident and run the playbook."
+              },
+              {
+                "label": "Next action",
+                "text": "Contain (isolate segments), eradicate, recover from backups, review."
+              }
+            ]
+          },
+          "technical": {
+            "title": "Phase gates",
+            "text": "Never skip forward — each gate protects the next phase.",
+            "code": {
+              "lang": "text",
+              "text": "PREPARE  -> playbooks, roles, tools, tabletops\nDETECT  -> validate, scope, declare\nCONTAIN -> isolate short-term, hold long-term\nERADICATE -> remove malware, close holes\nRECOVER -> restore, harden, monitor\nLEARN   -> review, fix process, update playbooks"
+            }
+          },
+          "exam": [
+            "Phase order never changes: contain before eradicate before recover.",
+            "Tabletops and playbooks belong to preparation.",
+            "Post-incident improvement is always lessons learned."
+          ],
+          "confusions": [
+            {
+              "a": "Containment",
+              "b": "Eradication",
+              "text": "Containment stops spread; eradication removes the cause."
+            },
+            {
+              "a": "Recovery",
+              "b": "Lessons learned",
+              "text": "Recovery restores operations; lessons learned improves the process afterward."
+            },
+            {
+              "a": "Incident",
+              "b": "Event",
+              "text": "Events are observable occurrences; incidents are events needing response."
+            }
+          ],
+          "keyTerms": [
+            {
+              "term": "IR lifecycle",
+              "def": "Six-phase model from preparation to lessons learned.",
+              "example": "Running ransomware by the playbook."
+            },
+            {
+              "term": "Playbook",
+              "def": "Predefined response workflow per scenario.",
+              "example": "Ransomware isolation steps at 2 AM."
+            },
+            {
+              "term": "Declaration",
+              "def": "Formal decision that an event is an incident.",
+              "example": "Named staff declaring a major incident."
+            }
+          ],
+          "mistakes": [
+            "Eradicating before containing — the threat spreads mid-cleanup.",
+            "Recovering from dirty backups.",
+            "Skipping lessons learned and repeating the incident."
+          ],
+          "examTips": [
+            "Phase-order questions are free points if memorized.",
+            "Tabletop and playbook always signal preparation.",
+            "Anything post-incident improvement signals lessons learned."
+          ],
+          "takeaway": "Run incidents in phase order — prepare, detect, contain, eradicate, recover, learn — and never skip a gate.",
+          "checks": [
+            {
+              "q": "Malware is spreading. After detection, what comes first?",
+              "options": [
+                "Eradication",
+                "Containment",
+                "Recovery",
+                "Lessons learned"
+              ],
+              "answer": "Containment",
+              "explain": "Stop the spread before removing causes."
+            },
+            {
+              "q": "Tabletops and playbooks belong to which phase?",
+              "options": [
+                "Recovery",
+                "Preparation",
+                "Eradication",
+                "Detection"
+              ],
+              "answer": "Preparation",
+              "explain": "Readiness work happens before incidents."
+            },
+            {
+              "q": "Post-incident process improvement is?",
+              "options": [
+                "Containment",
+                "Recovery",
+                "Lessons learned",
+                "Declaration"
+              ],
+              "answer": "Lessons learned",
+              "explain": "Improvement closes the lifecycle."
+            }
+          ]
+        },
+        {
+          "id": "contain-eradicate-recover",
+          "slug": "contain-eradicate-recover",
+          "title": "Containment, Eradication, Recovery",
+          "description": "Isolate without breaking the business, remove causes completely, and restore with confidence.",
+          "what": [
+            "Containment stops bleeding: short-term isolation (unplug, firewall block, disable account) buys time; long-term containment (segmented VLANs, monitored access) sustains operations during long incidents. Eradication removes malware, attacker accounts, persistence, and the exploited weakness. Recovery restores systems from known-clean backups, re-hardens, patches, and monitors closely for return.",
+            "Business impact shapes every choice: containing a business-critical server means surgical isolation that preserves evidence, not yanking power."
+          ],
+          "why": [
+            "Analysts constantly choose between fast-but-destructive and slow-but-safe. The exam tests whether you contain first, preserve evidence, and restore only from clean sources."
+          ],
+          "concepts": [
+            {
+              "term": "Short vs long containment",
+              "text": "Immediate isolation versus sustained monitored separation."
+            },
+            {
+              "term": "Evidence preservation",
+              "text": "Memory, logs, and images captured before wiping anything."
+            },
+            {
+              "term": "Eradication completeness",
+              "text": "Malware plus persistence plus entry point — all three, or it returns."
+            },
+            {
+              "term": "Clean recovery",
+              "text": "Restore from verified-clean backups, then patch and monitor."
+            },
+            {
+              "term": "Segmentation",
+              "text": "Isolating by network zones to bound blast radius."
+            }
+          ],
+          "example": "Business-critical server shows malware. Instead of shutdown, the analyst isolates its switch port (network contained, memory preserved), images RAM, kills persistence, patches the entry flaw, then restores data from a verified backup.",
+          "scenario": {
+            "title": "The server that cannot die",
+            "story": "Malware is confirmed on the ERP server at month-end close. Finance says downtime costs millions per hour.",
+            "walkthrough": [
+              {
+                "label": "Observed activity",
+                "text": "Active malware on a cannot-fail system."
+              },
+              {
+                "label": "Initial hypothesis",
+                "text": "Containment must be surgical, not a power cut."
+              },
+              {
+                "label": "Evidence to collect",
+                "text": "Memory image, persistence mechanisms, entry vector, backup integrity."
+              },
+              {
+                "label": "Analysis",
+                "text": "C2 active but data intact; clean backups exist from last night."
+              },
+              {
+                "label": "Decision",
+                "text": "Isolate at network, preserve, eradicate, recover."
+              },
+              {
+                "label": "Next action",
+                "text": "Port isolation, memory capture, persistence removal, patch, monitored restore."
+              }
+            ]
+          },
+          "technical": {
+            "title": "Containment options ladder",
+            "text": "Escalate impact only as needed.",
+            "code": {
+              "lang": "text",
+              "text": "1. block malicious IPs/domains at firewall/proxy\n2. disable compromised accounts, revoke sessions\n3. isolate host (EDR) or switch port, keep powered\n4. segment network zones around the outbreak\n5. full shutdown — last resort, evidence first"
+            }
+          },
+          "exam": [
+            "Critical server plus malware means contain and preserve evidence — not shutdown or wipe.",
+            "Recovery demands verified-clean backups plus monitoring.",
+            "Eradication must include the entry point or reinfection follows."
+          ],
+          "confusions": [
+            {
+              "a": "Isolation",
+              "b": "Shutdown",
+              "text": "Isolation cuts network while preserving memory; shutdown kills volatile evidence."
+            },
+            {
+              "a": "Eradication",
+              "b": "Recovery",
+              "text": "Eradication removes threats; recovery restores service."
+            },
+            {
+              "a": "Short-term",
+              "b": "Long-term containment",
+              "text": "Short-term buys hours; long-term sustains operations during long fights."
+            }
+          ],
+          "keyTerms": [
+            {
+              "term": "Containment",
+              "def": "Stopping incident spread with minimal business harm.",
+              "example": "EDR-isolating the ERP server."
+            },
+            {
+              "term": "Eradication",
+              "def": "Complete removal of threat plus root cause.",
+              "example": "Killing persistence and patching the entry flaw."
+            },
+            {
+              "term": "Clean backup",
+              "def": "Verified-uncompromised restore source.",
+              "example": "Last night's offline backup set."
+            }
+          ],
+          "mistakes": [
+            "Shutting down critical hosts before memory capture.",
+            "Wiping before removing persistence and entry points.",
+            "Recovering from untested backups."
+          ],
+          "examTips": [
+            "Critical plus infected equals isolate and preserve.",
+            "Evidence before wiping, always.",
+            "Recovery answers mention clean backups plus monitoring."
+          ],
+          "takeaway": "Contain surgically, eradicate completely, recover only from clean — in that order.",
+          "checks": [
+            {
+              "q": "Malware on a business-critical server. First move?",
+              "options": [
+                "Pull the power",
+                "Wipe and rebuild",
+                "Isolate network-side and preserve evidence",
+                "Email customers"
+              ],
+              "answer": "Isolate network-side and preserve evidence",
+              "explain": "Surgical containment protects business and forensics."
+            },
+            {
+              "q": "Eradication is complete only when?",
+              "options": [
+                "Alerts stop",
+                "Malware, persistence, and entry point are gone",
+                "Users are happy",
+                "Logs are deleted"
+              ],
+              "answer": "Malware, persistence, and entry point are gone",
+              "explain": "All three, or it comes back."
+            },
+            {
+              "q": "Safe recovery requires?",
+              "options": [
+                "Any backup",
+                "Verified-clean backup plus monitoring",
+                "Speed over checks",
+                "No patching"
+              ],
+              "answer": "Verified-clean backup plus monitoring",
+              "explain": "Dirty restores reinfect; watch for return."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "forensics-malware",
+      "title": "Forensics and Malware Analysis",
+      "blurb": "Evidence that holds up and malware safely detonated: imaging, hashing, sandboxes.",
+      "topics": [
+        {
+          "id": "digital-forensics",
+          "slug": "digital-forensics",
+          "title": "Digital Forensics Essentials",
+          "description": "Order of volatility, imaging, hashing, chain of custody, and write blockers — evidence that holds up.",
+          "what": [
+            "Forensics answers what happened using defensible evidence. Collect in order of volatility: memory and running processes first (gone at power-off), then disk, then logs. Image drives bit-for-bit through write blockers that prevent alteration, hash original and copy (matching hashes prove integrity), and document every handler in the chain of custody.",
+            "Legal hold freezes relevant data from deletion when litigation is possible."
+          ],
+          "why": [
+            "One wrong move — imaging without a write blocker, rebooting before memory capture — destroys admissibility. Exam questions test exactly these failure points."
+          ],
+          "concepts": [
+            {
+              "term": "Order of volatility",
+              "text": "Memory, processes first; disk, then logs, then archives."
+            },
+            {
+              "term": "Write blocker",
+              "text": "Hardware/software preventing writes during imaging."
+            },
+            {
+              "term": "Hashing",
+              "text": "Matching MD5/SHA hashes proving the copy equals the original."
+            },
+            {
+              "term": "Chain of custody",
+              "text": "Documented handling log from seizure to courtroom."
+            },
+            {
+              "term": "Legal hold",
+              "text": "Preservation order suspending normal deletion."
+            }
+          ],
+          "example": "Suspected rogue employee's drive: analyst images through a write blocker, hashes both (match), logs every access. When hashes later mismatch on a re-image, the cause is clear — imaging altered it, so evidence handling failed.",
+          "scenario": {
+            "title": "The mismatched hash",
+            "story": "Initial drive hash does not match the imaged copy's hash. Counsel is asking questions.",
+            "walkthrough": [
+              {
+                "label": "Observed activity",
+                "text": "Hash mismatch between original and image."
+              },
+              {
+                "label": "Initial hypothesis",
+                "text": "The imaging process itself altered data."
+              },
+              {
+                "label": "Evidence to collect",
+                "text": "Imaging method, write-blocker usage logs, handler records."
+              },
+              {
+                "label": "Analysis",
+                "text": "No write blocker was used — the OS wrote during imaging."
+              },
+              {
+                "label": "Decision",
+                "text": "Evidence integrity compromised by procedure."
+              },
+              {
+                "label": "Next action",
+                "text": "Re-image correctly with blocker, document the failure, retrain."
+              }
+            ]
+          },
+          "technical": {
+            "title": "First-hour forensics order",
+            "text": "Volatile first, always.",
+            "code": {
+              "lang": "text",
+              "text": "1. photograph screen + note running state\n2. capture memory (winpmem / LiME) BEFORE power-off\n3. image disk via write blocker\n4. hash original + image, compare\n5. bag, tag, chain-of-custody log"
+            }
+          },
+          "exam": [
+            "Hash mismatch after imaging means no write blocker was used.",
+            "Memory before power-off — volatility order is law.",
+            "Legal hold preserves data when litigation looms."
+          ],
+          "confusions": [
+            {
+              "a": "Imaging",
+              "b": "Copying files",
+              "text": "Imaging is bit-for-bit including slack; copying misses hidden data."
+            },
+            {
+              "a": "Chain of custody",
+              "b": "Legal hold",
+              "text": "Custody tracks handling; hold prevents deletion."
+            },
+            {
+              "a": "Hash match",
+              "b": "Hash mismatch",
+              "text": "Match proves integrity; mismatch proves alteration somewhere."
+            }
+          ],
+          "keyTerms": [
+            {
+              "term": "Write blocker",
+              "def": "Device preventing any writes to evidence media.",
+              "example": "USB blocker during drive imaging."
+            },
+            {
+              "term": "Chain of custody",
+              "def": "Who handled evidence, when, and why.",
+              "example": "Signed log from seizure to lab."
+            },
+            {
+              "term": "Order of volatility",
+              "def": "Collection priority by disappear speed.",
+              "example": "RAM before disk before logs."
+            }
+          ],
+          "mistakes": [
+            "Imaging without a write blocker.",
+            "Rebooting before memory capture.",
+            "Skipping hash verification."
+          ],
+          "examTips": [
+            "Mismatch equals missing write blocker.",
+            "Volatility order questions are free points.",
+            "Legal hold appears with HR and litigation context."
+          ],
+          "takeaway": "Volatile first, image through blockers, hash everything, log every hand.",
+          "checks": [
+            {
+              "q": "Imaged hash differs from original. Cause?",
+              "options": [
+                "Bad cable",
+                "No write blocker used",
+                "Wrong timezone",
+                "Old laptop"
+              ],
+              "answer": "No write blocker used",
+              "explain": "Writes during imaging change hashes."
+            },
+            {
+              "q": "First collection priority?",
+              "options": [
+                "Archived tapes",
+                "Memory and processes",
+                "Printed manuals",
+                "Spare disks"
+              ],
+              "answer": "Memory and processes",
+              "explain": "Most volatile goes first."
+            },
+            {
+              "q": "Purpose of legal hold?",
+              "options": [
+                "Speed up imaging",
+                "Prevent deletion for litigation",
+                "Encrypt evidence",
+                "Close the case"
+              ],
+              "answer": "Prevent deletion for litigation",
+              "explain": "Hold freezes destruction."
+            }
+          ]
+        },
+        {
+          "id": "malware-analysis",
+          "slug": "malware-analysis",
+          "title": "Malware Analysis",
+          "description": "Static versus dynamic analysis, sandboxes, and safe detonation — learning what malware does without becoming the victim.",
+          "what": [
+            "Static analysis examines malware without running it: hashes, strings, headers, and imports reveal capabilities cheaply and safely. Dynamic analysis runs it in an isolated sandbox (Cuckoo, Joe Sandbox) and watches behavior: files dropped, registry keys, C2 callbacks.",
+            "Analysts start static for triage, detonate the interesting ones, and never run samples on production or personal machines."
+          ],
+          "why": [
+            "Phishing attachments and EDR alerts constantly demand a verdict: malicious or benign? Analysis gives the answer with evidence instead of guesses."
+          ],
+          "concepts": [
+            {
+              "term": "Static analysis",
+              "text": "No-execution inspection: strings, hashes, headers."
+            },
+            {
+              "term": "Dynamic analysis",
+              "text": "Sandboxed execution observing real behavior."
+            },
+            {
+              "term": "Sandbox",
+              "text": "Isolated detonation chamber with full monitoring."
+            },
+            {
+              "term": "Strings",
+              "text": "Readable text inside binaries hinting at function."
+            },
+            {
+              "term": "C2 callback",
+              "text": "Malware phoning home — the behavior that condemns it."
+            }
+          ],
+          "example": "Suspicious Invoice PDF arrives: strings show no scripts (fast static triage), but policy says detonate — Cuckoo shows it dropping an executable and beaconing. Verdict: malicious, with a behavior report attached.",
+          "scenario": {
+            "title": "Invoice or infection?",
+            "story": "User forwards Invoice-0489293348.pdf from an unknown sender asking if it is safe.",
+            "walkthrough": [
+              {
+                "label": "Observed activity",
+                "text": "Unsolicited PDF with urgent open-me language."
+              },
+              {
+                "label": "Initial hypothesis",
+                "text": "Possible targeted phishing payload."
+              },
+              {
+                "label": "Evidence to collect",
+                "text": "Static strings plus full sandbox detonation trace."
+              },
+              {
+                "label": "Analysis",
+                "text": "Sandbox shows dropped exe plus C2 beacons."
+              },
+              {
+                "label": "Decision",
+                "text": "Malicious — customized for the recipient."
+              },
+              {
+                "label": "Next action",
+                "text": "Block hashes and C2, hunt for other recipients, brief the user."
+              }
+            ]
+          },
+          "technical": {
+            "title": "Safe analysis ladder",
+            "text": "Climb only as far as the question needs.",
+            "code": {
+              "lang": "bash",
+              "text": "# 1. identify (never execute yet)\nfile Invoice-0489293348.pdf\nsha256sum Invoice-0489293348.pdf\n# 2. static peek\nstrings Invoice-0489293348.pdf | grep -iE 'cmd|powershell|http'\n# 3. detonate ONLY in sandbox:\n# cuckoo submit Invoice-0489293348.pdf  (isolated VM)"
+            }
+          },
+          "exam": [
+            "Customized attachment impact means detonate in sandbox (Cuckoo), not strings alone.",
+            "Static is safe and fast; dynamic reveals behavior.",
+            "Never analyze on production — sandbox only."
+          ],
+          "confusions": [
+            {
+              "a": "Static",
+              "b": "Dynamic",
+              "text": "Static inspects without running; dynamic runs isolated and watches."
+            },
+            {
+              "a": "Sandbox",
+              "b": "Honeypot",
+              "text": "Sandboxes detonate known samples; honeypots attract unknown attackers."
+            },
+            {
+              "a": "Strings",
+              "b": "Verdict",
+              "text": "Strings hint; only behavior confirms."
+            }
+          ],
+          "keyTerms": [
+            {
+              "term": "Sandbox",
+              "def": "Isolated VM for safe malware execution.",
+              "example": "Cuckoo detonating the invoice PDF."
+            },
+            {
+              "term": "Static analysis",
+              "def": "Code inspection without execution.",
+              "example": "Strings revealing powershell hints."
+            },
+            {
+              "term": "Dynamic analysis",
+              "def": "Behavior observation during execution.",
+              "example": "C2 beacons in the sandbox trace."
+            }
+          ],
+          "mistakes": [
+            "Opening samples on workstations to see what happens.",
+            "Stopping at strings when behavior is the question.",
+            "Skipping detonation for targeted attachments."
+          ],
+          "examTips": [
+            "Customized attachment equals sandbox detonation.",
+            "Behavior questions want dynamic analysis.",
+            "Sandbox names to recognize: Cuckoo, Joe Sandbox."
+          ],
+          "takeaway": "Static to triage, sandbox to convict — and never detonate outside isolation.",
+          "checks": [
+            {
+              "q": "Best way to judge a customized attachment's impact?",
+              "options": [
+                "Read it on your laptop",
+                "Detonate in a sandbox",
+                "Check the spelling",
+                "Forward to a friend"
+              ],
+              "answer": "Detonate in a sandbox",
+              "explain": "Behavior in isolation gives the verdict."
+            },
+            {
+              "q": "Strings output is an example of?",
+              "options": [
+                "Dynamic analysis",
+                "Static analysis",
+                "Fuzzing",
+                "Pentesting"
+              ],
+              "answer": "Static analysis",
+              "explain": "No execution involved."
+            },
+            {
+              "q": "Where may malware be executed?",
+              "options": [
+                "Production server",
+                "Analyst laptop",
+                "Isolated sandbox only",
+                "File share"
+              ],
+              "answer": "Isolated sandbox only",
+              "explain": "Nowhere else, ever."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "hunt-exercise",
+      "title": "Hunting and Exercises",
+      "blurb": "Threat hunting hypotheses plus tabletop rehearsals and lessons that actually improve.",
+      "topics": [
+        {
+          "id": "threat-hunting",
+          "slug": "threat-hunting",
+          "title": "Threat Hunting",
+          "description": "Hypothesis-driven hunts with ATT&CK: finding attackers your detections missed.",
+          "what": [
+            "Threat hunting proactively searches for hidden adversaries using hypotheses: if attackers use technique X, evidence Y should exist in our data. Hunters pivot through ATT&CK-mapped telemetry — process trees, auth logs, DNS — confirming or killing each hypothesis.",
+            "Hunting differs from alert triage: no alert fired. The hunter starts from intel, anomalies, or crown-jewel risk and goes looking."
+          ],
+          "why": [
+            "Advanced attackers evade signatures. Hunting is how SOCs catch them anyway — and exam questions test whether you know hunting starts with a hypothesis, not an alert."
+          ],
+          "concepts": [
+            {
+              "term": "Hypothesis",
+              "text": "Testable prediction guiding the hunt."
+            },
+            {
+              "term": "ATT&CK mapping",
+              "text": "Framing hunts around adversary techniques."
+            },
+            {
+              "term": "Pivot",
+              "text": "Moving from one indicator to related data."
+            },
+            {
+              "term": "Crown jewels",
+              "text": "Highest-value assets worth hunting around first."
+            },
+            {
+              "term": "Hunt vs triage",
+              "text": "Proactive searching versus reactive alert handling."
+            }
+          ],
+          "example": "Intel reports credential dumping via LSASS access. Hypothesis: LSASS accessed outside approved tools. Hunt: EDR process data for non-approved LSASS handles — two hosts light up, and an incident begins.",
+          "scenario": {
+            "title": "Hunt the dumper",
+            "story": "No alerts, but threat intel says your sector faces LSASS credential dumping.",
+            "walkthrough": [
+              {
+                "label": "Observed activity",
+                "text": "Nothing — that is the point of hunting."
+              },
+              {
+                "label": "Initial hypothesis",
+                "text": "If dumpers ran, LSASS anomalies exist in EDR data."
+              },
+              {
+                "label": "Evidence to collect",
+                "text": "Process access events to LSASS, approved-tool allowlist."
+              },
+              {
+                "label": "Analysis",
+                "text": "Two hosts show unknown processes reading LSASS."
+              },
+              {
+                "label": "Decision",
+                "text": "Hypothesis confirmed — convert hunt to incident."
+              },
+              {
+                "label": "Next action",
+                "text": "Isolate hosts, collect memory, expand timeline."
+              }
+            ]
+          },
+          "technical": {
+            "title": "Hunt loop",
+            "text": "Every hunt follows the same cycle.",
+            "code": {
+              "lang": "text",
+              "text": "INTEL/ANOMALY -> hypothesis (ATT&CK technique)\n  -> collect telemetry (EDR, auth, DNS)\n  -> analyze (confirm or kill hypothesis)\n  -> confirmed? open incident : document + new hypothesis"
+            }
+          },
+          "exam": [
+            "Hunting starts from hypotheses or intel — never from an alert.",
+            "ATT&CK frames hunts around techniques.",
+            "Confirmed hunts become incidents with isolation first."
+          ],
+          "confusions": [
+            {
+              "a": "Hunting",
+              "b": "Triage",
+              "text": "Hunting seeks hidden threats proactively; triage reacts to fired alerts."
+            },
+            {
+              "a": "Hypothesis",
+              "b": "Alert",
+              "text": "Hypotheses start hunts; alerts start triage."
+            },
+            {
+              "a": "Crown jewels",
+              "b": "Everything",
+              "text": "Hunt around highest value first — time is finite."
+            }
+          ],
+          "keyTerms": [
+            {
+              "term": "Threat hunting",
+              "def": "Proactive hypothesis-driven adversary search.",
+              "example": "LSASS-access hunt from fresh intel."
+            },
+            {
+              "term": "Hypothesis",
+              "def": "Testable hunt premise.",
+              "example": "If dumpers ran, EDR shows it."
+            },
+            {
+              "term": "Pivot",
+              "def": "Expanding from one finding to related data.",
+              "example": "Bad IP to all hosts that called it."
+            }
+          ],
+          "mistakes": [
+            "Waiting for alerts instead of hunting.",
+            "Hunting without a hypothesis — fishing, not hunting.",
+            "Skipping documentation of killed hypotheses."
+          ],
+          "examTips": [
+            "No alert plus proactive search equals hunting.",
+            "Hypothesis wording reveals hunt questions.",
+            "ATT&CK appears in hunt framing."
+          ],
+          "takeaway": "Hunt with hypotheses, pivot with data, convert confirmations to incidents.",
+          "checks": [
+            {
+              "q": "Threat hunting begins with?",
+              "options": [
+                "A fired alert",
+                "A hypothesis or intel",
+                "A reboot",
+                "A patch"
+              ],
+              "answer": "A hypothesis or intel",
+              "explain": "Hunting is proactive, not reactive."
+            },
+            {
+              "q": "Hunt confirms LSASS dumping. Next?",
+              "options": [
+                "Close as benign",
+                "Open incident, isolate hosts",
+                "Update antivirus",
+                "Email staff"
+              ],
+              "answer": "Open incident, isolate hosts",
+              "explain": "Confirmation converts hunts to response."
+            },
+            {
+              "q": "Best place to start hunting?",
+              "options": [
+                "Printers",
+                "Crown-jewel assets",
+                "Guest Wi-Fi",
+                "Vending machines"
+              ],
+              "answer": "Crown-jewel assets",
+              "explain": "Protect highest value first."
+            }
+          ]
+        },
+        {
+          "id": "tabletop-lessons",
+          "slug": "tabletop-lessons",
+          "title": "Tabletops and Lessons Learned",
+          "description": "Rehearsing incidents with tabletops, then converting every incident into improvement.",
+          "what": [
+            "Tabletop exercises walk stakeholders through a fictional scenario — ransomware at quarter-end, a leaked database — to test plans, roles, and decisions without real damage. Executives, legal, comms, and IT discover gaps together.",
+            "Lessons learned close real incidents: what worked, what failed, which playbooks change, which controls get funded. Metrics (MTTD/MTTR trends) prove improvement."
+          ],
+          "why": [
+            "Prepared teams outperform heroic ones. Exam questions treat tabletops as preparation and lessons learned as the mandatory ending — mixing them with response phases is a classic trap."
+          ],
+          "concepts": [
+            {
+              "term": "Tabletop",
+              "text": "Discussion-based rehearsal with cross-functional players."
+            },
+            {
+              "term": "After-action review",
+              "text": "Structured diffuse of what happened and why."
+            },
+            {
+              "term": "Playbook update",
+              "text": "Converting lessons into changed procedures."
+            },
+            {
+              "term": "MTTD/MTTR trends",
+              "text": "Metrics showing whether response actually improves."
+            },
+            {
+              "term": "Stakeholders",
+              "text": "Legal, comms, executives — responders plus deciders."
+            }
+          ],
+          "example": "CISO tabletops a ransomware scenario with the comms chief: who approves the press statement, and when? The gap found in the room beats discovering it at 2 AM.",
+          "scenario": {
+            "title": "The statement nobody approved",
+            "story": "Tabletop: customer data is leaked on a Friday night. Reporters call Saturday morning.",
+            "walkthrough": [
+              {
+                "label": "Observed activity",
+                "text": "Simulated leak plus media pressure."
+              },
+              {
+                "label": "Initial hypothesis",
+                "text": "Comms approval chain is the likely gap."
+              },
+              {
+                "label": "Evidence to collect",
+                "text": "Who drafts, who approves, how fast, per the plan."
+              },
+              {
+                "label": "Analysis",
+                "text": "No pre-approved holding statement exists."
+              },
+              {
+                "label": "Decision",
+                "text": "Gap confirmed without real damage."
+              },
+              {
+                "label": "Next action",
+                "text": "Draft holding statements, name approvers, re-exercise quarterly."
+              }
+            ]
+          },
+          "technical": {
+            "title": "Tabletop agenda",
+            "text": "Ninety minutes, maximum gaps found.",
+            "code": {
+              "lang": "text",
+              "text": "0:00  scenario inject (what just happened)\n0:20  response walk (who does what, in what order)\n0:45  comms + legal inject (statement? disclosure?)\n1:05  gaps + owners + deadlines\n1:20  schedule the re-exercise"
+            }
+          },
+          "exam": [
+            "Tabletop questions are preparation-phase questions.",
+            "After any incident or exercise, next is lessons learned.",
+            "Comms officers join tabletops for press-handling reasons."
+          ],
+          "confusions": [
+            {
+              "a": "Tabletop",
+              "b": "Live fire",
+              "text": "Tabletops discuss; live-fire exercises execute technically."
+            },
+            {
+              "a": "Lessons learned",
+              "b": "Recovery",
+              "text": "Recovery restores service; lessons improve the machine."
+            },
+            {
+              "a": "After-action",
+              "b": "Blamestorm",
+              "text": "After-actions fix process; blame fixes nothing."
+            }
+          ],
+          "keyTerms": [
+            {
+              "term": "Tabletop",
+              "def": "Discussion rehearsal of incident scenarios.",
+              "example": "Friday-night leak with the comms chief."
+            },
+            {
+              "term": "Lessons learned",
+              "def": "Post-incident improvement process.",
+              "example": "New holding statements after the exercise."
+            },
+            {
+              "term": "MTTR trend",
+              "def": "Recovery-time direction over quarters.",
+              "example": "Falling MTTR proving the program works."
+            }
+          ],
+          "mistakes": [
+            "Running tabletops with only IT in the room.",
+            "Filing lessons learned without owners or deadlines.",
+            "Confusing exercises with real response phases."
+          ],
+          "examTips": [
+            "Tabletop equals preparation, always.",
+            "Post-anything improvement equals lessons learned.",
+            "Comms chief presence signals press-handling."
+          ],
+          "takeaway": "Rehearse with tabletops, improve with lessons learned, prove it with trends.",
+          "checks": [
+            {
+              "q": "After a tabletop, what comes next?",
+              "options": [
+                "Containment",
+                "Lessons learned",
+                "Eradication",
+                "Shutdown"
+              ],
+              "answer": "Lessons learned",
+              "explain": "Exercises close with improvement."
+            },
+            {
+              "q": "Why invite the comms chief to a tabletop?",
+              "options": [
+                "Free lunch",
+                "Press-statement decisions",
+                "Firewall rules",
+                "Password resets"
+              ],
+              "answer": "Press-statement decisions",
+              "explain": "Comms owns public messaging."
+            },
+            {
+              "q": "Best proof the IR program improves?",
+              "options": [
+                "More alerts",
+                "Falling MTTD/MTTR trends",
+                "Bigger team",
+                "New logos"
+              ],
+              "answer": "Falling MTTD/MTTR trends",
+              "explain": "Trends measure outcomes, not inputs."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "insider-hr",
+      "title": "Insider Threats and Sensitive Investigations",
+      "blurb": "UEBA signals, HR-safe evidence handling, and privacy-compliant investigation.",
+      "topics": [
+        {
+          "id": "insider-threat",
+          "slug": "insider-threat",
+          "title": "Insider Threat Investigations",
+          "description": "Detecting malicious insiders with UEBA and investigating them without violating privacy or HR policy.",
+          "what": [
+            "Insider threats come from employees, contractors, or partners misusing legitimate access — maliciously (theft, sabotage) or negligently. UEBA (User and Entity Behavior Analytics) baselines normal behavior and flags anomalies: impossible hours, mass downloads, privilege creep.",
+            "Investigations touching HR matters demand extra care: minimize identifiable data, password-protect evidence, restrict access to need-to-know personnel, and coordinate with HR and legal early."
+          ],
+          "why": [
+            "Insider cases combine technical investigation with legal landmines. The exam tests both: recognizing UEBA signals AND handling evidence in HR-compliant ways."
+          ],
+          "concepts": [
+            {
+              "term": "UEBA",
+              "text": "Behavior baselines flagging anomalous user activity."
+            },
+            {
+              "term": "Malicious vs negligent",
+              "text": "Intent matters for response: sabotage versus mistakes."
+            },
+            {
+              "term": "Need-to-know",
+              "text": "Restricting sensitive case access to essential personnel."
+            },
+            {
+              "term": "De-identification",
+              "text": "Removing identifiers from case materials where possible."
+            },
+            {
+              "term": "Legal hold",
+              "text": "Preserving data when action may follow."
+            }
+          ],
+          "example": "UEBA flags a finance user downloading ten times their normal volume at 3 AM. The analyst quietly verifies with proxy logs, loops in HR and legal, and secures evidence with restricted access — no broadcast, no tipping off.",
+          "scenario": {
+            "title": "The terminable click",
+            "story": "A user accessed a banned site — a terminable offense. The SOC must build a case that survives HR and privacy scrutiny.",
+            "walkthrough": [
+              {
+                "label": "Observed activity",
+                "text": "Policy violation with employment consequences."
+              },
+              {
+                "label": "Initial hypothesis",
+                "text": "Evidence must be airtight and compliant."
+              },
+              {
+                "label": "Evidence to collect",
+                "text": "Auth logs, web logs, workstation temp files showing searches."
+              },
+              {
+                "label": "Analysis",
+                "text": "Activity confirmed across independent sources."
+              },
+              {
+                "label": "Decision",
+                "text": "Build an HR-safe case, not just a technical one."
+              },
+              {
+                "label": "Next action",
+                "text": "De-identified details, password-protected evidence, restricted access, HR coordination."
+              }
+            ]
+          },
+          "technical": {
+            "title": "HR-safe evidence checklist",
+            "text": "Every sensitive case gets these protections.",
+            "code": {
+              "lang": "text",
+              "text": "[x] minimize user-identifiable details in case notes\n[x] password-protect evidence files\n[x] restrict access to investigation personnel only\n[x] coordinate HR + legal before confrontation\n[x] full timeline: dates, accounts, hosts, IPs"
+            }
+          },
+          "exam": [
+            "HR/privacy investigations demand de-identification plus protected, restricted evidence.",
+            "UEBA plus anomaly equals insider-threat detection.",
+            "Timelines with dates, accounts, hosts, and IPs build cases."
+          ],
+          "confusions": [
+            {
+              "a": "UEBA",
+              "b": "SIEM rules",
+              "text": "UEBA learns behavior baselines; SIEM rules match fixed patterns."
+            },
+            {
+              "a": "Malicious insider",
+              "b": "Negligent insider",
+              "text": "Intent differs; both need least-privilege prevention."
+            },
+            {
+              "a": "Legal hold",
+              "b": "Deletion",
+              "text": "Hold preserves for action; deletion destroys cases."
+            }
+          ],
+          "keyTerms": [
+            {
+              "term": "UEBA",
+              "def": "Behavior analytics flagging user anomalies.",
+              "example": "3 AM mass downloads by finance."
+            },
+            {
+              "term": "Need-to-know",
+              "def": "Minimum-access principle for sensitive cases.",
+              "example": "HR plus counsel only on the evidence."
+            },
+            {
+              "term": "De-identification",
+              "def": "Stripping identifiers from case materials.",
+              "example": "User-123 instead of names in notes."
+            }
+          ],
+          "mistakes": [
+            "Broadcasting suspect names before HR involvement.",
+            "Collecting evidence without privacy safeguards.",
+            "Confronting users before the case is built."
+          ],
+          "examTips": [
+            "HR context always means protect and restrict evidence.",
+            "UEBA plus odd hours equals insider investigation.",
+            "Timelines win cases: dates, accounts, hosts, IPs."
+          ],
+          "takeaway": "Catch insiders with behavior analytics; prosecute them with HR-safe evidence.",
+          "checks": [
+            {
+              "q": "UEBA flags 3 AM mass downloads. This suggests?",
+              "options": [
+                "Patch Tuesday",
+                "Insider threat investigation",
+                "Backup job",
+                "Printer test"
+              ],
+              "answer": "Insider threat investigation",
+              "explain": "Anomalous user behavior is UEBA's signal."
+            },
+            {
+              "q": "HR-sensitive case evidence must be?",
+              "options": [
+                "Posted publicly",
+                "De-identified, protected, restricted",
+                "Emailed to all",
+                "Deleted fast"
+              ],
+              "answer": "De-identified, protected, restricted",
+              "explain": "Privacy compliance demands all three."
+            },
+            {
+              "q": "A proper case timeline includes?",
+              "options": [
+                "Opinions",
+                "Dates, accounts, hosts, IPs",
+                "Rumors",
+                "Memes"
+              ],
+              "answer": "Dates, accounts, hosts, IPs",
+              "explain": "Facts that survive scrutiny."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
