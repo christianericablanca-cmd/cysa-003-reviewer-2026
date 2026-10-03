@@ -3570,7 +3570,7 @@
     "image": "/bank-images/r2026-breach-logs.jpg",
     "imageCaption": "System log excerpt from the breach attempt.",
     "aiGenerated": true,
-    "exhibitText": "System log excerpt (breach attempt):\n12:51:12  Berry  whoami            10.10.12.13\n12:51:13  Berry  netstat -tough    10.10.12.13\n12:51:14  Berry  ./linpeas.sh      10.10.12.13\n12:51:15  Berry  sudo -l           10.10.12.13\n12:51:19  Berry  sudo su -         10.10.12.13\n12:51:25  root   whoami            10.10.12.13",
+    "exhibitText": "System log excerpt (breach attempt):\n12:51:11  Berry  whoami            10.10.12.13\n12:51:12  Berry  netstat -tculpn   10.10.12.13\n12:51:13  Berry  sudo su           10.10.12.13\n12:51:14  Berry  ./linpeas.sh      10.10.12.13\n12:51:15  Berry  su Larry          10.10.12.13\n12:51:16  Berry  sudo nano         10.10.12.13\n12:51:19  Larry  reese; shl>40     10.10.12.13\n12:51:?   Larry  2>&0              10.10.12.13\n12:51:25  root   whoami            10.10.12.13",
     "optionNotes": {
       "Exfiltration": "No data movement is shown — only privilege-probing commands.",
       "Remote code execution": "Commands run, but the technique evidenced here is the climb to root.",
