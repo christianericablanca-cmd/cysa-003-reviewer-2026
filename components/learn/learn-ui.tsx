@@ -79,6 +79,7 @@ export function CheckCard({ slug, check, index, onAnswered }: {
   return (
     <div className="rounded-2xl border border-white/10 bg-white/[0.02] p-4">
       <p className="font-mono text-[11px] text-slate-500">CHECK {index + 1}</p>
+      <p className="mt-1.5 text-sm font-semibold leading-relaxed text-slate-50">{check.q}</p>
       <div className="mt-2">
         <OptionsList
           question={q}
