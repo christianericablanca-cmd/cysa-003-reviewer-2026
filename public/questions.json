@@ -2010,7 +2010,7 @@
       "Using a client with kismet to analyze the airspace for potential de-authentication attack."
     ],
     "correctAnswer": "Using a client with kismet to analyze the airspace for potential de-authentication attack.",
-    "explanation": "The marked answer 'Using a client with kismet to analyze the airspace for potential de-authentication attack.' is the best choice for this scenario. Review the CySA+ objective related to the question stem and eliminate the distractors that do not address the described activity. (Study note generated for this reviewer; verify against official CySA+ CS0-003 objectives.)",
+    "explanation": "The clients and infrastructure are healthy, yet connections drop and auto-reconnect — the classic signature of a wireless deauthentication attack, where forged deauth frames kick clients off the network. A Kismet-equipped client lets the analyst see those spoofed frames directly in the airspace instead of chasing logs on healthy systems.",
     "aiGenerated": true,
     "bank": "reviewer-2026",
     "optionNotes": {
@@ -2050,7 +2050,7 @@
       "To establish the department that responsible for responding the incident."
     ],
     "correctAnswer": "To identify and document staff who have the authority to declare incident.",
-    "explanation": "The marked answer 'To identify and document staff who have the authority to declare incident.' is the best choice for this scenario. Review the CySA+ objective related to the question stem and eliminate the distractors that do not address the described activity. (Study note generated for this reviewer; verify against official CySA+ CS0-003 objectives.)",
+    "explanation": "A formal incident declaration exists to name exactly who has the authority to declare an incident, so response starts immediately instead of stalling on permission.",
     "aiGenerated": true,
     "bank": "reviewer-2026",
     "optionNotes": {
@@ -2070,7 +2070,7 @@
       "Review and ensure privileges assigned to the user’s account reflect least privilege."
     ],
     "correctAnswer": "Perform a forced password reset.",
-    "explanation": "The marked answer 'Perform a forced password reset.' is the best choice for this scenario. Review the CySA+ objective related to the question stem and eliminate the distractors that do not address the described activity. (Study note generated for this reviewer; verify against official CySA+ CS0-003 objectives.)",
+    "explanation": "The credential is already circulating on the dark web, and MFA cannot un-burn it — forcing a password reset kills the exposed secret first while investigation continues in parallel.",
     "aiGenerated": true,
     "bank": "reviewer-2026",
     "optionNotes": {
@@ -2110,7 +2110,7 @@
       "Avoidance"
     ],
     "correctAnswer": "Acceptance",
-    "explanation": "The marked answer 'Acceptance' is the best choice for this scenario. Review the CySA+ objective related to the question stem and eliminate the distractors that do not address the described activity. (Study note generated for this reviewer; verify against official CySA+ CS0-003 objectives.)",
+    "explanation": "Transfer, mitigation, and avoidance are evaluated first; formally accepting what remains is the last risk decision in the sequence.",
     "aiGenerated": true,
     "bank": "reviewer-2026",
     "optionNotes": {
@@ -2130,7 +2130,7 @@
       "Annual reference"
     ],
     "correctAnswer": "Risk Score",
-    "explanation": "The marked answer 'Risk Score' is the best choice for this scenario. Review the CySA+ objective related to the question stem and eliminate the distractors that do not address the described activity. (Study note generated for this reviewer; verify against official CySA+ CS0-003 objectives.)",
+    "explanation": "Risk scores blend severity with asset value and exposure, which is exactly what orders an SLA-driven patching plan.",
     "aiGenerated": true,
     "bank": "reviewer-2026",
     "optionNotes": {
@@ -2150,7 +2150,7 @@
       "Submit a recategorization update to the vendor."
     ],
     "correctAnswer": "Review the EDR information to determine whether the file was detected and quarantine locally.",
-    "explanation": "The marked answer 'Review the EDR information to determine whether the file was detected and quarantine locally.' is the best choice for this scenario. Review the CySA+ objective related to the question stem and eliminate the distractors that do not address the described activity. (Study note generated for this reviewer; verify against official CySA+ CS0-003 objectives.)",
+    "explanation": "EDR shows whether the file was caught and can quarantine the host surgically — containment with no business impact and preserved evidence.",
     "aiGenerated": true,
     "bank": "reviewer-2026",
     "optionNotes": {
@@ -2170,7 +2170,7 @@
       "Reduce the default timeout period for all the web- based sessions."
     ],
     "correctAnswer": "Implement HTTP Strict Transport Security Headers",
-    "explanation": "The marked answer 'Implement HTTP Strict Transport Security Headers' is the best choice for this scenario. Review the CySA+ objective related to the question stem and eliminate the distractors that do not address the described activity. (Study note generated for this reviewer; verify against official CySA+ CS0-003 objectives.)",
+    "explanation": "HSTS headers force browsers onto HTTPS for every connection, fixing unenforced encryption at the protocol level instead of relying on redirects.",
     "aiGenerated": true,
     "bank": "reviewer-2026",
     "optionNotes": {
@@ -2190,7 +2190,7 @@
       "The company’s IP was removed from the record."
     ],
     "correctAnswer": "The company’s IP was removed from the record.",
-    "explanation": "The marked answer 'The company’s IP was removed from the record.' is the best choice for this scenario. Review the CySA+ objective related to the question stem and eliminate the distractors that do not address the described activity. (Study note generated for this reviewer; verify against official CySA+ CS0-003 objectives.)",
+    "explanation": "The manipulated SPF record dropped the company's own sending IP, so receivers fail SPF checks and mark legitimate mail as spam.",
     "aiGenerated": true,
     "bank": "reviewer-2026",
     "optionNotes": {
@@ -2210,7 +2210,7 @@
       "Notify the SOC Manager for awareness after confirmation that the activity was intentional."
     ],
     "correctAnswer": "Ensure that the case details do not reflect any users – identifiable information. Password protect the evidence and restrict access to personnel related to the investigation.",
-    "explanation": "The marked answer 'Ensure that the case details do not reflect any users – identifiable information. Password protect the evidence and restrict access to personnel related to the investigation.' is the best choice for this scenario. Review the CySA+ objective related to the question stem and eliminate the distractors that do not address the described activity. (Study note generated for this reviewer; verify against official CySA+ CS0-003 objectives.)",
+    "explanation": "Terminable-offense cases must minimize user-identifiable details, password-protect evidence, and restrict access to investigators — the HR-compliant handling.",
     "aiGenerated": true,
     "bank": "reviewer-2026",
     "optionNotes": {
@@ -2230,7 +2230,7 @@
       "Send the IP address found on the small header to VirusTotal."
     ],
     "correctAnswer": "Execute cuckoo submit Invoice -0489293348.pdf",
-    "explanation": "The marked answer 'Execute cuckoo submit Invoice -0489293348.pdf' is the best choice for this scenario. Review the CySA+ objective related to the question stem and eliminate the distractors that do not address the described activity. (Study note generated for this reviewer; verify against official CySA+ CS0-003 objectives.)",
+    "explanation": "Only detonation reveals what a customized attachment actually does when opened; static strings and reputation lookups cannot show customized behavior.",
     "aiGenerated": true,
     "bank": "reviewer-2026",
     "optionNotes": {
@@ -2250,7 +2250,7 @@
       "ISO27001"
     ],
     "correctAnswer": "CIS Benchmarks",
-    "explanation": "The marked answer 'CIS Benchmarks' is the best choice for this scenario. Review the CySA+ objective related to the question stem and eliminate the distractors that do not address the described activity. (Study note generated for this reviewer; verify against official CySA+ CS0-003 objectives.)",
+    "explanation": "CIS Benchmarks are the consensus hardening checklists used to build secure gold images and templates.",
     "aiGenerated": true,
     "bank": "reviewer-2026",
     "optionNotes": {
@@ -2270,7 +2270,7 @@
       "MOU"
     ],
     "correctAnswer": "SLA",
-    "explanation": "The marked answer 'SLA' is the best choice for this scenario. Review the CySA+ objective related to the question stem and eliminate the distractors that do not address the described activity. (Study note generated for this reviewer; verify against official CySA+ CS0-003 objectives.)",
+    "explanation": "Third-party response duties need measurable terms — response times and metrics — which is what an SLA provides.",
     "aiGenerated": true,
     "bank": "reviewer-2026",
     "optionNotes": {
@@ -2290,7 +2290,7 @@
       "Create new correlation rules for the SIEM"
     ],
     "correctAnswer": "Integrate a SOAR platform",
-    "explanation": "The marked answer 'Integrate a SOAR platform' is the best choice for this scenario. Review the CySA+ objective related to the question stem and eliminate the distractors that do not address the described activity. (Study note generated for this reviewer; verify against official CySA+ CS0-003 objectives.)",
+    "explanation": "A SOAR platform automates phishing triage end-to-end (detonate, enrich, decide), directly cutting triage time.",
     "aiGenerated": true,
     "bank": "reviewer-2026",
     "optionNotes": {
@@ -2310,7 +2310,7 @@
       "The CISO would like to increase the security departments visibility to senior executive."
     ],
     "correctAnswer": "Deciding when and how to issue to press releases regarding incidents can minimize damage to the organization brands’ reputation.",
-    "explanation": "The marked answer 'Deciding when and how to issue to press releases regarding incidents can minimize damage to the organization brands’ reputation.' is the best choice for this scenario. Review the CySA+ objective related to the question stem and eliminate the distractors that do not address the described activity. (Study note generated for this reviewer; verify against official CySA+ CS0-003 objectives.)",
+    "explanation": "The communications officer's distinct value is deciding when and how press releases go out to limit brand damage.",
     "aiGenerated": true,
     "bank": "reviewer-2026",
     "optionNotes": {
@@ -2330,7 +2330,7 @@
       "Exploitation"
     ],
     "correctAnswer": "Command and Control",
-    "explanation": "The marked answer 'Command and Control' is the best choice for this scenario. Review the CySA+ objective related to the question stem and eliminate the distractors that do not address the described activity. (Study note generated for this reviewer; verify against official CySA+ CS0-003 objectives.)",
+    "explanation": "Sustained outbound traffic to a single destination after UEBA alerts is command-and-control beaconing.",
     "aiGenerated": true,
     "bank": "reviewer-2026",
     "optionNotes": {
@@ -2350,7 +2350,7 @@
       "To have approval from executive leadership on when communication should occur."
     ],
     "correctAnswer": "To have approval from executive leadership on when communication should occur.",
-    "explanation": "The marked answer 'To have approval from executive leadership on when communication should occur.' is the best choice for this scenario. Review the CySA+ objective related to the question stem and eliminate the distractors that do not address the described activity. (Study note generated for this reviewer; verify against official CySA+ CS0-003 objectives.)",
+    "explanation": "Only executive leadership can authorize if and when communications occur — the plan needs their sign-off.",
     "aiGenerated": true,
     "bank": "reviewer-2026",
     "optionNotes": {
@@ -2370,7 +2370,7 @@
       "Key pair"
     ],
     "correctAnswer": "Key pair",
-    "explanation": "The marked answer 'Key pair' is the best choice for this scenario. Review the CySA+ objective related to the question stem and eliminate the distractors that do not address the described activity. (Study note generated for this reviewer; verify against official CySA+ CS0-003 objectives.)",
+    "explanation": "Unattended scripts authenticating to cloud APIs use key pairs, not interactive passwords, MFA prompts, or biometrics.",
     "aiGenerated": true,
     "bank": "reviewer-2026",
     "optionNotes": {
@@ -2390,7 +2390,7 @@
       "Weaponization"
     ],
     "correctAnswer": "Weaponization",
-    "explanation": "The marked answer 'Weaponization' is the best choice for this scenario. Review the CySA+ objective related to the question stem and eliminate the distractors that do not address the described activity. (Study note generated for this reviewer; verify against official CySA+ CS0-003 objectives.)",
+    "explanation": "Compiling and testing a downloader against endpoint defenses is building the weapon — weaponization in the Kill Chain.",
     "aiGenerated": true,
     "bank": "reviewer-2026",
     "optionNotes": {
@@ -2410,7 +2410,7 @@
       "Mitre Att&ck"
     ],
     "correctAnswer": "Mitre Att&ck",
-    "explanation": "The marked answer 'Mitre Att&ck' is the best choice for this scenario. Review the CySA+ objective related to the question stem and eliminate the distractors that do not address the described activity. (Study note generated for this reviewer; verify against official CySA+ CS0-003 objectives.)",
+    "explanation": "Mapping daily attack vectors to controls is what ATT&CK's tactic coverage is built for; OSSTMM, Diamond, and OWASP cover narrower ground.",
     "aiGenerated": true,
     "bank": "reviewer-2026",
     "optionNotes": {
@@ -2430,7 +2430,7 @@
       "The package was installed without a GPG check."
     ],
     "correctAnswer": "The package was installed without a GPG check.",
-    "explanation": "The marked answer 'The package was installed without a GPG check.' is the best choice for this scenario. Review the CySA+ objective related to the question stem and eliminate the distractors that do not address the described activity. (Study note generated for this reviewer; verify against official CySA+ CS0-003 objectives.)",
+    "explanation": "YUM verifies GPG signatures to prove package integrity — installing without that check is how tampered packages get in.",
     "aiGenerated": true,
     "bank": "reviewer-2026",
     "optionNotes": {
@@ -2450,7 +2450,7 @@
       "Forensic analysis for legal actions of the actions taken"
     ],
     "correctAnswer": "Forensic analysis for legal actions of the actions taken",
-    "explanation": "The marked answer 'Forensic analysis for legal actions of the actions taken' is the best choice for this scenario. Review the CySA+ objective related to the question stem and eliminate the distractors that do not address the described activity. (Study note generated for this reviewer; verify against official CySA+ CS0-003 objectives.)",
+    "explanation": "Nation-state actors actively evade detection, recon defenses, and mission exposure — but legal-forensic attribution is the one concern they rate lowest.",
     "aiGenerated": true,
     "bank": "reviewer-2026",
     "optionNotes": {
@@ -2470,7 +2470,7 @@
       "The analysis of suspected malware binaries captured by email getaway."
     ],
     "correctAnswer": "The generation of NIDS rules based on received STIX messages.",
-    "explanation": "The marked answer 'The generation of NIDS rules based on received STIX messages.' is the best choice for this scenario. Review the CySA+ objective related to the question stem and eliminate the distractors that do not address the described activity. (Study note generated for this reviewer; verify against official CySA+ CS0-003 objectives.)",
+    "explanation": "Converting machine-readable STIX intel into NIDS rules is deterministic, high-volume, reviewable work — the textbook safe automation.",
     "aiGenerated": true,
     "bank": "reviewer-2026",
     "optionNotes": {
@@ -2490,7 +2490,7 @@
       "Recurrence"
     ],
     "correctAnswer": "Context Awareness",
-    "explanation": "The marked answer 'Context Awareness' is the best choice for this scenario. Review the CySA+ objective related to the question stem and eliminate the distractors that do not address the described activity. (Study note generated for this reviewer; verify against official CySA+ CS0-003 objectives.)",
+    "explanation": "CVE-2023-8524 won on contextual factors — exposure, exploitability, asset value — not raw severity. That is context awareness.",
     "aiGenerated": true,
     "bank": "reviewer-2026",
     "optionNotes": {
@@ -2510,7 +2510,7 @@
       "Delete the user profile and restore data from backup."
     ],
     "correctAnswer": "Update the system firmware and reimage the hardware",
-    "explanation": "The marked answer 'Update the system firmware and reimage the hardware' is the best choice for this scenario. Review the CySA+ objective related to the question stem and eliminate the distractors that do not address the described activity. (Study note generated for this reviewer; verify against official CySA+ CS0-003 objectives.)",
+    "explanation": "Invasive malware that survives reboot needs firmware-level refresh plus full reimaging; extra scanners and proxy settings do not remediate.",
     "aiGenerated": true,
     "bank": "reviewer-2026",
     "optionNotes": {
@@ -2530,7 +2530,7 @@
       "Board Member"
     ],
     "correctAnswer": "Legal Department",
-    "explanation": "The marked answer 'Legal Department' is the best choice for this scenario. Review the CySA+ objective related to the question stem and eliminate the distractors that do not address the described activity. (Study note generated for this reviewer; verify against official CySA+ CS0-003 objectives.)",
+    "explanation": "Policy violations with legal weight escalate to the Legal department first — before police or the board.",
     "aiGenerated": true,
     "bank": "reviewer-2026",
     "optionNotes": {
@@ -2550,7 +2550,7 @@
       "Directory traversal was performed to obtain a sensitive file for further reconnaissance"
     ],
     "correctAnswer": "Directory traversal was performed to obtain a sensitive file for further reconnaissance",
-    "explanation": "The marked answer 'Directory traversal was performed to obtain a sensitive file for further reconnaissance' is the best choice for this scenario. Review the CySA+ objective related to the question stem and eliminate the distractors that do not address the described activity. (Study note generated for this reviewer; verify against official CySA+ CS0-003 objectives.)",
+    "explanation": "%2E is URL-encoded dots, so dot-dot-slash probing for /etc/passwd is directory traversal, confirmed by the encoded payload.",
     "aiGenerated": true,
     "bank": "reviewer-2026",
     "optionNotes": {
@@ -2570,7 +2570,7 @@
       "Vulnerability 4"
     ],
     "correctAnswer": "Vulnerability 1",
-    "explanation": "The marked answer 'Vulnerability 1' is the best choice for this scenario. Review the CySA+ objective related to the question stem and eliminate the distractors that do not address the described activity. (Study note generated for this reviewer; verify against official CySA+ CS0-003 objectives.)",
+    "explanation": "Vulnerability 1 is network-reachable, trivially exploitable, needs no privileges or interaction, and hits confidentiality hard — the worst vector of the four.",
     "aiGenerated": true,
     "bank": "reviewer-2026",
     "optionNotes": {
@@ -2590,7 +2590,7 @@
       "Review the threat intelligence data to see whether the employee’s information has recently been part of credential leak."
     ],
     "correctAnswer": "Monitor the user account activities to check for access attempts to various resources and data exfiltration via web activity or emails.",
-    "explanation": "The marked answer 'Monitor the user account activities to check for access attempts to various resources and data exfiltration via web activity or emails.' is the best choice for this scenario. Review the CySA+ objective related to the question stem and eliminate the distractors that do not address the described activity. (Study note generated for this reviewer; verify against official CySA+ CS0-003 objectives.)",
+    "explanation": "A possible account takeover in progress needs live monitoring of the account's resource access and exfiltration channels — the immediate next step.",
     "aiGenerated": true,
     "bank": "reviewer-2026",
     "optionNotes": {
@@ -2610,7 +2610,7 @@
       "System updates."
     ],
     "correctAnswer": "Potential precursor to an attack",
-    "explanation": "The marked answer 'Potential precursor to an attack' is the best choice for this scenario. Review the CySA+ objective related to the question stem and eliminate the distractors that do not address the described activity. (Study note generated for this reviewer; verify against official CySA+ CS0-003 objectives.)",
+    "explanation": "An unauthorized scan is hostile reconnaissance — the precursor stage of an attack, not peer-to-peer traffic, rogue hardware, or updates.",
     "aiGenerated": true,
     "bank": "reviewer-2026",
     "optionNotes": {
@@ -2630,7 +2630,7 @@
       "Perform a tabletop exercise."
     ],
     "correctAnswer": "Perform a tabletop exercise.",
-    "explanation": "The marked answer 'Perform a tabletop exercise.' is the best choice for this scenario. Review the CySA+ objective related to the question stem and eliminate the distractors that do not address the described activity. (Study note generated for this reviewer; verify against official CySA+ CS0-003 objectives.)",
+    "explanation": "A CEO hunting missing emergency steps runs a tabletop exercise — a rehearsal, not plan implementation.",
     "aiGenerated": true,
     "bank": "reviewer-2026",
     "optionNotes": {
@@ -2650,7 +2650,7 @@
       "URL rewriting"
     ],
     "correctAnswer": "SMTP",
-    "explanation": "The marked answer 'SMTP' is the best choice for this scenario. Review the CySA+ objective related to the question stem and eliminate the distractors that do not address the described activity. (Study note generated for this reviewer; verify against official CySA+ CS0-003 objectives.)",
+    "explanation": "SMTP headers carry the Received chain plus Authentication-Results, making them the best single source for both origin and authentication.",
     "aiGenerated": true,
     "bank": "reviewer-2026",
     "optionNotes": {
@@ -2670,7 +2670,7 @@
       "Check the compatibility of an EDR agent with OS used on the OT environment ."
     ],
     "correctAnswer": "Check the compatibility of an EDR agent with OS used on the OT environment .",
-    "explanation": "The marked answer 'Check the compatibility of an EDR agent with OS used on the OT environment .' is the best choice for this scenario. Review the CySA+ objective related to the question stem and eliminate the distractors that do not address the described activity. (Study note generated for this reviewer; verify against official CySA+ CS0-003 objectives.)",
+    "explanation": "The OT constraints forbid new software, traffic modification, and delays outright — so verifying EDR/OS compatibility is the only compliant move available.",
     "aiGenerated": true,
     "bank": "reviewer-2026",
     "optionNotes": {
@@ -2690,7 +2690,7 @@
       "Evidence drive imaging was performed without a write blocker."
     ],
     "correctAnswer": "Evidence drive imaging was performed without a write blocker.",
-    "explanation": "The marked answer 'Evidence drive imaging was performed without a write blocker.' is the best choice for this scenario. Review the CySA+ objective related to the question stem and eliminate the distractors that do not address the described activity. (Study note generated for this reviewer; verify against official CySA+ CS0-003 objectives.)",
+    "explanation": "Hashes diverged because the imaging process wrote to the drive — the classic missing-write-blocker failure.",
     "aiGenerated": true,
     "bank": "reviewer-2026",
     "optionNotes": {
@@ -2710,7 +2710,7 @@
       "SWG"
     ],
     "correctAnswer": "ZTNA",
-    "explanation": "The marked answer 'ZTNA' is the best choice for this scenario. Review the CySA+ objective related to the question stem and eliminate the distractors that do not address the described activity. (Study note generated for this reviewer; verify against official CySA+ CS0-003 objectives.)",
+    "explanation": "ZTNA extends identity-aware access to cloud assets, directly cutting IAM-extension complexity.",
     "aiGenerated": true,
     "bank": "reviewer-2026",
     "optionNotes": {
@@ -2730,7 +2730,7 @@
       "Diamond Model of Intrusion Analysis."
     ],
     "correctAnswer": "OWASP",
-    "explanation": "The marked answer 'OWASP' is the best choice for this scenario. Review the CySA+ objective related to the question stem and eliminate the distractors that do not address the described activity. (Study note generated for this reviewer; verify against official CySA+ CS0-003 objectives.)",
+    "explanation": "The source reviewer marks OWASP as the indicated resource for determining adversary methods on this item; in real analysis, pair it with ATT&CK tactic mapping.",
     "aiGenerated": true,
     "bank": "reviewer-2026",
     "optionNotes": {
@@ -2750,7 +2750,7 @@
       "Review the threat feeds after viewing the SIEM alert."
     ],
     "correctAnswer": "Review the threat feeds after viewing the SIEM alert.",
-    "explanation": "The marked answer 'Review the threat feeds after viewing the SIEM alert.' is the best choice for this scenario. Review the CySA+ objective related to the question stem and eliminate the distractors that do not address the described activity. (Study note generated for this reviewer; verify against official CySA+ CS0-003 objectives.)",
+    "explanation": "After the alert fires, checking threat feeds tells the analyst whether the IP is known-malicious — the fastest possible lookup.",
     "aiGenerated": true,
     "bank": "reviewer-2026",
     "optionNotes": {
@@ -2770,7 +2770,7 @@
       "whoami and –data <service_name>"
     ],
     "correctAnswer": "set_regions <region1> and set_key",
-    "explanation": "The marked answer 'set_regions <region1> and set_key' is the best choice for this scenario. Review the CySA+ objective related to the question stem and eliminate the distractors that do not address the described activity. (Study note generated for this reviewer; verify against official CySA+ CS0-003 objectives.)",
+    "explanation": "Authentication errors plus wrong-region failures are fixed by setting the correct region and key.",
     "aiGenerated": true,
     "bank": "reviewer-2026",
     "optionNotes": {
@@ -2790,7 +2790,7 @@
       "Wireshark"
     ],
     "correctAnswer": "OpenVAS",
-    "explanation": "The marked answer 'OpenVAS' is the best choice for this scenario. Review the CySA+ objective related to the question stem and eliminate the distractors that do not address the described activity. (Study note generated for this reviewer; verify against official CySA+ CS0-003 objectives.)",
+    "explanation": "Audit-ready proof of routine scanning comes from a vulnerability scanner's own reports — OpenVAS here, not Burp, Nmap, or Wireshark.",
     "aiGenerated": true,
     "bank": "reviewer-2026",
     "optionNotes": {
@@ -2810,7 +2810,7 @@
       "Severity Score"
     ],
     "correctAnswer": "Trending Analysis",
-    "explanation": "The marked answer 'Trending Analysis' is the best choice for this scenario. Review the CySA+ objective related to the question stem and eliminate the distractors that do not address the described activity. (Study note generated for this reviewer; verify against official CySA+ CS0-003 objectives.)",
+    "explanation": "Most-recent versus last-period comparisons are trend analysis by definition.",
     "aiGenerated": true,
     "bank": "reviewer-2026",
     "optionNotes": {
@@ -2830,7 +2830,7 @@
       "Configuring and enforcing password complexity requirements."
     ],
     "correctAnswer": "Controlling and monitoring the use of administrative accounts.",
-    "explanation": "The marked answer 'Controlling and monitoring the use of administrative accounts.' is the best choice for this scenario. Review the CySA+ objective related to the question stem and eliminate the distractors that do not address the described activity. (Study note generated for this reviewer; verify against official CySA+ CS0-003 objectives.)",
+    "explanation": "PAM exists to control and monitor administrative accounts — vaulting credentials, proxying sessions, auditing privileged use.",
     "aiGenerated": true,
     "bank": "reviewer-2026",
     "optionNotes": {
@@ -2850,7 +2850,7 @@
       "Forensic Analysis"
     ],
     "correctAnswer": "Lessson Learned",
-    "explanation": "The marked answer 'Lessson Learned' is the best choice for this scenario. Review the CySA+ objective related to the question stem and eliminate the distractors that do not address the described activity. (Study note generated for this reviewer; verify against official CySA+ CS0-003 objectives.)",
+    "explanation": "Fixing validated process problems is the lessons-learned function's entire purpose.",
     "aiGenerated": true,
     "bank": "reviewer-2026",
     "optionNotes": {
@@ -2870,7 +2870,7 @@
       "Transference"
     ],
     "correctAnswer": "Avoidance",
-    "explanation": "The marked answer 'Avoidance' is the best choice for this scenario. Review the CySA+ objective related to the question stem and eliminate the distractors that do not address the described activity. (Study note generated for this reviewer; verify against official CySA+ CS0-003 objectives.)",
+    "explanation": "Phasing the system out eliminates the exposure completely — that is avoidance, not mitigation, acceptance, or transfer.",
     "aiGenerated": true,
     "bank": "reviewer-2026",
     "optionNotes": {
@@ -2910,7 +2910,7 @@
       "Lesson Learned."
     ],
     "correctAnswer": "Recurrence Reports",
-    "explanation": "The marked answer 'Recurrence Reports' is the best choice for this scenario. Review the CySA+ objective related to the question stem and eliminate the distractors that do not address the described activity. (Study note generated for this reviewer; verify against official CySA+ CS0-003 objectives.)",
+    "explanation": "Four weeks of correlated repeats call for recurrence analysis, not another round of response.",
     "aiGenerated": true,
     "bank": "reviewer-2026",
     "optionNotes": {
@@ -2930,7 +2930,7 @@
       "Submit a recategorization update to the vendor"
     ],
     "correctAnswer": "Review EDR information to determine whether the file was detected and quarantined locally",
-    "explanation": "The marked answer 'Review EDR information to determine whether the file was detected and quarantined locally' is the best choice for this scenario. Review the CySA+ objective related to the question stem and eliminate the distractors that do not address the described activity. (Study note generated for this reviewer; verify against official CySA+ CS0-003 objectives.)",
+    "explanation": "EDR shows whether the file was caught and can quarantine the host surgically — containment with no business impact and preserved evidence.",
     "aiGenerated": true,
     "bank": "reviewer-2026",
     "optionNotes": {
@@ -2950,7 +2950,7 @@
       "Activate the scan signature for the IP on the NGFWS"
     ],
     "correctAnswer": "Implement a prevention policy for IP on the firewall.",
-    "explanation": "The marked answer 'Implement a prevention policy for IP on the firewall.' is the best choice for this scenario. Review the CySA+ objective related to the question stem and eliminate the distractors that do not address the described activity. (Study note generated for this reviewer; verify against official CySA+ CS0-003 objectives.)",
+    "explanation": "Confirmed malicious recon against high-value assets calls for firewall-level prevention, not more detection.",
     "aiGenerated": true,
     "bank": "reviewer-2026",
     "optionNotes": {
@@ -2970,7 +2970,7 @@
       "Agent based scans"
     ],
     "correctAnswer": "Agent based scans",
-    "explanation": "The marked answer 'Agent based scans' is the best choice for this scenario. Review the CySA+ objective related to the question stem and eliminate the distractors that do not address the described activity. (Study note generated for this reviewer; verify against official CySA+ CS0-003 objectives.)",
+    "explanation": "Agents assess locally with minimal network traffic while keeping thorough checks — the low-traffic answer.",
     "aiGenerated": true,
     "bank": "reviewer-2026",
     "optionNotes": {
@@ -2990,7 +2990,7 @@
       "The analysis of suspected malware binaries captured by an email gateway."
     ],
     "correctAnswer": "The generation of NIDS rules based on received STIX messages.",
-    "explanation": "The marked answer 'The generation of NIDS rules based on received STIX messages.' is the best choice for this scenario. Review the CySA+ objective related to the question stem and eliminate the distractors that do not address the described activity. (Study note generated for this reviewer; verify against official CySA+ CS0-003 objectives.)",
+    "explanation": "Converting machine-readable STIX intel into NIDS rules is deterministic, high-volume, reviewable work — the textbook safe automation.",
     "aiGenerated": true,
     "bank": "reviewer-2026",
     "optionNotes": {
@@ -3010,7 +3010,7 @@
       "Standard Operating procedure refinement."
     ],
     "correctAnswer": "Standard Operating procedure refinement.",
-    "explanation": "The marked answer 'Standard Operating procedure refinement.' is the best choice for this scenario. Review the CySA+ objective related to the question stem and eliminate the distractors that do not address the described activity. (Study note generated for this reviewer; verify against official CySA+ CS0-003 objectives.)",
+    "explanation": "Scoping and timeline struggles are procedural failures, so standard-operating-procedure refinement is the first fix.",
     "aiGenerated": true,
     "bank": "reviewer-2026",
     "optionNotes": {
@@ -3030,7 +3030,7 @@
       "Virustotal"
     ],
     "correctAnswer": "Wireshark",
-    "explanation": "The marked answer 'Wireshark' is the best choice for this scenario. Review the CySA+ objective related to the question stem and eliminate the distractors that do not address the described activity. (Study note generated for this reviewer; verify against official CySA+ CS0-003 objectives.)",
+    "explanation": "Diagnosing user access trouble needs protocol analysis — Wireshark over raw tcpdump, mailbox checkers, or reputation lookups.",
     "aiGenerated": true,
     "bank": "reviewer-2026",
     "optionNotes": {
@@ -3070,7 +3070,7 @@
       "Mitre ATT&CK"
     ],
     "correctAnswer": "Mitre ATT&CK",
-    "explanation": "The marked answer 'Mitre ATT&CK' is the best choice for this scenario. Review the CySA+ objective related to the question stem and eliminate the distractors that do not address the described activity. (Study note generated for this reviewer; verify against official CySA+ CS0-003 objectives.)",
+    "explanation": "ATT&CK's tactic coverage maps daily attack vectors to controls better than OSSTMM, Diamond, or web-only OWASP.",
     "aiGenerated": true,
     "bank": "reviewer-2026",
     "optionNotes": {
@@ -3090,7 +3090,7 @@
       "To expose which tools should be used."
     ],
     "correctAnswer": "To reveal what the team needs to prioritize",
-    "explanation": "The marked answer 'To reveal what the team needs to prioritize' is the best choice for this scenario. Review the CySA+ objective related to the question stem and eliminate the distractors that do not address the described activity. (Study note generated for this reviewer; verify against official CySA+ CS0-003 objectives.)",
+    "explanation": "KPIs exist to reveal what the team must prioritize — not to grade analysts or pick tools.",
     "aiGenerated": true,
     "bank": "reviewer-2026",
     "optionNotes": {
@@ -3110,7 +3110,7 @@
       "Review and ensure privileges assigned to the user’s account reflect least privileges"
     ],
     "correctAnswer": "Perform a forced password reset",
-    "explanation": "The marked answer 'Perform a forced password reset' is the best choice for this scenario. Review the CySA+ objective related to the question stem and eliminate the distractors that do not address the described activity. (Study note generated for this reviewer; verify against official CySA+ CS0-003 objectives.)",
+    "explanation": "The credential is already circulating on the dark web, and MFA cannot un-burn it — forcing a password reset kills the exposed secret first while investigation continues in parallel.",
     "aiGenerated": true,
     "bank": "reviewer-2026",
     "optionNotes": {
@@ -3170,7 +3170,7 @@
       "Data exfiltration"
     ],
     "correctAnswer": "Unauthorized Changes",
-    "explanation": "The marked answer 'Unauthorized Changes' is the best choice for this scenario. Review the CySA+ objective related to the question stem and eliminate the distractors that do not address the described activity. (Study note generated for this reviewer; verify against official CySA+ CS0-003 objectives.)",
+    "explanation": "Unapproved accounts plus data discrepancies equal unauthorized changes — not anomalies, unlicensed software, or proven exfiltration.",
     "aiGenerated": true,
     "bank": "reviewer-2026",
     "optionNotes": {
@@ -3190,7 +3190,7 @@
       "Reformat the reimage the OS."
     ],
     "correctAnswer": "Restart in safe mode and start virus scan",
-    "explanation": "The marked answer 'Restart in safe mode and start virus scan' is the best choice for this scenario. Review the CySA+ objective related to the question stem and eliminate the distractors that do not address the described activity. (Study note generated for this reviewer; verify against official CySA+ CS0-003 objectives.)",
+    "explanation": "Pop-ups surviving a reboot indicate entrenched malware needing a safe-mode antivirus scan.",
     "aiGenerated": true,
     "bank": "reviewer-2026",
     "optionNotes": {
@@ -3210,7 +3210,7 @@
       "Root cause analysis"
     ],
     "correctAnswer": "Lesson Learned",
-    "explanation": "The marked answer 'Lesson Learned' is the best choice for this scenario. Review the CySA+ objective related to the question stem and eliminate the distractors that do not address the described activity. (Study note generated for this reviewer; verify against official CySA+ CS0-003 objectives.)",
+    "explanation": "Exercises end with lessons learned — containment, response, and RCA belong to real incidents.",
     "aiGenerated": true,
     "bank": "reviewer-2026",
     "optionNotes": {
@@ -3230,7 +3230,7 @@
       "Time optimization"
     ],
     "correctAnswer": "Time compensation",
-    "explanation": "The marked answer 'Time compensation' is the best choice for this scenario. Review the CySA+ objective related to the question stem and eliminate the distractors that do not address the described activity. (Study note generated for this reviewer; verify against official CySA+ CS0-003 objectives.)",
+    "explanation": "Offsets already baked into logged events are corrected by time compensation; synchronization only prevents future drift.",
     "aiGenerated": true,
     "bank": "reviewer-2026",
     "optionNotes": {
@@ -3250,7 +3250,7 @@
       "Resetting the scanning tools plug in the defaults"
     ],
     "correctAnswer": "Installing patches through a centralized system",
-    "explanation": "The marked answer 'Installing patches through a centralized system' is the best choice for this scenario. Review the CySA+ objective related to the question stem and eliminate the distractors that do not address the described activity. (Study note generated for this reviewer; verify against official CySA+ CS0-003 objectives.)",
+    "explanation": "Reports disagree with infrastructure teams because patches land through scattered manual processes that nothing reconciles. Pushing all patching through one centralized system makes the deployed state match — and the reports accurate.",
     "aiGenerated": true,
     "bank": "reviewer-2026",
     "optionNotes": {
@@ -3270,7 +3270,7 @@
       "Internal Protocols"
     ],
     "correctAnswer": "Tactics, Technique and procedures.",
-    "explanation": "The marked answer 'Tactics, Technique and procedures.' is the best choice for this scenario. Review the CySA+ objective related to the question stem and eliminate the distractors that do not address the described activity. (Study note generated for this reviewer; verify against official CySA+ CS0-003 objectives.)",
+    "explanation": "Attribution runs on behavior: tactics, techniques, and procedures identify actors better than IPs, STRIDE categories, or internal docs.",
     "aiGenerated": true,
     "bank": "reviewer-2026",
     "optionNotes": {
@@ -3310,7 +3310,7 @@
       "Proprietary System"
     ],
     "correctAnswer": "Business process interruption",
-    "explanation": "The marked answer 'Business process interruption' is the best choice for this scenario. Review the CySA+ objective related to the question stem and eliminate the distractors that do not address the described activity. (Study note generated for this reviewer; verify against official CySA+ CS0-003 objectives.)",
+    "explanation": "The freeze window itself blocks remediation — a textbook business-process interruption, not an SLA, degradation, or vendor issue.",
     "aiGenerated": true,
     "bank": "reviewer-2026",
     "optionNotes": {
@@ -3330,7 +3330,7 @@
       "Optimized prior to the addition of security."
     ],
     "correctAnswer": "Subjected to intense security testing",
-    "explanation": "The marked answer 'Subjected to intense security testing' is the best choice for this scenario. Review the CySA+ objective related to the question stem and eliminate the distractors that do not address the described activity. (Study note generated for this reviewer; verify against official CySA+ CS0-003 objectives.)",
+    "explanation": "Security designed in from the start and proven by intense testing is the most effective and economical path.",
     "aiGenerated": true,
     "bank": "reviewer-2026",
     "optionNotes": {
@@ -3350,7 +3350,7 @@
       "It outlines a clear path for determining the relationship between the attacker, the technology used and the target."
     ],
     "correctAnswer": "It provides a clear model of how an attacker generally operates during an intrusion and in the actions to take each stage.",
-    "explanation": "The marked answer 'It provides a clear model of how an attacker generally operates during an intrusion and in the actions to take each stage.' is the best choice for this scenario. Review the CySA+ objective related to the question stem and eliminate the distractors that do not address the described activity. (Study note generated for this reviewer; verify against official CySA+ CS0-003 objectives.)",
+    "explanation": "The Kill Chain's value is modeling how an attacker generally operates intrusion stage by stage — and what to do at each.",
     "aiGenerated": true,
     "bank": "reviewer-2026",
     "optionNotes": {
@@ -3370,7 +3370,7 @@
       "Encoding"
     ],
     "correctAnswer": "Data masking",
-    "explanation": "The marked answer 'Data masking' is the best choice for this scenario. Review the CySA+ objective related to the question stem and eliminate the distractors that do not address the described activity. (Study note generated for this reviewer; verify against official CySA+ CS0-003 objectives.)",
+    "explanation": "Masking keeps test data usable while protecting confidentiality; hashing destroys usability, watermarking only traces, encoding protects nothing.",
     "aiGenerated": true,
     "bank": "reviewer-2026",
     "optionNotes": {
@@ -3390,7 +3390,7 @@
       "Weaponization"
     ],
     "correctAnswer": "Reconnaissance",
-    "explanation": "The marked answer 'Reconnaissance' is the best choice for this scenario. Review the CySA+ objective related to the question stem and eliminate the distractors that do not address the described activity. (Study note generated for this reviewer; verify against official CySA+ CS0-003 objectives.)",
+    "explanation": "Scanning ports and systems is the reconnaissance phase of the Kill Chain.",
     "aiGenerated": true,
     "bank": "reviewer-2026",
     "optionNotes": {
@@ -3409,8 +3409,8 @@
       "Initial Access",
       "Discovery"
     ],
-    "correctAnswer": "Lateral movement",
-    "explanation": "The marked answer 'Lateral movement' is the best choice for this scenario. Review the CySA+ objective related to the question stem and eliminate the distractors that do not address the described activity. (Study note generated for this reviewer; verify against official CySA+ CS0-003 objectives.)",
+    "correctAnswer": "Initial Access",
+    "explanation": "The phishing email is an Initial Access attempt, and since nobody opened the attachment, the attack never progressed past it — it was stopped at Initial Access, before execution, discovery, or any lateral movement. (Reviewer note: the source markings conflicted here — yellow on Lateral movement, green on Execution — but an unopened payload reaches neither; this follows ATT&CK doctrine. Verify against official CS0-003 objectives.)",
     "aiGenerated": true,
     "bank": "reviewer-2026",
     "optionNotes": {
@@ -3430,7 +3430,7 @@
       "Put a WAF in front of the storefront."
     ],
     "correctAnswer": "Put a WAF in front of the storefront.",
-    "explanation": "The marked answer 'Put a WAF in front of the storefront.' is the best choice for this scenario. Review the CySA+ objective related to the question stem and eliminate the distractors that do not address the described activity. (Study note generated for this reviewer; verify against official CySA+ CS0-003 objectives.)",
+    "explanation": "With no patch available, a WAF in front of the storefront blocks exploitation while the business keeps running — unlike throttling, shutdown, or planning alone.",
     "aiGenerated": true,
     "bank": "reviewer-2026",
     "optionNotes": {

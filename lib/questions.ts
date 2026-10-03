@@ -16,7 +16,7 @@ export type Exhibit = {
 };
 
 /** Bump this whenever public/*.json changes so browsers can't serve a stale cached copy. */
-const DATA_VERSION = "20261003-d";
+const DATA_VERSION = "20261003-e";
 
 export type Question = {
   id: string;
